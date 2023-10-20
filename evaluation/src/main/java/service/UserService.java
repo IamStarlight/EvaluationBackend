@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface UserService {
+
     HashMap<String,String> login(LoginDto loginDto);
 
     User register(RegisterDto registerDto);

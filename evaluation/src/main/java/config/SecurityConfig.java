@@ -21,13 +21,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+    @Autowired(required = false)
     JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
-    @Autowired
+    @Autowired(required = false)
     private AuthenticationEntryPoint authenticationEntryPoint;
 
-    @Autowired
+    @Autowired(required = false)
     private AccessDeniedHandler accessDeniedHandler;
 
     @Bean
@@ -50,13 +50,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+//                .anyRequest().permitAll();
                 // 对于登录接口 允许匿名访问
                 .antMatchers("/user/login").permitAll()
                 .antMatchers("/user/register").permitAll()
                 .antMatchers("/user/email").permitAll()
                 .antMatchers("/user/check").permitAll()
+//                .antMatchers("/user/login").anonymous()
+//                .antMatchers("/user/register").anonymous()
+//                .antMatchers("/user/email").anonymous()
+//                .antMatchers("/user/check").anonymous()
+//                .antMatchers("/auth/**").permitAll()
 
-                // 除上面外的所有请求全部需要鉴权认证
+                 //除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
 
         //把token校验过滤器添加到过滤器链中
