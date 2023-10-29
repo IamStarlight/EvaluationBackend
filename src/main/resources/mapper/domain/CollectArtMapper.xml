@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lantu.domain.mapper.CollectArtMapper">
+    <select id = "getcollect" parameterType="Integer" resultType="com.lantu.domain.entity.Article">
+        select article.id,article.title,article.md_content from collect_art ,article
+        where
+            collect_art.aid = article.id
+          and collect_art.uid = #{uid}
+    </select>
+
+</mapper>

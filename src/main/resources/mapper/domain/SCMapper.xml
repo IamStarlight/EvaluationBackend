@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lantu.domain.mapper.SCMapper">
+
+    <select id = "getMyCourse" parameterType="Integer" resultType="String">
+        select course.cid, course.cname, course.tid, course.courseContent from course,sc
+        where
+            course.cid = sc.cid
+          and sc.sid = #{id}
+    </select>
+
+    <select id = "getTeacherCourse" parameterType="Integer" resultType="String">
+        select user.id, user.username, user.email from user,course,sc
+        where
+            user.id = sc.sid and  sc.cid= #{cid} and
+          and course.tid = #{id}
+    </select>
+
+    <select id = "getAllCourseStudent" parameterType="Integer" resultType="String">
+        select user.id, user.username, user.email from user,sc
+        where
+            user.id = sc.sid
+          and  sc.cid= #{cid}
+
+    </select>
+
+</mapper>

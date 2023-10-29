@@ -1,0 +1,28 @@
+server:
+  port: 9999
+
+
+
+spring:
+  datasource:
+    username: root
+    password: ly123
+    url: jdbc:mysql:///evaluation?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    type 限定连接池属性
+#    driver也不用配置
+#自带连接池hikari 希卡利连接池
+
+#redis 感觉可能需要?
+  redis:
+    port: 6379
+    host: localhost
+
+logging:
+  level:
+    com.lantu: debug
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

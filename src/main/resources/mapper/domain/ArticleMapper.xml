@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lantu.domain.mapper.ArticleMapper">
+    <select id = "getUidByUserName" parameterType="String" resultType="Integer">
+        select id
+        from user
+        where username = #{userName}
+    </select>
+
+    <select id = "getcid" parameterType="String" resultType="Integer">
+        select id
+        from course
+        where id = #{cate_name}
+    </select>
+
+    <select id="fuzzyQueryBytitle" resultType="com.lantu.domain.entity.Article">
+        select * from article where title like #{info};
+    </select>
+
+
+
+
+
+
+</mapper>

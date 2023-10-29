@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lantu.domain.mapper.UserMapper">
+
+    <select id = "getRoleNameByUserID" parameterType="Integer" resultType="String">
+        select roles.name from roles_user ,user,roles
+        where
+            user.id = roles_user.uid and roles.id = roles_user.rid
+          and user.id = #{userId}
+    </select>
+
+    <select id = "allStudent" parameterType="Integer" resultType="String">
+        select * from user
+        where
+            user.enabled == 3;
+
+    </select>
+
+    <select id = "allTeacher" parameterType="Integer" resultType="String">
+        select * from user
+        where
+            user.enabled == 1;
+
+    </select>
+
+
+
+</mapper>
