@@ -6,7 +6,8 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.7.12</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
+        <!-- lookup parent from repository 2.7.12-->
     </parent>
     <groupId>com.example</groupId>
     <artifactId>evaluation</artifactId>
@@ -85,7 +86,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>2.5.9</version>
+<!--            <version>2.5.9</version>-->
+<!--            <version>2.5.9</version>-->
         </dependency>
         <!--连接池依赖-->
         <dependency>

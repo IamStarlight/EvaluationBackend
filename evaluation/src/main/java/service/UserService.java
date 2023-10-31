@@ -6,17 +6,14 @@ import controller.dto.UpdateDto;
 import domain.User;
 
 import java.util.HashMap;
-import java.util.List;
 
 public interface UserService {
 
-    HashMap<String,String> login(LoginDto loginDto);
+//    HashMap<String,String> login(LoginDto loginDto);
 
     User register(RegisterDto registerDto);
 
-    List<User> getAllUserInfo();
-
-    User getUserByID(String uid);
+    String getPermsByID(String id);
 
     boolean deleteUserById(String uid);
 
@@ -30,5 +27,5 @@ public interface UserService {
 
     boolean updateUserEmail(String id,String email);
 
-    String logout();
+//    String logout();
 }

@@ -13,5 +13,4 @@ import java.util.List;
 @Component
 public interface CourseMapper extends BaseMapper<Course> {
 
-    List<Course> selectAllCourseInfo();
 }

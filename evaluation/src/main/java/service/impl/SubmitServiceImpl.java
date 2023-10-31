@@ -27,9 +27,7 @@ public class SubmitServiceImpl
 
     @Override
     public boolean submitWork(SubmitDto sd) {
-        boolean isOvertime = false;
-        if(workService.checkOvertime(sd.getWid(), sd.getCid(), sd.getSubmitTime()))
-            isOvertime = true;
+        boolean isOvertime = workService.checkOvertime(sd.getWid(), sd.getCid(), sd.getSubmitTime());
 
         LambdaUpdateWrapper<Submit> wrapper = new LambdaUpdateWrapper<>();
         wrapper.eq(Submit::getSid,sd.getSid())

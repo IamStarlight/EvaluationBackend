@@ -29,20 +29,19 @@ public class UserController {
     private UserEmailServiceImpl userEmailService;
 
     //登录用户
-    @PostMapping("/login")
-    public ResponseEntity<Result> login(@RequestBody @Valid LoginDto LoginDto){
-        return new ResponseEntity<>(Result.success(userService.login(LoginDto)), HttpStatus.OK);
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<Result> login(@RequestBody @Valid LoginDto LoginDto){
+//        return new ResponseEntity<>(Result.success(userService.login(LoginDto)), HttpStatus.OK);
+//    }
 
     //登出用户
-    @PostMapping("/logout")
-    public ResponseEntity<Result> logout(){
-        return new ResponseEntity<>(Result.success(userService.logout()), HttpStatus.OK);
-    }
+//    @PostMapping("/logout")
+//    public ResponseEntity<Result> logout(){
+//        return new ResponseEntity<>(Result.success(userService.logout()), HttpStatus.OK);
+//    }
 
     //注册用户
     @PostMapping("/register")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> userRegister(@RequestBody @Valid RegisterDto registerDto){
         return new ResponseEntity<>(Result.success(userService.register(registerDto)), HttpStatus.OK);
     }
@@ -61,14 +60,14 @@ public class UserController {
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> getAllUserInfo(){
-        return new ResponseEntity<>(Result.success(userService.getAllUserInfo()), HttpStatus.OK);
+        return new ResponseEntity<>(Result.success(userService.list()), HttpStatus.OK);
     }
 
     //根据id查询用户信息!!
     @GetMapping("/info")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> getStuByID(@RequestParam @Valid String uid){
-        return new ResponseEntity<>(Result.success(userService.getUserByID(uid)), HttpStatus.OK);
+        return new ResponseEntity<>(Result.success(userService.getById(uid)), HttpStatus.OK);
     }
 
     //删除用户信息!!

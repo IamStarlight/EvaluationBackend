@@ -66,8 +66,7 @@ public class WorkServiceImpl
         Homework one = getWorkInfoById(wid);
         if(one == null)
             throw new ServiceException(HttpStatus.BAD_REQUEST.value(),"该作业不存在");
-        if(submitTime.compareTo(one.getEndTime()) > 0) return true;
-        else return false;
+        return submitTime.compareTo(one.getEndTime()) > 0;
     }
 
     @Override

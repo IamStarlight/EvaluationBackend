@@ -1,5 +1,6 @@
 package service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import domain.Course;
@@ -20,13 +21,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public List<Course> getAllCourseInfo() {
-        List<Course> list = courseMapper.selectAllCourseInfo();
-        if(list.isEmpty())
-            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
-
-        return list;
+        return list();
     }
 
+    @Override
     public Course getCourseInfoByName(String name){
         LambdaUpdateWrapper<Course> wrapper = new LambdaUpdateWrapper<>();
         wrapper.eq(Course::getCname,name);

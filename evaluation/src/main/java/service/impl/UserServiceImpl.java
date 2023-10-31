@@ -1,5 +1,6 @@
 package service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import controller.dto.LoginDto;
@@ -18,12 +19,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import service.UserService;
-import utils.JwtUtil;
-import utils.LoginUser;
 import utils.RedisCache;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -64,30 +62,43 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    @Transactional
-    public HashMap<String,String> login(LoginDto loginDto) {
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getUname(),loginDto.getPwd());
-
-        Authentication authenticate = authenticationManager.authenticate(authenticationToken);
-
-        if(Objects.isNull(authenticate))
-            throw new ServiceException(HttpStatus.BAD_REQUEST.value(), "用户名或密码错误");
-
-        //使用userid生成token
-        LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
-        String userId = loginUser.getUser().getId().toString();
-        String jwt = JwtUtil.createJWT(userId);
-
-        //authenticate存入redis
-        redisCache.setCacheObject("login:"+userId,loginUser);
-
-        //把token响应给前端
-        HashMap<String,String> map = new HashMap<>();
-        map.put("token",jwt);
-        map.put("permission",loginUser.getUser().getPermission());
-        return map;
+    public String getPermsByID(String id) {
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(User::getId,id);
+        User one;
+        try{
+            one = getOne(wrapper);
+        }catch (Exception e){
+            log.error(e.toString());
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(),"系统错误");
+        }return one.getPermission();
     }
+
+//    @Override
+//    @Transactional
+//    public HashMap<String,String> login(LoginDto loginDto) {
+//        UsernamePasswordAuthenticationToken authenticationToken =
+//                new UsernamePasswordAuthenticationToken(loginDto.getUname(),loginDto.getPwd());
+//
+//        Authentication authenticate = authenticationManager.authenticate(authenticationToken);
+//
+//        if(Objects.isNull(authenticate))
+//            throw new ServiceException(HttpStatus.BAD_REQUEST.value(), "用户名或密码错误");
+//
+//        //使用userid生成token
+//        LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
+//        String userId = loginUser.getUser().getId().toString();
+//        String jwt = JwtUtil.createJWT(userId);
+//
+//        //authenticate存入redis
+//        redisCache.setCacheObject("login:"+userId,loginUser);
+//
+//        //把token响应给前端
+//        HashMap<String,String> map = new HashMap<>();
+//        map.put("token",jwt);
+//        map.put("permission",loginUser.getUser().getPermission());
+//        return map;
+//    }
 
     @Override
     @Transactional
@@ -107,25 +118,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return getUserInfoByName(rdto.getUname());
     }
 
-    @Override
-    @Transactional
-    public List<User> getAllUserInfo() {
-        List<User> list = userMapper.selectAllUserInfo();
-        if(list.isEmpty())
-            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+//    @Override
+//    @Transactional
+//    public List<User> getAllUserInfo() {
+//        List<User> list = userMapper.selectAllUserInfo();
+//        if(list.isEmpty())
+//            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+//
+//        return list;
+//    }
 
-        return list;
-    }
+//    @Override
+//    @Transactional
+//    public User getUserByID(String uid) {
+//        User one = getUserInfoByID(uid);
+//        if(one == null)
+//            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
+//
+//        return getById(uid);
+//    }
 
-    @Override
-    @Transactional
-    public User getUserByID(String uid) {
-        User one = getUserInfoByID(uid);
-        if(one == null)
-            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
 
-        return userMapper.selectUserByID(uid);
-    }
 
     @Override
     @Transactional
@@ -218,13 +231,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
     }
 
-    @Override
-    @Transactional
-    public String logout() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        String userid = loginUser.getUser().getId();
-        redisCache.deleteObject("login:" + userid);
-        return "退出成功";
-    }
+//    @Override
+//    @Transactional
+//    public String logout() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+//        String userid = loginUser.getUser().getId();
+//        redisCache.deleteObject("login:" + userid);
+//        return "退出成功";
+//    }
 }

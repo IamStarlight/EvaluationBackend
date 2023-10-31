@@ -52,10 +52,10 @@ spring:
 
 mybatis-plus:
   type-aliases-package: com.example.domain
-  mapper-locations: classpath:/mappers/*.xml
-  type-enums-package: com.example.enums
+#  mapper-locations: classpath:/mappers/*.xml
+#  type-enums-package: com.example.enums
 
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+#    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
 
