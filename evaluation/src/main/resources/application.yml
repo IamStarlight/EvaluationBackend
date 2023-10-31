@@ -1,0 +1,61 @@
+
+server:
+  port: 3309
+
+spring:
+  application:
+    name: evaluation
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+    database: 0
+    timeout: 5000
+    #    lettuce:
+    #      pool:
+    #        MaxTotal: 500 #?????
+    #        minIdle: 1
+    #        maxWaitMillis: 5000
+    #        maxIdle: 5
+    #        testOnBorrow: true
+    #        testOnReturn: true
+    #        testWhileIdle: true
+    jedis:
+      pool:
+        max-idle: 500
+        min-idle: 50
+        max-wait: -1s
+        max-active: -1
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    name: '@cjx2'
+    url: jdbc:mysql://localhost:3306/eva?serverTimezone=GMT
+    username: 'root'
+    password: 'root'
+
+  mail:
+    protocol: smtps
+    host: smtp.qq.com
+    username: 845796811@qq.com
+    password: mytgnpzfynrcbded
+    default-encoding: UTF-8
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  main:
+    #    banner-mode: off
+    allow-circular-references: true
+
+mybatis-plus:
+  type-aliases-package: com.example.domain
+  mapper-locations: classpath:/mapper/*.xml
+  type-enums-package: com.example.enums
+
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+

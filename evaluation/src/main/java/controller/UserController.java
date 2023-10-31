@@ -42,13 +42,13 @@ public class UserController {
 
     //注册用户
     @PostMapping("/register")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> userRegister(@RequestBody @Valid RegisterDto registerDto){
         return new ResponseEntity<>(Result.success(userService.register(registerDto)), HttpStatus.OK);
     }
 
     //邮箱验证
     //阻塞验证码
-
     @GetMapping("/email")
     public ResponseEntity<Result> sendEmailCode(@RequestParam
                                                 @Valid @NotBlank(message = "邮箱不能为空")
@@ -80,7 +80,7 @@ public class UserController {
 
     //更新用户数据
     @PostMapping("/update")
-    @PreAuthorize("hasAnyAuthority('ROLE_NORMAL','ROLE_COMPANY','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT','ROLE_TEACHER','ROLE_ADMIN')")
     public ResponseEntity<Result> updateUserInfo(@RequestBody @Valid UpdateDto ud){
         return new ResponseEntity<>(Result.success(userService.updateUserInfo(ud)), HttpStatus.OK);
     }
