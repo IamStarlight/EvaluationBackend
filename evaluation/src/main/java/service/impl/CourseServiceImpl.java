@@ -13,7 +13,7 @@ import service.CourseService;
 import java.util.List;
 
 @Service
-public class CourseServceImpl extends ServiceImpl<CourseMapper, Course> implements CourseService {
+public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements CourseService {
 
     @Autowired
     private CourseMapper courseMapper;

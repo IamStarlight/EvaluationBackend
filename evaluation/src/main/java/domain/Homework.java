@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -19,30 +20,36 @@ import java.io.Serializable;
 public class Homework implements Serializable {
     private static final long serialVersionUID = -40356785423868312L;
 
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "wid",type = IdType.AUTO)
     private String Wid;
+
+    @TableId(value = "cid")
+    @NotBlank(message = "课程id不能为空")
+    private String cid;
 
     @TableField
     @NotBlank(message = "用户名不能为空")
-    private String Tiltle;
+    private String Title;
 
-    //todo: time format
     @TableField
-    @DateTimeFormat()
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotBlank(message = "开始时间不能为空")
-    private String StartTime;
+    private Date StartTime;
 
     @TableField
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotBlank(message = "截止时间不能为空")
-    private String EndTime;
+    private Date EndTime;
 
     @TableField
     @NotBlank(message = "编辑状态不能为空")
-    private int ReleaseStatus;
+    private int EditStatus;
 
     @TableField
     @NotBlank(message = "互评状态不能为空")
     private String EvaluateStatus;
 
-    //todo: url
+    @TableField
+    @NotBlank(message = "URL不能为空")
+    private String URL;
 }

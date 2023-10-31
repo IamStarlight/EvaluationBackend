@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import service.impl.CourseServceImpl;
+import service.impl.CourseServiceImpl;
 
 @RestController
 @Validated
@@ -16,10 +16,10 @@ import service.impl.CourseServceImpl;
 public class CourseController {
 
     @Autowired
-    private CourseServceImpl courseServce;
+    private CourseServiceImpl courseService;
 
     @GetMapping("/info")
-    public ResponseEntity<Result> getCourceInfo(){
-        return new ResponseEntity<>(Result.success(courseServce.getAllCourseInfo()), HttpStatus.OK);
+    public ResponseEntity<Result> getCourseInfo(){
+        return new ResponseEntity<>(Result.success(courseService.getAllCourseInfo()), HttpStatus.OK);
     }
 }
