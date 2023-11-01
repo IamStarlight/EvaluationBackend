@@ -35,4 +35,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "系统错误");
         }return one;
     }
+
+    @Override
+    public boolean deleteCourde(String cid){
+        if(removeById(cid)) return true;
+        else throw new ServiceException(HttpStatus.NOT_FOUND.value(),"课程不存在");
+    }
+
+    @Override
+    public List<User> getSCStudent(tid, cid){
+
+    }
 }

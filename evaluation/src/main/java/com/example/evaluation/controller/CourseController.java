@@ -25,12 +25,21 @@ public class CourseController {
         return new ResponseEntity<>(Result.success(courseService.getAllCourseInfo()), HttpStatus.OK);
     }
 
-    // TODO: 2023-11-01 getCourseInfoByTid 2
 
-    // TODO: 2023-11-01 getCourseInfoBySid 3
+    // TODO: 2023/11/1 getSCStudent 1,2
+    @GetMapping("/teacherForSC")
+    @PreAuthorize("hasAuthority('1','2')")
+    public ResponseEntity<Result> getSCStudent(String tid, String cid){
+        return new ResponseEntity<>(Result.success(courseService.getSCStudent(tid,  cid)), HttpStatus.OK);
+    }
 
-    // TODO: 2023-11-01 saveOrUpdateCourseInfo 1
+    // TODO: 2023/11/1  getAllSCStudent 1
 
-    // TODO: 2023-11-01 deleteCourse 1
+
+    @GetMapping("/delete")
+    @PreAuthorize("hasAuthority('1')")
+    public ResponseEntity<Result> deleteCourse(String cid){
+        return new ResponseEntity<>(Result.success(courseService.deleteCourse(cid)), HttpStatus.OK);
+    }
 
 }

@@ -9,4 +9,8 @@ public interface CourseService {
     List<Course> getAllCourseInfo();
 
     Course getCourseInfoByName(String name);
+
+    boolean deleteCourse(String cid);
+
+    List<User> getSCStudent(String tid, String cid);
 }
