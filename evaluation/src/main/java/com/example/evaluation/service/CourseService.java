@@ -8,5 +8,9 @@ public interface CourseService {
 
     List<Course> getAllCourseInfo();
 
-    Course getCourseInfoByName(String name);
+    List<Course> getCourseInfoByTid(String tid);
+
+//    List<Course> getCourseInfoBySid(String sid);
+
+    boolean saveOrUpdateCourseInfo(Course course);
 }
