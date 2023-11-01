@@ -44,11 +44,13 @@ public class UserController {
     }
 
     //查询所有用户信息
-    @GetMapping("/all")
+    @GetMapping("/all/student")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> getAllUserInfo(){
         return new ResponseEntity<>(Result.success(userService.list()), HttpStatus.OK);
     }
+
+    // TODO: 2023-11-01 allTeacher
 
     //根据id查询用户信息
     @GetMapping("/info")

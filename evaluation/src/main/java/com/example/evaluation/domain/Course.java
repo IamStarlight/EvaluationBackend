@@ -27,4 +27,8 @@ public class Course implements Serializable {
     @TableField(value = "tid")
     @NotBlank(message = "授课教师不能为空")
     private String Tid;
+
+    @TableField(value = "content")
+    @NotBlank(message = "课程名不能为空")
+    private String Content;
 }

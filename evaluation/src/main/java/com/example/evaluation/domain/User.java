@@ -33,4 +33,8 @@ public class User implements Serializable {
     @NotBlank(message = "权限不能为空")
     private String Permission;
 
+    @TableField(value = "email")
+    @NotBlank(message = "权限不能为空")
+    private String Email;
+
 }
