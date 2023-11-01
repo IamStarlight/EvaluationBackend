@@ -34,21 +34,22 @@ public class WorkController {
 
     // TODO: 2023-11-01 getAllWorkInfoByCid 1,2,3 
 
+    //根据wid查询作业 ok
     @GetMapping("/info")
     @PreAuthorize("hasAnyAuthority('1','2','3')")
     public ResponseEntity<Result> getWorkInfoByWid(@RequestParam @Valid String wid){
         return new ResponseEntity<>(Result.success(workService.getWorkInfoByWid(wid)), HttpStatus.OK);
     }
 
-    // TODO: 2023-11-01 按钮
-    @PostMapping("/release")
+    //更改编辑状态 ok
+    @PostMapping("/edit/status")
     @PreAuthorize("hasAnyAuthority('1','2')")
-    public ResponseEntity<Result> updateReleaseStatus(@RequestParam @Valid String wid){
-        return new ResponseEntity<>(Result.success(workService.updateReleaseStatus(wid)), HttpStatus.OK);
+    public ResponseEntity<Result> updateEditStatus(@RequestParam @Valid String wid, String status){
+        return new ResponseEntity<>(Result.success(workService.updateEditStatus(wid,status)), HttpStatus.OK);
     }
 
-    // TODO: 2023-11-01 string
-    @PostMapping("/evaluate")
+    //更改互评状态 ok
+    @PostMapping("/evaluate/status")
     @PreAuthorize("hasAnyAuthority('1','2')")
     public ResponseEntity<Result> updateEvaluateStatus(@RequestParam @Valid String wid,
                                                        @RequestParam @Valid String status){
@@ -58,8 +59,8 @@ public class WorkController {
     // TODO: 2023-11-01 500 
     @PostMapping("/edit")
     @PreAuthorize("hasAnyAuthority('1','2')")
-    public ResponseEntity<Result> updateWorkInfo(@RequestBody @Valid WorkDto workDto){
-        return new ResponseEntity<>(Result.success(workService.updateWorkInfo(workDto)), HttpStatus.OK);
+    public ResponseEntity<Result> saveOrUpdateWorkInfo(@RequestBody @Valid WorkDto workDto){
+        return new ResponseEntity<>(Result.success(workService.saveOrUpdateWorkInfo(workDto)), HttpStatus.OK);
     }
 
     // TODO: 2023-11-01 500 

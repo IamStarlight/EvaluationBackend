@@ -2,6 +2,7 @@ package com.example.evaluation.utils;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.example.evaluation.domain.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 public class LoginUser implements UserDetails {
 
     private User user;
@@ -40,7 +41,6 @@ public class LoginUser implements UserDetails {
         authorities = permissions.stream().
                 map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-        System.out.println("!!!!!!authorities in LoginUser: "+authorities);
         return authorities;
     }
 

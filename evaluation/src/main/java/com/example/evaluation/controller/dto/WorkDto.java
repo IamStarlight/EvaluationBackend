@@ -22,11 +22,11 @@ public class WorkDto {
     @NotBlank(message = "结束时间不能为空")
     private Date EndTime;
 
-    @NotBlank(message = "编辑状态不能为空")
-    private String EditStatus;
-
-    @NotBlank(message = "互评状态不能为空")
-    private String EvaluateStatus;
+//    @NotBlank(message = "编辑状态不能为空")
+//    private String EditStatus;
+//
+//    @NotBlank(message = "互评状态不能为空")
+//    private String EvaluateStatus;
 
     //可以为空
     private String URL;

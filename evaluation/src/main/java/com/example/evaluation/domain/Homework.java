@@ -41,11 +41,11 @@ public class Homework implements Serializable {
 
     @TableField(value = "edit_status")
     @NotBlank(message = "编辑状态不能为空")
-    private Integer EditStatus;
+    private String EditStatus;
 
     @TableField(value = "eva_status")
     @NotBlank(message = "互评状态不能为空")
-    private Integer EvaStatus;
+    private String EvaStatus;
 
     @TableField(value = "url")
     @NotBlank(message = "URL不能为空")

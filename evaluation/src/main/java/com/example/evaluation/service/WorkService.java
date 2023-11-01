@@ -10,11 +10,11 @@ public interface WorkService {
 
     Homework getWorkInfoByWid(String wid);
 
-    boolean updateReleaseStatus(String wid);
+    boolean updateEditStatus(String wid,String status);
 
     boolean updateEvaluateStatus(String wid, String status);
 
     boolean checkOvertime(String wid, String cid, Date submitTime);
 
-    boolean updateWorkInfo(WorkDto wd);
+    boolean saveOrUpdateWorkInfo(WorkDto wd);
 }

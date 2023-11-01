@@ -35,16 +35,15 @@ public class WorkServiceImpl
         }return one;
     }
 
-    // TODO: 2023-10-31 写法冗杂 
     @Override
-    public boolean updateReleaseStatus(String wid) {
+    public boolean updateEditStatus(String wid, String status) {
         Homework one = getWorkInfoByWid(wid);
-        if(one == null)
-            throw new ServiceException(HttpStatus.BAD_REQUEST.value(),"该作业不存在");
-        int status = one.getEditStatus();
-        status = ~status;
+        if(one == null) throw new ServiceException(HttpStatus.BAD_REQUEST.value(),"该作业不存在");
+
         LambdaUpdateWrapper<Homework> wrapper = new LambdaUpdateWrapper<>();
-        wrapper.eq(Homework::getWid,wid).set(Homework::getEditStatus,status);
+        wrapper.eq(Homework::getWid,wid)
+                .set(Homework::getEditStatus,status);
+
         int flag = workMapper.update(null,wrapper);
         if(flag >= 1) return true;
         else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "该作业不存在");
@@ -52,8 +51,13 @@ public class WorkServiceImpl
 
     @Override
     public boolean updateEvaluateStatus(String wid, String status) {
+        Homework one = getWorkInfoByWid(wid);
+        if(one == null) throw new ServiceException(HttpStatus.BAD_REQUEST.value(),"该作业不存在");
+
         LambdaUpdateWrapper<Homework> wrapper = new LambdaUpdateWrapper<>();
-        wrapper.eq(Homework::getWid,wid).set(Homework::getEvaStatus,status);
+        wrapper.eq(Homework::getWid,wid)
+                .set(Homework::getEvaStatus,status);
+
         int flag = workMapper.update(null,wrapper);
         if(flag >= 1) return true;
         else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "该作业不存在");
@@ -68,13 +72,11 @@ public class WorkServiceImpl
     }
 
     @Override
-    public boolean updateWorkInfo(WorkDto wd) {
+    public boolean saveOrUpdateWorkInfo(WorkDto wd) {
         LambdaUpdateWrapper<Homework> wrapper = new LambdaUpdateWrapper<>();
         wrapper.eq(Homework::getWid,wd.getWid())
                 .set(Homework::getStartTime,wd.getStartTime())
                 .set(Homework::getEndTime,wd.getEndTime())
-                .set(Homework::getEditStatus,wd.getEditStatus())
-                .set(Homework::getEvaStatus,wd.getEvaluateStatus())
                 .set(Homework::getURL,wd.getURL());
 //        int flag = workMapper.update(null,wrapper);
         boolean flag = saveOrUpdate(null,wrapper);

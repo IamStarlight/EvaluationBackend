@@ -1,9 +1,12 @@
 package com.example.evaluation.controller;
 
+import com.example.evaluation.annotation.CurrentUser;
 import com.example.evaluation.controller.dto.LoginDto;
 import com.example.evaluation.controller.dto.RegisterDto;
 import com.example.evaluation.controller.dto.UpdateDto;
 import com.example.evaluation.domain.Result;
+import com.example.evaluation.domain.User;
+import com.example.evaluation.utils.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,15 +38,14 @@ public class UserController {
         return new ResponseEntity<>(Result.success(userService.logout()), HttpStatus.OK);
     }
 
-    //注册用户 ok
-    // TODO: 2023-11-01 500 Internal Server Error
+    //管理员注册用户 ok
     @PostMapping("/register")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> userRegister(@RequestBody @Valid RegisterDto registerDto){
         return new ResponseEntity<>(Result.success(userService.register(registerDto)), HttpStatus.OK);
     }
 
-    //查询所有用户信息 ok
+    //管理员查询所有用户信息 ok
     @GetMapping("/all/student")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> getAllUserInfo(){
@@ -52,21 +54,22 @@ public class UserController {
 
     // TODO: 2023-11-01 allTeacher
 
-    //根据id查询用户信息 ok
+    //管理员根据id查询用户信息 ok
     @GetMapping("/info")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> getStuByID(@RequestParam @Valid String uid){
         return new ResponseEntity<>(Result.success(userService.getById(uid)), HttpStatus.OK);
     }
 
-    //更新用户数据 ok
+    //管理员更新用户数据 ok
+    // TODO: 2023-11-02 patchmapping
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> updateUserInfo(@RequestBody @Valid UpdateDto ud){
         return new ResponseEntity<>(Result.success(userService.updateUserInfo(ud)), HttpStatus.OK);
     }
 
-    //更改用户密码 ok
+    //管理员更改用户密码 ok
     @PostMapping("/update/password")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> updateUserPwd(@RequestParam String id,
@@ -77,6 +80,19 @@ public class UserController {
                                                 @Valid @NotBlank(message = "新密码不能为空")
                                                 String newpwd){
         return new ResponseEntity<>(Result.success(userService.updateUserPwd(id,oldpwd,newpwd)), HttpStatus.OK);
+    }
+
+    //用户修改自己的密码 ok
+    @PostMapping("/change/password")
+    @PreAuthorize("hasAnyAuthority('1','2','3')")
+    public ResponseEntity<Result> changeMyPwd(@CurrentUser User user,
+                                                @RequestParam
+                                                @Valid @NotBlank(message = "原密码不能为空")
+                                                String oldpwd,
+                                                @RequestParam
+                                                @Valid @NotBlank(message = "新密码不能为空")
+                                                String newpwd){
+        return new ResponseEntity<>(Result.success(userService.updateUserPwd(user.getId(),oldpwd,newpwd)), HttpStatus.OK);
     }
 
     //删除用户信息 ok
