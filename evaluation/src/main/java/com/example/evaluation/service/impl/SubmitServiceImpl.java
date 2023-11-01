@@ -3,7 +3,9 @@ package com.example.evaluation.service.impl;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.evaluation.controller.dto.SubmitDto;
-import com.example.evaluation.domain.Submit;
+import com.example.evaluation.controller.dto.TeacherEvaDto;
+import com.example.evaluation.domain.Homework;
+import com.example.evaluation.domain.StuWork;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.SubmitMapper;
 import com.example.evaluation.service.SubmitService;
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SubmitServiceImpl
-        extends ServiceImpl<SubmitMapper, Submit>
+        extends ServiceImpl<SubmitMapper, StuWork>
         implements SubmitService {
 
     @Autowired
@@ -26,12 +28,24 @@ public class SubmitServiceImpl
     public boolean submitWork(SubmitDto sd) {
         boolean isOvertime = workService.checkOvertime(sd.getWid(), sd.getCid(), sd.getSubmitTime());
 
-        LambdaUpdateWrapper<Submit> wrapper = new LambdaUpdateWrapper<>();
-        wrapper.eq(Submit::getSid,sd.getSid())
-                .eq(Submit::getWid,sd.getWid())
-                .set(Submit::getURL,sd.getUrl())
-                .set(Submit::getSubmitTime,sd.getSubmitTime())
-                .set(Submit::getIsLate,isOvertime);
+        LambdaUpdateWrapper<StuWork> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(StuWork::getSid,sd.getSid())
+                .eq(StuWork::getWid,sd.getWid())
+                .set(StuWork::getURL,sd.getUrl())
+                .set(StuWork::getSubmitTime,sd.getSubmitTime())
+                .set(StuWork::getIsLate,isOvertime);
+
+        boolean flag = saveOrUpdate(null,wrapper);
+        if(flag) return true;
+        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
+    }
+
+    @Override
+    public boolean teacherEvaluation(TeacherEvaDto td) {
+        LambdaUpdateWrapper<StuWork> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(StuWork::getWid,td.getWid())
+                .set(StuWork::getTeacherGrade,td.getTeacherGrade())
+                .set(StuWork::getTeacherComments,td.getTeacherComments());
 
         boolean flag = saveOrUpdate(null,wrapper);
         if(flag) return true;

@@ -2,6 +2,7 @@ package com.example.evaluation.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,11 +13,12 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@TableName("sc")
 public class SC implements Serializable {
 
     @TableId(value = "cid")
     @NotBlank(message = "课程id不能为空")
-    private String CId;
+    private String Cid;
 
     @TableField(value = "sid")
     @NotBlank(message = "学生id不能为空")

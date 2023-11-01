@@ -23,19 +23,19 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
-    //登录用户
+    //登录用户 ok
     @PostMapping("/login")
     public ResponseEntity<Result> login(@RequestBody @Valid LoginDto LoginDto){
         return new ResponseEntity<>(Result.success(userService.login(LoginDto)), HttpStatus.OK);
     }
 
-    //登出用户
+    //登出用户 ok
     @PostMapping("/logout")
     public ResponseEntity<Result> logout(){
         return new ResponseEntity<>(Result.success(userService.logout()), HttpStatus.OK);
     }
 
-    //注册用户
+    //注册用户 ok
     // TODO: 2023-11-01 500 Internal Server Error
     @PostMapping("/register")
     @PreAuthorize("hasAuthority('1')")
@@ -43,7 +43,7 @@ public class UserController {
         return new ResponseEntity<>(Result.success(userService.register(registerDto)), HttpStatus.OK);
     }
 
-    //查询所有用户信息
+    //查询所有用户信息 ok
     @GetMapping("/all/student")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> getAllUserInfo(){
@@ -52,23 +52,21 @@ public class UserController {
 
     // TODO: 2023-11-01 allTeacher
 
-    //根据id查询用户信息
+    //根据id查询用户信息 ok
     @GetMapping("/info")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> getStuByID(@RequestParam @Valid String uid){
         return new ResponseEntity<>(Result.success(userService.getById(uid)), HttpStatus.OK);
     }
 
-    //更新用户数据
-    // TODO: 2023-11-01 独立更改
+    //更新用户数据 ok
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> updateUserInfo(@RequestBody @Valid UpdateDto ud){
         return new ResponseEntity<>(Result.success(userService.updateUserInfo(ud)), HttpStatus.OK);
     }
 
-    //更改用户密码
-    // TODO: 2023-11-01 500
+    //更改用户密码 ok
     @PostMapping("/update/password")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> updateUserPwd(@RequestParam String id,
@@ -81,13 +79,10 @@ public class UserController {
         return new ResponseEntity<>(Result.success(userService.updateUserPwd(id,oldpwd,newpwd)), HttpStatus.OK);
     }
 
-    //删除用户信息
+    //删除用户信息 ok
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> deleteUserById(@RequestParam @Valid String uid){
         return new ResponseEntity<>(Result.success(userService.deleteUserById(uid)), HttpStatus.OK);
     }
-
-
-
 }

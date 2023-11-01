@@ -141,23 +141,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Transactional
     public boolean updateUserInfo(UpdateDto ud) {
         String id = ud.getId();
-        User user = getUserInfoByID(id);
-        if(user.getName().equals("admin"))
-            throw new ServiceException(HttpStatus.FORBIDDEN.value(),"超级管理员admin不可更新");
+        User one = getUserInfoByID(id);
 
-//        boolean name = false, per = false;
-//
-//        if(!user.getName().equals(ud.getName()))
-//            name = updateUserName(id,ud.getName());
-//        if(!user.getPermission().equals(ud.getPer()))
-//            per = updateUserPer(id, ud.getPer());
-//        if(name || per) return true;
-//        else throw new ServiceException(HttpStatus.FORBIDDEN.value(),"用户信息没有改变");
+        if(one == null)throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
+
+        if(one.getName().equals("admin"))
+            throw new ServiceException(HttpStatus.FORBIDDEN.value(),"超级管理员admin不可更新");
 
         LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
         wrapper.eq(User::getId,id)
                 .set(User::getName,ud.getName())
-                .set(User::getPermission,ud.getPermission());
+                .set(User::getPermission,ud.getPermission())
+                .set(User::getEmail,ud.getEmail());
         int flag = userMapper.update(null,wrapper);
         if(flag >= 1) return true;
         else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");

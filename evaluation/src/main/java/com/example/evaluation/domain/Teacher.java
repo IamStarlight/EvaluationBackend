@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
@@ -17,7 +18,7 @@ import java.io.Serializable;
 @TableName("teacher_user")
 public class Teacher implements Serializable {
 
-    @TableId(value = "tid")
+    @TableId(value = "tid",type=IdType.AUTO)
     private String Tid;
 
     @TableField(value = "tname")
@@ -32,4 +33,8 @@ public class Teacher implements Serializable {
     @NotBlank(message = "权限不能为空")
     private String Permission;
 
+    @TableField(value = "email")
+    @javax.validation.constraints.Email(message = "邮箱格式不正确")
+    @NotBlank(message = "权限不能为空")
+    private String Email;
 }

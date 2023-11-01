@@ -18,7 +18,7 @@ import java.io.Serializable;
 @TableName("student")
 public class User implements Serializable {
 
-    @TableId(value = "sid")
+    @TableId(value = "sid",type=IdType.AUTO)
     private String Id;
 
     @TableField(value = "sname")
@@ -34,6 +34,7 @@ public class User implements Serializable {
     private String Permission;
 
     @TableField(value = "email")
+    @Email(message = "邮箱格式不正确")
     @NotBlank(message = "权限不能为空")
     private String Email;
 

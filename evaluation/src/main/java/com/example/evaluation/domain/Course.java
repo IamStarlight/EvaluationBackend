@@ -17,7 +17,7 @@ import java.io.Serializable;
 @TableName("course")
 public class Course implements Serializable {
 
-    @TableId(value = "cid")
+    @TableId(value = "cid",type=IdType.AUTO)
     private String Cid;
 
     @TableField(value = "cname")

@@ -1,6 +1,7 @@
 package com.example.evaluation.controller;
 
 import com.example.evaluation.controller.dto.SubmitDto;
+import com.example.evaluation.controller.dto.TeacherEvaDto;
 import com.example.evaluation.controller.dto.WorkDto;
 import com.example.evaluation.domain.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,11 @@ public class WorkController {
 
     // TODO: 2023-10-31 downloadAttachments 
 
-    // TODO: 2023-10-31 teacherEvaluation
+    @PostMapping("/teacher/evaluation")
+    @PreAuthorize("hasAnyAuthority('3')")
+    public ResponseEntity<Result> teacherEvaluation(@RequestBody @Valid TeacherEvaDto td){
+        return new ResponseEntity<>(Result.success(submitService.teacherEvaluation(td)), HttpStatus.OK);
+    }
 
     // TODO: 2023-10-31 statistics 
 

@@ -45,32 +45,4 @@ public class CourseController {
         return new ResponseEntity<>(Result.success(courseService.saveOrUpdateCourseInfo(course)), HttpStatus.OK);
     }
 
-//    //老师查看自己所交的课程有谁选择
-//    @PostMapping("/teacherForCourse")
-//    public Result<List<User>> getTeacherCourse(@RequestBody Course course,@RequestHeader("Token") String token){
-//        Object object = redisTemplate.opsForValue().get(token);
-//        if(object != null){
-//            User user1 = JSON.parseObject(JSON.toJSONString(object),User.class);
-//
-//            List<User> data= scMapper.getTeacherCourse(user1.getId(),course.getCid());
-//            if (data != null){
-//                return Result.success(data);
-//            }
-//        }
-//
-//        return Result.error(20002,"用户登录信息失效");
-//    }
-
-
-//    //管理员查看课程有谁选择
-//    @PostMapping("/allCourseStudent")
-//    public  Result<List<User>> getAllCourseStudent(@RequestBody Course course){
-//
-//        List<User> data= scMapper.getAllCourseStudent(course.getCid());
-//        if (data != null){
-//            return Result.success(data);
-//        }
-//
-//        return Result.error(20002,"用户登录信息失效");
-//    }
 }
