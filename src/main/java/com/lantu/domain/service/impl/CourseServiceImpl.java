@@ -8,11 +8,16 @@ import com.lantu.domain.mapper.CourseMapper;
 import com.lantu.domain.service.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-
+import org.springframework.stereotype.Service;
+//import com.fasterxml.jackson.datatype:jackson-datatype-jsr310;
+import javax.print.DocFlavor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
+@Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements ICourseService {
 
     @Autowired

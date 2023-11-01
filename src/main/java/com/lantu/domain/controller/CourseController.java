@@ -18,7 +18,9 @@ import java.util.Map;
 @RequestMapping("/domain/course")
 public class CourseController {
 
+    @Autowired
     private ICourseService courseService;
+    @Autowired
     private CourseMapper courseMapper;
 
     //管理员查看所有课程

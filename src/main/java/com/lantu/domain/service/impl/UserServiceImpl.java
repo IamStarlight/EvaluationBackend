@@ -37,6 +37,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private RedisTemplate redisTemplate;
     @Override
     public Map<String,Object>login(User user){
+
         //根据用户名和密码查询
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(User::getUsername,user.getUsername());
@@ -58,15 +59,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return null;
     }
 
-
-
     @Override
     public User getUserInfo(String token) {
+        System.out.println(token);
         //根据token来获取信息
         Object object = redisTemplate.opsForValue().get(token);
+
         if(object != null){
+
             User user1 = JSON.parseObject(JSON.toJSONString(object),User.class);
             User user = this.baseMapper.selectById(user1);
+            System.out.println(user);
             return user;
 
         }

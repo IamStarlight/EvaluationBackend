@@ -5,6 +5,7 @@ import com.lantu.domain.entity.User;
 import com.lantu.domain.mapper.UserMapper;
 import com.lantu.domain.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,15 +16,19 @@ import java.util.Map;
 @CrossOrigin
 @ResponseBody
 @RequestMapping("/domain/user")
+
 public class UserController {
     @Autowired
     private IUserService userService;
+
+    @Autowired
     private UserMapper userMapper;
 
 
     //登录
     @PostMapping("/login")
     public Result<Map<String,Object>> login(@RequestBody User user){
+
         Map<String,Object> data =  userService.login(user);
         if(data != null){
             return Result.success(data);
@@ -35,12 +40,14 @@ public class UserController {
     //个人获得自己的信息
     @GetMapping("/info")
     public Result<User> getUserInfo(@RequestHeader("Token") String token){
+        System.out.println(token);
         //根据token来获取redis的登录信息
         User data =  userService.getUserInfo(token);
+
         if (data != null){
             return Result.success(data);
         }
-        return Result.error(20002,"用户登录信息失效");
+        return Result.error(20001,"用户登录信息失效");
     }
 
     //个人修改自己的密码

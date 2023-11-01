@@ -9,17 +9,17 @@
           and user.id = #{userId}
     </select>
 
-    <select id = "allStudent" parameterType="Integer" resultType="String">
+    <select id = "listStudent" resultType="com.lantu.domain.entity.User">
         select * from user
         where
-            user.enabled == 3;
+            user.enabled = 3;
 
     </select>
 
-    <select id = "allTeacher" parameterType="Integer" resultType="String">
+    <select id = "listTeacher" resultType="com.lantu.domain.entity.User">
         select * from user
         where
-            user.enabled == 1;
+            user.enabled = 1;
 
     </select>
 

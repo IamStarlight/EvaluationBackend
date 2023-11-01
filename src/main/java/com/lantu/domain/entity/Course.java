@@ -16,26 +16,7 @@ public class Course implements Serializable {
 
     private Integer tid;
 
-    private String courseContent;
-
-    public Course(Integer cid, String cname,Integer tid, String courseContent) {
-        this.cid = cid;
-        this.cname = cname;
-        this.tid = tid;
-        this.courseContent = courseContent;
-    }
-
-    public Course() {
-
-    }
-
-    public String getCourseContent() {
-        return courseContent;
-    }
-
-    public void setCourseContent(String courseContent) {
-        this.courseContent = courseContent;
-    }
+    private String course_content;
 
     public Integer getCid() {
         return cid;
@@ -47,6 +28,10 @@ public class Course implements Serializable {
 
     public Integer getTid() {
         return tid;
+    }
+
+    public String getCourse_content() {
+        return course_content;
     }
 
     public void setCid(Integer cid) {
@@ -61,13 +46,17 @@ public class Course implements Serializable {
         this.tid = tid;
     }
 
+    public void setCourse_content(String course_content) {
+        this.course_content = course_content;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
                 "cid=" + cid +
                 ", cname='" + cname + '\'' +
-                ", tid='" + tid + '\'' +
-                ", courseContent='" + courseContent + '\'' +
+                ", tid=" + tid +
+                ", course_content='" + course_content + '\'' +
                 '}';
     }
 }
