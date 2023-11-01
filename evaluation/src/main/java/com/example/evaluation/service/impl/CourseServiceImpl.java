@@ -56,4 +56,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         if(flag) return true;
         else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
     }
+
+    @Override
+    public boolean deleteCourde(String cid){
+        if(removeById(cid)) return true;
+        else throw new ServiceException(HttpStatus.NOT_FOUND.value(),"课程不存在");
+    }
+
+    @Override
+    public List<User> getSCStudent(tid, cid){
+
+    }
 }
