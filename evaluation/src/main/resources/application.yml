@@ -6,16 +6,16 @@ spring:
   application:
     name: evaluation
 
-#  redis:
-#    host: 127.0.0.1
-#    port: 6379
-##    password: 123456
-#    database: 0
-#    timeout: 5000
-
   redis:
+    host: 127.0.0.1
     port: 6379
-    host: localhost
+    password: 123456
+    database: 0
+    timeout: 5000
+
+#  redis:
+#    port: 6379
+#    host: localhost
 
 #  jedis:
 #    pool:
@@ -24,19 +24,19 @@ spring:
 #      max-wait: -1s
 #      max-active: -1
 
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    name: '@cjx'
-#    url: jdbc:mysql://localhost:3306/evasys?serverTimezone=GMT
-#    username: 'root'
-#    password: 'root'
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    name: 'ly'
+    name: '@cjx'
     url: jdbc:mysql://localhost:3306/evasys?serverTimezone=GMT
     username: 'root'
-    password: 'ly123'
+    password: 'root'
+
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    name: 'ly'
+#    url: jdbc:mysql://localhost:3306/evasys?serverTimezone=GMT
+#    username: 'root'
+#    password: 'ly123'
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -46,13 +46,20 @@ spring:
     #    banner-mode: off
     allow-circular-references: true
 
+  mail:
+    protocol: smtps
+    host: smtp.qq.com
+    username: 845796811@qq.com
+    password: mytgnpzfynrcbded
+    default-encoding: UTF-8
+
   files:
     upload:
-      path: ../com/example/evaluation
+      path: classpath:/files
 
 mybatis-plus:
   type-aliases-package: com.example.domain
-#  mapper-locations: classpath:/mappers/*.xml
+  mapper-locations: classpath:/mapper/*.xml
 #  type-enums-package: com.example.enums
 
   configuration:

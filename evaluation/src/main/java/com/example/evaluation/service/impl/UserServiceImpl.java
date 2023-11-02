@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.evaluation.controller.dto.LoginDto;
 import com.example.evaluation.controller.dto.RegisterDto;
 import com.example.evaluation.controller.dto.UpdateDto;
-import com.example.evaluation.domain.Homework;
 import com.example.evaluation.domain.User;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.UserMapper;
@@ -15,11 +14,9 @@ import com.example.evaluation.service.UserService;
 import com.example.evaluation.utils.JwtUtil;
 import com.example.evaluation.utils.LoginUser;
 import com.example.evaluation.utils.RedisCache;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,7 +26,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -88,8 +84,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Transactional
     public HashMap<String,String> login(LoginDto loginDto) {
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getUname(),loginDto.getPwd());
-        System.out.println("sssss");
+                new UsernamePasswordAuthenticationToken(loginDto.getId(),loginDto.getPassword());
 
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
 
@@ -107,7 +102,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //把token响应给前端
         HashMap<String,String> map = new HashMap<>();
         map.put("token",jwt);
-        map.put("permission",loginUser.getUser().getPermission());
+//        map.put("permission",loginUser.getUser().getPermission());
         return map;
     }
 

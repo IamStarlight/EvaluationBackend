@@ -24,11 +24,10 @@ public class UserDetailsServiceImpl extends ServiceImpl<UserMapper, User> implem
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) {
+    public UserDetails loadUserByUsername(String id) {
         //根据用户名查询用户信息
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(User::getName,username);
-//        User user = userMapper.selectOne(wrapper);
+        wrapper.eq(User::getId,id);
         User user = getOne(wrapper);
         //如果查询不到数据就通过抛出异常来给出提示
         if(Objects.isNull(user)){
@@ -39,9 +38,6 @@ public class UserDetailsServiceImpl extends ServiceImpl<UserMapper, User> implem
         List<String> permissionKeyList =
                 Collections.singletonList(
                         userService.getPermsByID(user.getId()).toString());
-//        List<String> permissionKeyList =
-//                Collections.singletonList(
-//                        userMapper.selectPermsByUserId(user.getId()).toString());
 
         //封装成UserDetails对象返回
         return new LoginUser(user,permissionKeyList);

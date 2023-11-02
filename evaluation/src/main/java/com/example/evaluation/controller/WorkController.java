@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.example.evaluation.service.impl.SubmitServiceImpl;
 import com.example.evaluation.service.impl.WorkServiceImpl;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.logging.Logger;
@@ -97,7 +98,12 @@ public class WorkController {
         return new ResponseEntity<>(Result.success(submitService.submitWork(submitDto)), HttpStatus.OK);
     }
 
-    // TODO: 2023-10-31 uploadAttachments 
+    // TODO: 2023-10-31 uploadAttachments
+//    @PostMapping("/upload")
+//    @PreAuthorize("hasAnyAuthority('3')")
+//    public ResponseEntity<Result> uploadAttachments(MultipartFile file){
+//        return new ResponseEntity<>(Result.success(submitService.uploadAttachments(file)), HttpStatus.OK);
+//    }
 
     // TODO: 2023-10-31 downloadAttachments 
 
@@ -109,6 +115,7 @@ public class WorkController {
 
     // TODO: 2023-10-31 statistics 
 
+    // TODO: 2023-11-02 sendEmail 
 
 
 }

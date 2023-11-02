@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Result implements Serializable {
 
     private int code;//成功还是失败的约定码
-    private String msg;//请求失败的原因
+    private String message;//请求失败的原因
     private Object data;//后台所需要携带的数据
 
     //返回一个成功信息

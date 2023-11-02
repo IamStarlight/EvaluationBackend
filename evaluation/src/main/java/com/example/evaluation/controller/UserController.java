@@ -41,9 +41,16 @@ public class UserController {
     //管理员注册用户 ok
     @PostMapping("/register")
     @PreAuthorize("hasAuthority('1')")
-    public ResponseEntity<Result> userRegister(@RequestBody @Valid RegisterDto registerDto){
+    public ResponseEntity<Result> register(@RequestBody @Valid RegisterDto registerDto){
         return new ResponseEntity<>(Result.success(userService.register(registerDto)), HttpStatus.OK);
     }
+
+    //管理员批量注册用户
+//    @PostMapping("/register/batch")
+//    @PreAuthorize("hasAuthority('1')")
+//    public ResponseEntity<Result> registerBatch(){
+//        return new ResponseEntity<>(Result.success(userService.registerBatch()), HttpStatus.OK);
+//    }
 
     //管理员查询所有用户信息 ok
     @GetMapping("/all/student")
@@ -55,10 +62,17 @@ public class UserController {
     // TODO: 2023-11-01 allTeacher
 
     //管理员根据id查询用户信息 ok
-    @GetMapping("/info")
+    @GetMapping("/info/id")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> getStuByID(@RequestParam @Valid String uid){
         return new ResponseEntity<>(Result.success(userService.getById(uid)), HttpStatus.OK);
+    }
+
+    //获取登陆用户信息
+    @GetMapping("/info")
+    @PreAuthorize("hasAnyAuthority('1','2','3')")
+    public ResponseEntity<Result> getStuByID(@CurrentUser User user){
+        return new ResponseEntity<>(Result.success(user), HttpStatus.OK);
     }
 
     // TODO: 2023-11-02  管理员更新用户数据 ok objectMapper
