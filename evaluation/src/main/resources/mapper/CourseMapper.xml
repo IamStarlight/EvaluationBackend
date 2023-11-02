@@ -24,25 +24,25 @@
 
 <!--    </select>-->
 
-    <select id = "getCourseInfoByTname"  resultType="com.example.evaluation.domain.Course">
-        select course.cid, course.cname, course.tid, course.content
-        from teacher,course
-        where
-            teacher.tid = course.tid
-          and  teacher.tname= #{tname}
+<!--    <select id = "getCourseInfoByTname"  resultType="com.example.evaluation.domain.Course">-->
+<!--        select course.cid, course.cname, course.tid, course.content-->
+<!--        from teacher,course-->
+<!--        where-->
+<!--            teacher.tid = course.tid-->
+<!--          and  teacher.tname= #{tname}-->
 
-    </select>
+<!--    </select>-->
 
-    <select id = "getCourseInfoBySname"  resultType="com.example.evaluation.domain.Course">
---         select course.cid, course.cname, course.tid, course.content from sc,course,user
---         where
---             user.sid = sc.sid and course.cid = sc.cid
---           and  user.sname= #{sname}
-        select * from course
-                 where cid in (select cid from sc, student
-                                          where course.cid = sc.cid and  student.sname = #{sname})
+<!--    <select id = "getCourseInfoBySname"  resultType="com.example.evaluation.domain.Course">-->
+<!--&#45;&#45;         select course.cid, course.cname, course.tid, course.content from sc,course,user-->
+<!--&#45;&#45;         where-->
+<!--&#45;&#45;             user.sid = sc.sid and course.cid = sc.cid-->
+<!--&#45;&#45;           and  user.sname= #{sname}-->
+<!--        select * from course-->
+<!--                 where cid in (select cid from sc, student-->
+<!--                                          where course.cid = sc.cid and  student.sname = #{sname})-->
 
-    </select>
+<!--    </select>-->
 
     <select id = "getAllSCList"  resultType="com.example.evaluation.domain.User">
         select * from student
@@ -56,14 +56,6 @@
     <select id = "getCourseListByTid"  resultType="com.example.evaluation.domain.Course">
         select * from course
         where tid = #{tid}
-
-    </select>
-
-
-
-    <select id = "getSCListByCid"  resultType="com.example.evaluation.domain.User">
-        select * from student
-        where sid in (select sid from sc where cid = #{cid})
 
     </select>
 

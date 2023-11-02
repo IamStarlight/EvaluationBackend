@@ -11,7 +11,7 @@ public interface CourseService {
 
     List<Course> getAllCourseInfo();
 
-    List<Course> getCourseInfoByTname(String tname);
+//    List<Course> getCourseInfoByTname(String tname);
 
 //    List<Course> getCourseInfoBySid(String sid);
 
@@ -20,8 +20,6 @@ public interface CourseService {
     boolean deleteCourse(String cid);
 
     List<Course> getCourseListByTid(String tid);
-
-    List<User> getSCListByCid( String cid);
 
     List<Course> getCourseListBySid(String sid);
 }

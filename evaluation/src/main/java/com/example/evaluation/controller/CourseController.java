@@ -1,7 +1,9 @@
 package com.example.evaluation.controller;
 
+import com.example.evaluation.annotation.CurrentUser;
 import com.example.evaluation.domain.Course;
 import com.example.evaluation.domain.Result;
+import com.example.evaluation.domain.User;
 import com.example.evaluation.mapper.CourseMapper;
 import org.apache.ibatis.type.NStringTypeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,74 +27,74 @@ public class CourseController {
     @Autowired
     private CourseMapper courseMapper;
 
+    //管理员查看所有课程
     @GetMapping("/info")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> getCourseInfo(){
         return new ResponseEntity<>(Result.success(courseService.getAllCourseInfo()), HttpStatus.OK);
     }
 
+    //更新课程信息
     @PostMapping("/update")
     @PreAuthorize("hasAnyAuthority('1','2')")
     public ResponseEntity<Result> saveOrUpdateCourseInfo(@RequestBody @Valid Course course){
         return new ResponseEntity<>(Result.success(courseService.saveOrUpdateCourseInfo(course)), HttpStatus.OK);
     }
 
-    // TODO: 2023/11/1 deleteCourse 1
+    //管理员删除课程
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> deleteCourse(@RequestBody @Valid String cid){
         return new ResponseEntity<>(Result.success(courseService.deleteCourse(cid)), HttpStatus.OK);
     }
 
+    //管理员根据查询教师所授课程
+    // TODO: 2023/11/2 id or tname
+    @GetMapping("/teacher/admin")
+    @PreAuthorize("hasAnyAuthority('1')")
+    public ResponseEntity<Result> getCourseListByTidAdmin(@RequestBody @Valid String message){
+        return new ResponseEntity<>(Result.success(courseService .getCourseListByTid(message)), HttpStatus.OK);
+    }
+
+    //教师根据tid查询所授课程
+    @GetMapping("/teacher")
+    @PreAuthorize("hasAnyAuthority('2')")
+    public ResponseEntity<Result> getCourseListByTidTeacher(@CurrentUser User user){
+        return new ResponseEntity<>(Result.success(courseService .getCourseListByTid(user.getId())), HttpStatus.OK);
+    }
+
+    //tname查询所授课程
 //    @GetMapping("/teacher")
 //    @PreAuthorize("hasAuthority('1')")
-//    public ResponseEntity<Result> getCourseInfoByTname(String tname){
-//        return new ResponseEntity<>(Result.success(courseService.getCourseInfoByTid(tname)), HttpStatus.OK);
+//    public ResponseEntity<Result> getCourseInfoByTname(@RequestBody @Valid String tname){
+//        return new ResponseEntity<>(Result.success(courseMapper.getCourseInfoByTname(tname)), HttpStatus.OK);
 //    }
 
-    @GetMapping("/teacherCourse")
+    //管理员查询学生所选课程
+    // TODO: 2023/11/2 id or name
+    @GetMapping("/student/admin")
     @PreAuthorize("hasAuthority('1')")
-    public ResponseEntity<Result> getCourseInfoByTname(@RequestBody @Valid String tname){
-        return new ResponseEntity<>(Result.success(courseMapper.getCourseInfoByTname(tname)), HttpStatus.OK);
-    }
-
-
-    @GetMapping("/studentCourse")
-    @PreAuthorize("hasAuthority('1')")
-    public ResponseEntity<Result> getCourseInfoBySname(@RequestBody @Valid String sname){
-        return new ResponseEntity<>(Result.success(courseMapper.getCourseInfoBySname(sname)), HttpStatus.OK);
-    }
-
-
-    @GetMapping("/allSCList")
-    @PreAuthorize("hasAuthority('1')")
-    public ResponseEntity<Result> getAllSCList(@RequestBody @Valid String cid){
-        return new ResponseEntity<>(Result.success(courseMapper.getAllSCList(cid)), HttpStatus.OK);
-    }
-
-
-    // TODO: 2023/11/1 getCourseListByTid 2
-    @GetMapping("/courseListByTid")
-    @PreAuthorize("hasAuthority('2')")
-    //使用token
-    public ResponseEntity<Result> getCourseListByTid(@RequestBody @Valid String tid){
-        return new ResponseEntity<>(Result.success(courseService .getCourseListByTid(tid)), HttpStatus.OK);
-    }
-
-    // TODO: 2023/11/1 getSCListByCid 2
-    @GetMapping("/scListByCid")
-    @PreAuthorize("hasAuthority('2')")
-    public ResponseEntity<Result> getSCListByCid(@RequestBody @Valid String cid){
-        return new ResponseEntity<>(Result.success(courseService .getSCListByCid(cid)), HttpStatus.OK);
-    }
-
-    // TODO: 2023/11/1 getCourseListBySid 3
-    @GetMapping("/courseListBySid")
-    @PreAuthorize("hasAuthority('3')")
-    //使用token
     public ResponseEntity<Result> getCourseListBySid(@RequestBody @Valid String sid){
         return new ResponseEntity<>(Result.success(courseService .getCourseListBySid(sid)), HttpStatus.OK);
     }
 
+//    @GetMapping("/student/admin")
+//    @PreAuthorize("hasAuthority('1')")
+//    public ResponseEntity<Result> getCourseInfoBySname(@RequestBody @Valid String sname){
+//        return new ResponseEntity<>(Result.success(courseMapper.getCourseInfoBySname(sname)), HttpStatus.OK);
+//    }
 
+    //学生根据sid查询所选课程
+    @GetMapping("/student")
+    @PreAuthorize("hasAuthority('3')")
+    public ResponseEntity<Result> getCourseListBySid(@CurrentUser User user){
+        return new ResponseEntity<>(Result.success(courseService .getCourseListBySid(user.getId())), HttpStatus.OK);
+    }
+
+    //管理员查询某课程的选课名单
+    @GetMapping("/sc")
+    @PreAuthorize("hasAuthority('1')")
+    public ResponseEntity<Result> getAllSCList(@RequestBody @Valid String cid){
+        return new ResponseEntity<>(Result.success(courseMapper.getAllSCList(cid)), HttpStatus.OK);
+    }
 }

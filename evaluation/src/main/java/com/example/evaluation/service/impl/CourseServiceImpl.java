@@ -25,15 +25,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return list();
     }
 
-    // TODO: 2023-11-01 空值处理
-    @Override
-    public List<Course> getCourseInfoByTname(String tname) {
-        LambdaQueryWrapper<Course> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Course::getTid,tname);
-        List<Course> list = list(wrapper);
-        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
-        return list;
-    }
+//    @Override
+//    public List<Course> getCourseInfoByTname(String tname) {
+//        LambdaQueryWrapper<Course> wrapper = new LambdaQueryWrapper<>();
+//        wrapper.eq(Course::getTid,tname);
+//        List<Course> list = list(wrapper);
+//        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+//        return list;
+//    }
 
 //    @Override
 //    public Course getCourseInfoByName(String name){
@@ -74,13 +73,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         List<Course> list = list(wrapper);
         if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         return list;
-    }
-
-    @Override
-    public List<User> getSCListByCid(String cid) {
-        List<User> users = courseMapper.getSCListByCid(cid);
-        if(users.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
-        return users;
     }
 
     @Override

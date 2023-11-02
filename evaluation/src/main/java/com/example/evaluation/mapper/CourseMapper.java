@@ -15,15 +15,13 @@ import java.util.List;
 @Component
 public interface CourseMapper extends BaseMapper<Course> {
 
-    List<Course> getCourseInfoByTname(@Param("tname") String tname);
-
-    List<Course> getCourseInfoBySname(@Param("sname")String sname);
+//    List<Course> getCourseInfoByTname(@Param("tname") String tname);
+//
+//    List<Course> getCourseInfoBySname(@Param("sname")String sname);
 
     List<User> getAllSCList(@Param("cid") String cid);
 
     List<Course> getCourseListByTid(String tid);
-
-    List<User> getSCListByCid(@Param("cid") String cid);
 
     List<Course> getCourseListBySid(@Param("sid") String sid);
 }
