@@ -15,6 +15,8 @@ import com.example.evaluation.service.UserService;
 import com.example.evaluation.utils.JwtUtil;
 import com.example.evaluation.utils.LoginUser;
 import com.example.evaluation.utils.RedisCache;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +43,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     public User getUserInfoByName(String name){
         LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
@@ -142,12 +147,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public boolean updateUserInfo(UpdateDto ud) {
         String id = ud.getId();
         User one = getUserInfoByID(id);
-
         if(one == null)throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
 
         if(one.getName().equals("admin"))
             throw new ServiceException(HttpStatus.FORBIDDEN.value(),"超级管理员admin不可更新");
 
+        // TODO: 2023-11-02 objectmapper
+//        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_DEFAULT);
+//        String outJson = objectMapper.writeValueAsString(one);
         LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
         wrapper.eq(User::getId,id)
                 .set(User::getName,ud.getName())

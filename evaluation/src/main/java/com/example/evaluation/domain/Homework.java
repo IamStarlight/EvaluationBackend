@@ -9,7 +9,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,34 +23,31 @@ import java.util.Date;
 public class Homework implements Serializable {
 
     @TableId(value = "wid",type=IdType.AUTO)
-    private String Wid;
+    private String wid;
 
-//    @TableId(value = "cid")
-    @TableField(value = "cid")
+    @TableField
     @NotBlank(message = "课程id不能为空")
-    private String Cid;
+    private String cid;
 
-    @TableField(value = "title")
+    @TableField
     @NotBlank(message = "用户名不能为空")
-    private String Title;
+    private String title;
 
-    @TableField(value = "start_time")
-    @NotBlank(message = "开始时间不能为空")
-    private Date StartTime;
+    @TableField
+    @FutureOrPresent
+    private Date startTime;
 
-    @TableField(value = "end_time")
-    @NotBlank(message = "截止时间不能为空")
-    private Date EndTime;
+    @TableField
+    @NotNull(message = "截止时间不能为空")
+    @Future
+    private Date endTime;
 
-    @TableField(value = "edit_status")
-    @NotBlank(message = "编辑状态不能为空")
-    private String EditStatus;
+    @TableField
+    private String editStatus;
 
-    @TableField(value = "eva_status")
-    @NotBlank(message = "互评状态不能为空")
-    private String EvaStatus;
+    @TableField
+    private String evaStatus;
 
-    @TableField(value = "url")
-    @NotBlank(message = "URL不能为空")
-    private String URL;
+    @TableField
+    private String url;
 }

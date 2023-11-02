@@ -1,33 +1,33 @@
 package com.example.evaluation.controller.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
 public class WorkDto {
-    @NotBlank(message = "作业id不能为空")
-    private String Wid;
+//    @NotBlank(message = "作业id不能为空")
+//    private String Wid;
 
-    @NotBlank(message = "用户名不能为空")
-    private String Title;
+    @NotBlank(message = "标题不能为空")
+    private String title;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    @NotBlank(message = "开始时间不能为空")
-    private Date StartTime;
+    private Date startTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    @NotBlank(message = "结束时间不能为空")
-    private Date EndTime;
+    @NotNull(message = "截止时间不能为空")
+    @Future
+    private Date endTime;
 
-//    @NotBlank(message = "编辑状态不能为空")
-//    private String EditStatus;
-//
-//    @NotBlank(message = "互评状态不能为空")
-//    private String EvaluateStatus;
+    private String editStatus;
+
+    private String evaStatus;
 
     //可以为空
-    private String URL;
+    private String url;
 }

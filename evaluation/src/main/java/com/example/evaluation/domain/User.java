@@ -19,23 +19,23 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @TableId(value = "sid",type=IdType.AUTO)
-    private String Id;
+    private String id;
 
     @TableField(value = "sname")
     @NotBlank(message = "用户名不能为空")
-    private String Name;
+    private String name;
 
-    @TableField(value = "password")
+    @TableField
     @NotBlank(message = "密码不能为空")
-    private String Password;
+    private String password;
 
-    @TableField(value = "permission")
+    @TableField
     @NotBlank(message = "权限不能为空")
-    private String Permission;
+    private String permission;
 
-    @TableField(value = "email")
+    @TableField
     @Email(message = "邮箱格式不正确")
     @NotBlank(message = "权限不能为空")
-    private String Email;
+    private String email;
 
 }

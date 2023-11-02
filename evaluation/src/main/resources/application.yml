@@ -35,6 +35,10 @@ spring:
     #    banner-mode: off
     allow-circular-references: true
 
+  files:
+    upload:
+      path: ../com/example/evaluation
+
 mybatis-plus:
   type-aliases-package: com.example.domain
 #  mapper-locations: classpath:/mappers/*.xml

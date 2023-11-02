@@ -61,8 +61,7 @@ public class UserController {
         return new ResponseEntity<>(Result.success(userService.getById(uid)), HttpStatus.OK);
     }
 
-    //管理员更新用户数据 ok
-    // TODO: 2023-11-02 patchmapping
+    // TODO: 2023-11-02  管理员更新用户数据 ok objectMapper
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> updateUserInfo(@RequestBody @Valid UpdateDto ud){

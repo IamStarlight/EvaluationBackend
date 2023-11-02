@@ -3,7 +3,9 @@ package com.example.evaluation.controller;
 import com.example.evaluation.controller.dto.SubmitDto;
 import com.example.evaluation.controller.dto.TeacherEvaDto;
 import com.example.evaluation.controller.dto.WorkDto;
+import com.example.evaluation.domain.Homework;
 import com.example.evaluation.domain.Result;
+import org.mybatis.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import com.example.evaluation.service.impl.SubmitServiceImpl;
 import com.example.evaluation.service.impl.WorkServiceImpl;
 
 import javax.validation.Valid;
+import java.util.logging.Logger;
 
 @RestController
 @Validated
@@ -26,13 +29,29 @@ public class WorkController {
     @Autowired
     private SubmitServiceImpl submitService;
 
-    // TODO: 2023-11-01 getAllWorkInfo  1
+    @GetMapping("/all")
+    @PreAuthorize("hasAnyAuthority('1')")
+    public ResponseEntity<Result> getAllWorkInfo(){
+        return new ResponseEntity<>(Result.success(workService.list()), HttpStatus.OK);
+    }
 
-    // TODO: 2023-11-01 getAllWorkInfoByTid 2
+    @GetMapping("/all/teach")
+    @PreAuthorize("hasAnyAuthority('1')")
+    public ResponseEntity<Result> getAllWorkInfoByTid(@RequestParam @Valid String tid){
+        return new ResponseEntity<>(Result.success(workService.getAllWorkInfoByTid(tid)), HttpStatus.OK);
+    }
 
-    // TODO: 2023-11-01 getAllWorkInfoBySid 3
+    @GetMapping("/all/choose")
+    @PreAuthorize("hasAnyAuthority('3')")
+    public ResponseEntity<Result> getAllWorkInfoBySid(@RequestParam @Valid String sid){
+        return new ResponseEntity<>(Result.success(workService.getAllWorkInfoBySid(sid)), HttpStatus.OK);
+    }
 
-    // TODO: 2023-11-01 getAllWorkInfoByCid 1,2,3 
+    @GetMapping("/all/course")
+    @PreAuthorize("hasAnyAuthority('1','2','3')")
+    public ResponseEntity<Result> getAllWorkInfoByCid(@RequestParam @Valid String cid){
+        return new ResponseEntity<>(Result.success(workService.getAllWorkInfoByCid(cid)), HttpStatus.OK);
+    }
 
     //根据wid查询作业 ok
     @GetMapping("/info")
@@ -41,14 +60,14 @@ public class WorkController {
         return new ResponseEntity<>(Result.success(workService.getWorkInfoByWid(wid)), HttpStatus.OK);
     }
 
-    //更改编辑状态 ok
+    //管理员、教师更改编辑状态 ok
     @PostMapping("/edit/status")
     @PreAuthorize("hasAnyAuthority('1','2')")
     public ResponseEntity<Result> updateEditStatus(@RequestParam @Valid String wid, String status){
         return new ResponseEntity<>(Result.success(workService.updateEditStatus(wid,status)), HttpStatus.OK);
     }
 
-    //更改互评状态 ok
+    //管理员、教师更改互评状态 ok
     @PostMapping("/evaluate/status")
     @PreAuthorize("hasAnyAuthority('1','2')")
     public ResponseEntity<Result> updateEvaluateStatus(@RequestParam @Valid String wid,
@@ -56,14 +75,22 @@ public class WorkController {
         return new ResponseEntity<>(Result.success(workService.updateEvaluateStatus(wid,status)), HttpStatus.OK);
     }
 
-    // TODO: 2023-11-01 500 
+    // TODO: 2023-11-01 500,400 why?
     @PostMapping("/edit")
     @PreAuthorize("hasAnyAuthority('1','2')")
-    public ResponseEntity<Result> saveOrUpdateWorkInfo(@RequestBody @Valid WorkDto workDto){
-        return new ResponseEntity<>(Result.success(workService.saveOrUpdateWorkInfo(workDto)), HttpStatus.OK);
+    public ResponseEntity<Result> updateWorkInfo(@RequestParam @Valid String wid,
+                                                 @RequestBody @Valid WorkDto wd){
+        return new ResponseEntity<>(Result.success(workService.updateWorkInfo(wid,wd)), HttpStatus.OK);
     }
 
-    // TODO: 2023-11-01 500 
+    // TODO: 2023-11-02 400 why?
+    @PostMapping("/create")
+    @PreAuthorize("hasAnyAuthority('1','2')")
+    public ResponseEntity<Result> setNewWork(@RequestBody @Valid WorkDto wd){
+        return new ResponseEntity<>(Result.success(workService.setNewWork(wd)), HttpStatus.OK);
+    }
+
+    // TODO: 2023-11-01 500 saveorupdate
     @PostMapping("/submit")
     @PreAuthorize("hasAnyAuthority('3')")
     public ResponseEntity<Result> submitWork(@RequestBody @Valid SubmitDto submitDto){

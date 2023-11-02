@@ -5,6 +5,8 @@ import com.example.evaluation.controller.dto.WorkDto;
 import com.example.evaluation.domain.Homework;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public interface WorkService {
 
@@ -16,5 +18,13 @@ public interface WorkService {
 
     boolean checkOvertime(String wid, String cid, Date submitTime);
 
-    boolean saveOrUpdateWorkInfo(WorkDto wd);
+    boolean updateWorkInfo(String wid, WorkDto wd);
+
+    boolean setNewWork(WorkDto wd);
+
+    List<Map<String,String>> getAllWorkInfoByTid(String tid);
+
+    List<Map<String,String>> getAllWorkInfoBySid(String sid);
+
+    List<Homework> getAllWorkInfoByCid(String cid);
 }
