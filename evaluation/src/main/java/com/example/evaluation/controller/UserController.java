@@ -14,18 +14,24 @@ import com.example.evaluation.service.impl.UserServiceImpl;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.util.Map;
 
+
+@CrossOrigin
 @RestController
 @Validated
+@ResponseBody
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
 
+
     //登录用户
     @PostMapping("/login")
     public ResponseEntity<Result> login(@RequestBody @Valid LoginDto LoginDto){
+
         return new ResponseEntity<>(Result.success(userService.login(LoginDto)), HttpStatus.OK);
     }
 
@@ -87,6 +93,8 @@ public class UserController {
     public ResponseEntity<Result> deleteUserById(@RequestParam @Valid String uid){
         return new ResponseEntity<>(Result.success(userService.deleteUserById(uid)), HttpStatus.OK);
     }
+
+
 
 
 

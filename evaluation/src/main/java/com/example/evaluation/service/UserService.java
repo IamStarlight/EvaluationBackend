@@ -4,9 +4,11 @@ import com.example.evaluation.controller.dto.LoginDto;
 import com.example.evaluation.controller.dto.RegisterDto;
 import com.example.evaluation.controller.dto.UpdateDto;
 import com.example.evaluation.domain.User;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
+@Service
 public interface UserService {
 
     HashMap<String,String> login(LoginDto loginDto);

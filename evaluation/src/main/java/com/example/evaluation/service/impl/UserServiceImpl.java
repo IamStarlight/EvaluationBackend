@@ -84,6 +84,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public HashMap<String,String> login(LoginDto loginDto) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUname(),loginDto.getPwd());
+        System.out.println("sssss");
 
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
 
@@ -120,7 +121,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         return getUserInfoByName(rdto.getUname());
     }
-
     @Override
     @Transactional
     public boolean deleteUserById(String uid) {

@@ -2,6 +2,8 @@ package com.example.evaluation.controller;
 
 import com.example.evaluation.domain.Course;
 import com.example.evaluation.domain.Result;
+import com.example.evaluation.mapper.CourseMapper;
+import org.apache.ibatis.type.NStringTypeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,57 +22,77 @@ public class CourseController {
     @Autowired
     private CourseServiceImpl courseService;
 
+    @Autowired
+    private CourseMapper courseMapper;
+
     @GetMapping("/info")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> getCourseInfo(){
         return new ResponseEntity<>(Result.success(courseService.getAllCourseInfo()), HttpStatus.OK);
     }
 
-    @GetMapping("/teacher")
-    @PreAuthorize("hasAuthority('1')")
-    public ResponseEntity<Result> getCourseInfoByTid(String tid){
-        return new ResponseEntity<>(Result.success(courseService.getCourseInfoByTid(tid)), HttpStatus.OK);
-    }
-
-    // TODO: 2023-11-01 getCourseInfoBySid 3 多表联查
-//    @GetMapping("/teacher")
-//    @PreAuthorize("hasAuthority('1')")
-//    public ResponseEntity<Result> getCourseInfoBySid(String sid){
-//        return new ResponseEntity<>(Result.success(courseService.getCourseInfoBySid(sid)), HttpStatus.OK);
-//    }
-
     @PostMapping("/update")
-    @PreAuthorize("hasAuthority('1')")
+    @PreAuthorize("hasAnyAuthority('1','2')")
     public ResponseEntity<Result> saveOrUpdateCourseInfo(@RequestBody @Valid Course course){
         return new ResponseEntity<>(Result.success(courseService.saveOrUpdateCourseInfo(course)), HttpStatus.OK);
     }
 
-//    //老师查看自己所交的课程有谁选择
-//    @PostMapping("/teacherForCourse")
-//    public Result<List<User>> getTeacherCourse(@RequestBody Course course,@RequestHeader("Token") String token){
-//        Object object = redisTemplate.opsForValue().get(token);
-//        if(object != null){
-//            User user1 = JSON.parseObject(JSON.toJSONString(object),User.class);
-//
-//            List<User> data= scMapper.getTeacherCourse(user1.getId(),course.getCid());
-//            if (data != null){
-//                return Result.success(data);
-//            }
-//        }
-//
-//        return Result.error(20002,"用户登录信息失效");
+    // TODO: 2023/11/1 deleteCourse 1
+    @PostMapping("/delete")
+    @PreAuthorize("hasAuthority('1')")
+    public ResponseEntity<Result> deleteCourse(@RequestBody @Valid String cid){
+        return new ResponseEntity<>(Result.success(courseService.deleteCourse(cid)), HttpStatus.OK);
+    }
+
+//    @GetMapping("/teacher")
+//    @PreAuthorize("hasAuthority('1')")
+//    public ResponseEntity<Result> getCourseInfoByTname(String tname){
+//        return new ResponseEntity<>(Result.success(courseService.getCourseInfoByTid(tname)), HttpStatus.OK);
 //    }
 
+    @GetMapping("/teacherCourse")
+    @PreAuthorize("hasAuthority('1')")
+    public ResponseEntity<Result> getCourseInfoByTname(@RequestBody @Valid String tname){
+        return new ResponseEntity<>(Result.success(courseMapper.getCourseInfoByTname(tname)), HttpStatus.OK);
+    }
 
-//    //管理员查看课程有谁选择
-//    @PostMapping("/allCourseStudent")
-//    public  Result<List<User>> getAllCourseStudent(@RequestBody Course course){
-//
-//        List<User> data= scMapper.getAllCourseStudent(course.getCid());
-//        if (data != null){
-//            return Result.success(data);
-//        }
-//
-//        return Result.error(20002,"用户登录信息失效");
-//    }
+
+    @GetMapping("/studentCourse")
+    @PreAuthorize("hasAuthority('1')")
+    public ResponseEntity<Result> getCourseInfoBySname(@RequestBody @Valid String sname){
+        return new ResponseEntity<>(Result.success(courseMapper.getCourseInfoBySname(sname)), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/allSCList")
+    @PreAuthorize("hasAuthority('1')")
+    public ResponseEntity<Result> getAllSCList(@RequestBody @Valid String cid){
+        return new ResponseEntity<>(Result.success(courseMapper.getAllSCList(cid)), HttpStatus.OK);
+    }
+
+
+    // TODO: 2023/11/1 getCourseListByTid 2
+    @GetMapping("/courseListByTid")
+    @PreAuthorize("hasAuthority('2')")
+    //使用token
+    public ResponseEntity<Result> getCourseListByTid(@RequestBody @Valid String tid){
+        return new ResponseEntity<>(Result.success(courseService .getCourseListByTid(tid)), HttpStatus.OK);
+    }
+
+    // TODO: 2023/11/1 getSCListByCid 2
+    @GetMapping("/scListByCid")
+    @PreAuthorize("hasAuthority('2')")
+    public ResponseEntity<Result> getSCListByCid(@RequestBody @Valid String cid){
+        return new ResponseEntity<>(Result.success(courseService .getSCListByCid(cid)), HttpStatus.OK);
+    }
+
+    // TODO: 2023/11/1 getCourseListBySid 3
+    @GetMapping("/courseListBySid")
+    @PreAuthorize("hasAuthority('3')")
+    //使用token
+    public ResponseEntity<Result> getCourseListBySid(@RequestBody @Valid String sid){
+        return new ResponseEntity<>(Result.success(courseService .getCourseListBySid(sid)), HttpStatus.OK);
+    }
+
+
 }

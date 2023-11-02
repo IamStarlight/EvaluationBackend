@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.evaluation.domain.Course;
-import com.example.evaluation.domain.Submit;
 import com.example.evaluation.domain.User;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.CourseMapper;
@@ -18,6 +17,9 @@ import java.util.List;
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements CourseService {
 
+    @Autowired
+    private CourseMapper courseMapper;
+
     @Override
     public List<Course> getAllCourseInfo() {
         return list();
@@ -25,10 +27,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     // TODO: 2023-11-01 空值处理
     @Override
-    public List<Course> getCourseInfoByTid(String tid) {
+    public List<Course> getCourseInfoByTname(String tname) {
         LambdaQueryWrapper<Course> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Course::getTid,tid);
-        return list(wrapper);
+        wrapper.eq(Course::getTid,tname);
+        List<Course> list = list(wrapper);
+        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        return list;
     }
 
 //    @Override
@@ -58,13 +62,38 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public boolean deleteCourde(String cid){
+    public boolean deleteCourse(String cid){
         if(removeById(cid)) return true;
         else throw new ServiceException(HttpStatus.NOT_FOUND.value(),"课程不存在");
     }
 
     @Override
-    public List<User> getSCStudent(tid, cid){
+    public List<Course> getCourseListByTid(String tid) {
+        LambdaQueryWrapper<Course> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Course::getTid,tid);
+        List<Course> list = list(wrapper);
+        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        return list;
+    }
+
+    @Override
+    public List<User> getSCListByCid(String cid) {
+        List<User> users = courseMapper.getSCListByCid(cid);
+        if(users.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        return users;
+    }
+
+    @Override
+    public List<Course> getCourseListBySid(String sid) {
+        List<Course> courses = courseMapper.getCourseListBySid(sid);
+        if(courses.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        return courses;
 
     }
+
+
+//    @Override
+//    public List<User> getSCStudent(tid, cid){
+//
+//    }
 }

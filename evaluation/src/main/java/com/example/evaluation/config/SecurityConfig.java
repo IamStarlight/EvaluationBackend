@@ -1,8 +1,8 @@
 package com.example.evaluation.config;
 
 import com.example.evaluation.filter.JwtAuthenticationTokenFilter;
-import javafx.application.Application;
-import javafx.stage.Stage;
+//import javafx.application.Application;
+//import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

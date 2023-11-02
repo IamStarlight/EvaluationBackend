@@ -6,26 +6,37 @@ spring:
   application:
     name: evaluation
 
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    password: 123456
-    database: 0
-    timeout: 5000
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+##    password: 123456
+#    database: 0
+#    timeout: 5000
 
-  jedis:
-    pool:
-      max-idle: 500
-      min-idle: 50
-      max-wait: -1s
-      max-active: -1
+  redis:
+    port: 6379
+    host: localhost
+
+#  jedis:
+#    pool:
+#      max-idle: 500
+#      min-idle: 50
+#      max-wait: -1s
+#      max-active: -1
+
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    name: '@cjx'
+#    url: jdbc:mysql://localhost:3306/evasys?serverTimezone=GMT
+#    username: 'root'
+#    password: 'root'
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    name: '@cjx'
+    name: 'ly'
     url: jdbc:mysql://localhost:3306/evasys?serverTimezone=GMT
     username: 'root'
-    password: 'root'
+    password: 'ly123'
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
