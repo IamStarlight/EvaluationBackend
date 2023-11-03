@@ -4,9 +4,8 @@ import com.example.evaluation.annotation.CurrentUser;
 import com.example.evaluation.controller.dto.LoginDto;
 import com.example.evaluation.controller.dto.RegisterDto;
 import com.example.evaluation.controller.dto.UpdateDto;
-import com.example.evaluation.domain.Result;
-import com.example.evaluation.domain.User;
-import com.example.evaluation.utils.LoginUser;
+import com.example.evaluation.entity.Result;
+import com.example.evaluation.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,21 +51,28 @@ public class UserController {
 //        return new ResponseEntity<>(Result.success(userService.registerBatch()), HttpStatus.OK);
 //    }
 
-    //管理员查询所有用户信息 ok
+    //管理员查询所有学生信息 ok
     @GetMapping("/all/student")
     @PreAuthorize("hasAuthority('1')")
-    public ResponseEntity<Result> getAllUserInfo(){
+    public ResponseEntity<Result> getAllStudentInfo(){
         return new ResponseEntity<>(Result.success(userService.list()), HttpStatus.OK);
     }
 
     // TODO: 2023-11-01 allTeacher
+//    @GetMapping("/all/student")
+//    @PreAuthorize("hasAuthority('1')")
+//    public ResponseEntity<Result> getAllTeacherInfo(){
+//        return new ResponseEntity<>(Result.success(userService.list()), HttpStatus.OK);
+//    }
 
-    //管理员根据id查询用户信息 ok
+    //管理员根据id查询学生信息 ok
     @GetMapping("/info/id")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> getStuByID(@RequestParam @Valid String uid){
         return new ResponseEntity<>(Result.success(userService.getById(uid)), HttpStatus.OK);
     }
+
+    // TODO: 2023-11-03 管理员根据tid查询所有教师信息 
 
     //获取登陆用户信息
     @GetMapping("/info")
@@ -83,7 +89,7 @@ public class UserController {
     }
 
     //管理员更改用户密码 ok
-    @PostMapping("/update/password")
+    @PostMapping("/password/admin")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> updateUserPwd(@RequestParam String id,
                                                 @RequestParam
@@ -93,7 +99,7 @@ public class UserController {
     }
 
     //用户修改自己的密码 ok
-    @PostMapping("/change/password")
+    @PostMapping("/password/user")
     @PreAuthorize("hasAnyAuthority('1','2','3')")
     public ResponseEntity<Result> updateMyPwd(@CurrentUser User user,
                                                 @RequestParam

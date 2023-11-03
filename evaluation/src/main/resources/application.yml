@@ -13,6 +13,12 @@ spring:
     database: 0
     timeout: 5000
 
+  servlet:
+    multipart:
+      # 文件传输尺寸设置
+      max-file-size: 1024MB
+      max-request-size: 100240MB
+
 #  redis:
 #    port: 6379
 #    host: localhost
@@ -53,9 +59,9 @@ spring:
     password: mytgnpzfynrcbded
     default-encoding: UTF-8
 
-  files:
-    upload:
-      path: classpath:/files
+#  files:
+#    upload:
+#      path: classpath:/files
 
 mybatis-plus:
   type-aliases-package: com.example.domain

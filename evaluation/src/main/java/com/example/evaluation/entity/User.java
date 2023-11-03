@@ -1,4 +1,4 @@
-package com.example.evaluation.domain;
+package com.example.evaluation.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

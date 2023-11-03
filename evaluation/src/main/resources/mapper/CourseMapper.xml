@@ -1,74 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http#{//mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.evaluation.mapper.CourseMapper">
 
-<!--    <select id = "getMyCourse" parameterType="Integer" resultType="String">-->
-<!--        select course.cid, course.cname, course.tid, course.courseContent from course,sc-->
-<!--        where-->
-<!--            course.cid = sc.cid-->
-<!--          and sc.sid = #{id}-->
-<!--    </select>-->
-
-<!--    <select id = "getTeacherCourse" resultType="com.lantu.domain.entity.User">-->
-<!--        select user.id, user.username, user.email from user,course,sc-->
-<!--        where-->
-<!--            user.id = sc.sid and  sc.cid= #{cid} and-->
-<!--          and course.tid = #{id}-->
-<!--    </select>-->
-
-<!--    <select id = "getAllCourseStudent" parameterType="Integer" resultType="String">-->
-<!--        select user.id, user.username, user.email from user,sc-->
-<!--        where-->
-<!--            user.id = sc.sid-->
-<!--          and  sc.cid= #{cid}-->
-
-<!--    </select>-->
-
-<!--    <select id = "getCourseInfoByTname"  resultType="com.example.evaluation.domain.Course">-->
-<!--        select course.cid, course.cname, course.tid, course.content-->
-<!--        from teacher,course-->
-<!--        where-->
-<!--            teacher.tid = course.tid-->
-<!--          and  teacher.tname= #{tname}-->
-
-<!--    </select>-->
-
-<!--    <select id = "getCourseInfoBySname"  resultType="com.example.evaluation.domain.Course">-->
-<!--&#45;&#45;         select course.cid, course.cname, course.tid, course.content from sc,course,user-->
-<!--&#45;&#45;         where-->
-<!--&#45;&#45;             user.sid = sc.sid and course.cid = sc.cid-->
-<!--&#45;&#45;           and  user.sname= #{sname}-->
-<!--        select * from course-->
-<!--                 where cid in (select cid from sc, student-->
-<!--                                          where course.cid = sc.cid and  student.sname = #{sname})-->
-
-<!--    </select>-->
-
-    <select id = "getAllSCList"  resultType="com.example.evaluation.domain.User">
-        select *
+<!--    List<Map<String,String>> getAllSCList(@Param("cid") String cid);-->
+    <select id = "getAllSCList"  resultType="com.example.evaluation.entity.User">
+        select sid,sname,email
         from student
         where sid in (select sid from sc
                       where  cid = #{cid})
-
     </select>
 
-
-
+<!--    List<Map<String,String>> getCourseListByTid(@Param("tid") String tid);-->
     <select id = "getCourseListByTid"  resultType="map">
         select course.cid,cname,tname,content
         from course,teacher
         where course.tid=teacher.tid
-        and tid = #{tid}
-
+        and course.tid = #{tid}
     </select>
 
+<!--    List<Map<String,String>> getCourseListBySid(@Param("sid") String sid);-->
     <select id = "getCourseListBySid"  resultType="map">
         select course.cid,cname,tname,content
         from course,sc,teacher
         where course.cid=sc.cid
         and course.tid=teacher.tid
-        and sid = #{sid}
-
+        and sc.sid = #{sid}
     </select>
 
+<!--    Map<String,String> getCourseInfoByCid(@Param("cid") String cid);-->
+    <select id="getCourseInfoByCid" resultType="map">
+        select course.cid,cname,tname,content
+        from course,teacher
+        where course.tid=teacher.tid
+        and course.cid=#{cid}
+    </select>
 </mapper>

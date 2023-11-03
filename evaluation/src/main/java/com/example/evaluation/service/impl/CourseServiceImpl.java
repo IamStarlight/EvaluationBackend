@@ -1,10 +1,9 @@
 package com.example.evaluation.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.evaluation.domain.Course;
-import com.example.evaluation.domain.User;
+import com.example.evaluation.entity.Course;
+import com.example.evaluation.entity.User;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.CourseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,32 +15,23 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements CourseService {
+public class CourseServiceImpl
+        extends ServiceImpl<CourseMapper, Course>
+        implements CourseService {
 
     @Autowired
     private CourseMapper courseMapper;
 
-//    @Override
-//    public List<Course> getCourseInfoByTname(String tname) {
-//        LambdaQueryWrapper<Course> wrapper = new LambdaQueryWrapper<>();
-//        wrapper.eq(Course::getTid,tname);
-//        List<Course> list = list(wrapper);
-//        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
-//        return list;
-//    }
-
-//    @Override
-//    public Course getCourseInfoByName(String name){
-//        LambdaUpdateWrapper<Course> wrapper = new LambdaUpdateWrapper<>();
-//        wrapper.eq(Course::getCname,name);
-//        Course one;
-//        try{
-//            one = getOne(wrapper);
-//        }catch (Exception e){
-//            log.error(e.toString());
-//            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "系统错误");
-//        }return one;
-//    }
+    @Override
+    public Map<String,String> getCourseInfoByCid(String cid) {
+        Map<String,String> one;
+        try{
+            one = courseMapper.getCourseInfoByCid(cid);
+        }catch (Exception e){
+            log.error(e.toString());
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "系统错误");
+        }return one;
+    }
 
     @Override
     public boolean saveOrUpdateCourseInfo(Course course) {
@@ -77,9 +67,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     }
 
-
-//    @Override
-//    public List<User> getSCStudent(tid, cid){
-//
-//    }
+    @Override
+    public List<User> getAllSCList(String cid) {
+        List<User> list = courseMapper.getAllSCList(cid);
+        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        return list;
+    }
 }

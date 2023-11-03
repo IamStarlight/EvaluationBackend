@@ -1,7 +1,7 @@
 package com.example.evaluation.utils;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.example.evaluation.domain.User;
+import com.example.evaluation.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

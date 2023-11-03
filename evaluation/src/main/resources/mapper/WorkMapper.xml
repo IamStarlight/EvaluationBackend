@@ -3,17 +3,19 @@
 <mapper namespace="com.example.evaluation.mapper.WorkMapper">
 
 <!--    List<Map<String,String>> getAllWorkInfoByTid(@Param("tid") String tid);-->
-    <select id="getAllWorkInfoByTid" resultType="java.util.Map">
-        SELET *
-        FROM homework,course
-        WHERE  homework.cid=course.cid
-        AND course.tid=#{tid}
-    </select>
+<!--    <select id="getAllWorkInfoByTid" resultType="java.util.Map">-->
+<!--        SELET *-->
+<!--        FROM homework,course-->
+<!--        WHERE  homework.cid=course.cid-->
+<!--        AND course.tid=#{tid}-->
+<!--    </select>-->
 
+<!--    List<Map<String,String>> getAllWorkInfoBySid(@Param("sid") String sid);-->
     <select id="getAllWorkInfoBySid" resultType="java.util.Map">
-        SELET *
-        FROM homework,sc
+        SELET wid,cname,title,startTime,endTime,editStatus,evaStatus,url
+        FROM homework,sc,course
         WHERE  homework.cid=sc.cid
+        AND homework.cid=course.cid;
         AND sc.sid=#{sid}
     </select>
 </mapper>

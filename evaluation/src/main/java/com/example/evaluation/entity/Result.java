@@ -1,4 +1,4 @@
-package com.example.evaluation.domain;
+package com.example.evaluation.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

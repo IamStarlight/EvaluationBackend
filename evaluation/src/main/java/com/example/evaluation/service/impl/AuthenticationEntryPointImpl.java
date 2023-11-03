@@ -1,7 +1,7 @@
 package com.example.evaluation.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.example.evaluation.domain.Result;
+import com.example.evaluation.entity.Result;
 import com.example.evaluation.utils.WebUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;

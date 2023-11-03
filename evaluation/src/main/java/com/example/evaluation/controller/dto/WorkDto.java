@@ -12,11 +12,13 @@ import java.util.Date;
 
 @Data
 public class WorkDto {
-//    @NotBlank(message = "作业id不能为空")
-//    private String Wid;
+    @NotBlank(message = "课程id不能为空")
+    private String cid;
 
     @NotBlank(message = "标题不能为空")
     private String title;
+
+    private String details;
 
     private Date startTime;
 

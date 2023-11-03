@@ -7,14 +7,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.evaluation.controller.dto.LoginDto;
 import com.example.evaluation.controller.dto.RegisterDto;
 import com.example.evaluation.controller.dto.UpdateDto;
-import com.example.evaluation.domain.User;
+import com.example.evaluation.entity.User;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.UserMapper;
 import com.example.evaluation.service.UserService;
 import com.example.evaluation.utils.JwtUtil;
 import com.example.evaluation.utils.LoginUser;
 import com.example.evaluation.utils.RedisCache;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,7 +28,9 @@ import java.util.HashMap;
 import java.util.Objects;
 
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+public class UserServiceImpl
+        extends ServiceImpl<UserMapper, User>
+        implements UserService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -40,9 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
+    @Override
     public User getUserInfoByName(String name){
         LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
         wrapper.eq(User::getName,name);
@@ -52,18 +51,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }catch (Exception e){
             log.error(e.toString());
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "系统错误");
-        }return one;
-    }
-
-    public User getUserInfoByID(String uid){
-        LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
-        wrapper.eq(User::getId,uid);
-        User one;
-        try{
-            one = getOne(wrapper);
-        }catch (Exception e){
-            log.error(e.toString());
-            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(),"系统错误");
         }return one;
     }
 
@@ -125,7 +112,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional
     public boolean deleteUserById(String uid) {
-        User one = getUserInfoByID(uid);
+        User one = getById(uid);
         if(one == null) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
 
         if(one.getName().equals("admin"))
@@ -142,7 +129,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Transactional
     public boolean updateUserInfo(UpdateDto ud) {
         String id = ud.getId();
-        User one = getUserInfoByID(id);
+        User one = getById(id);
         if(one == null)throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
 
         if(one.getName().equals("admin"))
@@ -195,7 +182,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public boolean updateUserPwd(String id,String oldpwd, String newpwd) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        User user = getUserInfoByID(id);
+        User user = getById(id);
         if(!passwordEncoder.matches(oldpwd,user.getPassword()))
             throw new ServiceException(HttpStatus.FORBIDDEN.value(),"原密码输入错误");
         if(newpwd.equals(oldpwd))

@@ -1,11 +1,10 @@
 package com.example.evaluation.controller;
 
 import com.example.evaluation.annotation.CurrentUser;
-import com.example.evaluation.domain.Course;
-import com.example.evaluation.domain.Result;
-import com.example.evaluation.domain.User;
+import com.example.evaluation.entity.Course;
+import com.example.evaluation.entity.Result;
+import com.example.evaluation.entity.User;
 import com.example.evaluation.mapper.CourseMapper;
-import org.apache.ibatis.type.NStringTypeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +27,16 @@ public class CourseController {
     private CourseMapper courseMapper;
 
     //管理员查看所有课程
+    @GetMapping("/all")
+    @PreAuthorize("hasAuthority('1')")
+    public ResponseEntity<Result> getAllCourseInfo(){
+        return new ResponseEntity<>(Result.success(courseService.list()), HttpStatus.OK);
+    }
+
     @GetMapping("/info")
     @PreAuthorize("hasAuthority('1')")
-    public ResponseEntity<Result> getCourseInfo(){
-        return new ResponseEntity<>(Result.success(courseService.list()), HttpStatus.OK);
+    public ResponseEntity<Result> getCourseInfo(@RequestParam @Valid String cid){
+        return new ResponseEntity<>(Result.success(courseService.getById(cid)), HttpStatus.OK);
     }
 
     //更新课程信息
@@ -78,10 +83,10 @@ public class CourseController {
         return new ResponseEntity<>(Result.success(courseService.getCourseListBySid(user.getId())), HttpStatus.OK);
     }
 
-    //管理员查询某课程的选课名单
+    //查询某课程的选课名单
     @GetMapping("/sc")
-    @PreAuthorize("hasAuthority('1')")
+    @PreAuthorize("hasAnyAuthority('1','2')")
     public ResponseEntity<Result> getAllSCList(@RequestBody @Valid String cid){
-        return new ResponseEntity<>(Result.success(courseMapper.getAllSCList(cid)), HttpStatus.OK);
+        return new ResponseEntity<>(Result.success(courseService.getAllSCList(cid)), HttpStatus.OK);
     }
 }

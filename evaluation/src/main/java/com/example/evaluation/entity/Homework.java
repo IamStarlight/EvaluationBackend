@@ -1,4 +1,4 @@
-package com.example.evaluation.domain;
+package com.example.evaluation.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
@@ -32,6 +31,10 @@ public class Homework implements Serializable {
     @TableField
     @NotBlank(message = "用户名不能为空")
     private String title;
+
+    @TableField
+    @NotBlank(message = "内容不能为空")
+    private String details;
 
     @TableField
     @FutureOrPresent

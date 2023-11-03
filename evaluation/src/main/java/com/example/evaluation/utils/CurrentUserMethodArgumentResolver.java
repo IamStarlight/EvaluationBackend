@@ -1,7 +1,7 @@
 package com.example.evaluation.utils;
 
 import com.example.evaluation.annotation.CurrentUser;
-import com.example.evaluation.domain.User;
+import com.example.evaluation.entity.User;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;

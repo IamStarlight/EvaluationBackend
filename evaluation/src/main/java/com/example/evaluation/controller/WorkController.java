@@ -1,15 +1,9 @@
 package com.example.evaluation.controller;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.SecureUtil;
 import com.example.evaluation.controller.dto.SubmitDto;
 import com.example.evaluation.controller.dto.TeacherEvaDto;
 import com.example.evaluation.controller.dto.WorkDto;
-import com.example.evaluation.domain.Homework;
-import com.example.evaluation.domain.MyFile;
-import com.example.evaluation.domain.Result;
-import com.example.evaluation.service.impl.FileServiceImpl;
+import com.example.evaluation.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,24 +12,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.example.evaluation.service.impl.SubmitServiceImpl;
 import com.example.evaluation.service.impl.WorkServiceImpl;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
 
 @RestController
 @Validated
 @RequestMapping("/work")
 public class WorkController {
-
-    //文件磁盘路径
-//    @Value("${files.upload.path}")
-    private String fileUploadPath;
-
-    @Autowired
-    private FileServiceImpl fileService;
 
     @Autowired
     private WorkServiceImpl workService;
@@ -58,7 +41,7 @@ public class WorkController {
 //    }
 
     //根据sid查询作业
-    @GetMapping("/all/choose")
+    @GetMapping("/all/student")
     @PreAuthorize("hasAnyAuthority('3')")
     public ResponseEntity<Result> getAllWorkInfoBySid(@RequestParam @Valid String sid){
         return new ResponseEntity<>(Result.success(workService.getAllWorkInfoBySid(sid)), HttpStatus.OK);
@@ -75,7 +58,7 @@ public class WorkController {
     @GetMapping("/info")
     @PreAuthorize("hasAnyAuthority('1','2','3')")
     public ResponseEntity<Result> getWorkInfoByWid(@RequestParam @Valid String wid){
-        return new ResponseEntity<>(Result.success(workService.getWorkInfoByWid(wid)), HttpStatus.OK);
+        return new ResponseEntity<>(Result.success(workService.getById(wid)), HttpStatus.OK);
     }
 
     //管理员、教师更改编辑状态 ok
@@ -117,28 +100,6 @@ public class WorkController {
     public ResponseEntity<Result> submitWork(@RequestBody @Valid SubmitDto submitDto){
         return new ResponseEntity<>(Result.success(submitService.submitWork(submitDto)), HttpStatus.OK);
     }
-
-    //提交附件
-    // TODO: 2023-10-31 uploadAttachments
-//    @PostMapping("/upload")
-//    @PreAuthorize("hasAnyAuthority('3')")
-//    public ResponseEntity<Result> uploadAttachments(MultipartFile file){
-//        return new ResponseEntity<>(Result.success(submitService.uploadAttachments(file)), HttpStatus.OK);
-//    }
-
-    /**
-     * 由于我们上传上去的图片有重复的，所以我们需要去重，只让他们共享一个图像
-     * 去重的思路为：将文件的二进制流转换为MD5编码，每当我们上传一个文件
-     * 就将其二进制流MD5与数据库当中已保存的文件的二进制流MD5进行比较，
-     * 相同就舍弃，不相同就将文件的信息保存至数据库，文件内容上传至文件夹。
-     */
-//    @PostMapping("/upload")
-//    @PreAuthorize("hasAnyAuthority('1','2','3')")
-//    public ResponseEntity<Result> upload(@RequestParam MultipartFile file){
-//        return new ResponseEntity<>(Result.success(submitService.upload(file)), HttpStatus.OK);
-//    }
-
-    // TODO: 2023-10-31 downloadAttachments 
 
     //老师批改作业
     @PostMapping("/teacher/evaluation")

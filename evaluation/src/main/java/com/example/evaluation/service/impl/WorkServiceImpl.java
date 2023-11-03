@@ -3,9 +3,9 @@ package com.example.evaluation.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.evaluation.controller.dto.TeacherEvaDto;
 import com.example.evaluation.controller.dto.WorkDto;
-import com.example.evaluation.domain.Homework;
+import com.example.evaluation.entity.Homework;
+import com.example.evaluation.entity.User;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.WorkMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.example.evaluation.service.WorkService;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -27,24 +26,15 @@ public class WorkServiceImpl
     @Autowired
     private WorkMapper workMapper;
 
-    @Autowired CourseServiceImpl courseService;
+    @Autowired
+    private CourseServiceImpl courseService;
 
-    @Override
-    public Homework getWorkInfoByWid(String wid) {
-        LambdaUpdateWrapper<Homework> wrapper = new LambdaUpdateWrapper<>();
-        wrapper.eq(Homework::getWid,wid);
-        Homework one;
-        try{
-            one = getOne(wrapper);
-        }catch (Exception e){
-            log.error(e.toString());
-            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(),"系统错误");
-        }return one;
-    }
+    @Autowired
+    private EmailServiceImpl emailService;
 
     @Override
     public boolean updateEditStatus(String wid, String status) {
-        Homework one = getWorkInfoByWid(wid);
+        Homework one = getById(wid);
         if(one == null) throw new ServiceException(HttpStatus.BAD_REQUEST.value(),"该作业不存在");
 
         LambdaUpdateWrapper<Homework> wrapper = new LambdaUpdateWrapper<>();
@@ -58,7 +48,7 @@ public class WorkServiceImpl
 
     @Override
     public boolean updateEvaluateStatus(String wid, String status) {
-        Homework one = getWorkInfoByWid(wid);
+        Homework one = getById(wid);
         if(one == null) throw new ServiceException(HttpStatus.BAD_REQUEST.value(),"该作业不存在");
 
         LambdaUpdateWrapper<Homework> wrapper = new LambdaUpdateWrapper<>();
@@ -72,7 +62,7 @@ public class WorkServiceImpl
 
     @Override
     public boolean checkOvertime(String wid, String cid, Date submitTime) {
-        Homework one = getWorkInfoByWid(wid);
+        Homework one = getById(wid);
         if(one == null)
             throw new ServiceException(HttpStatus.BAD_REQUEST.value(),"该作业不存在");
         return submitTime.compareTo(one.getEndTime()) > 0;
@@ -81,7 +71,7 @@ public class WorkServiceImpl
     @Override
     @Transactional
     public boolean updateWorkInfo(String wid, WorkDto wd) {
-        Homework one = getWorkInfoByWid(wid);
+        Homework one = getById(wid);
         if(one == null) throw new ServiceException(HttpStatus.BAD_REQUEST.value(),"该作业不存在");
 
         LambdaUpdateWrapper<Homework> wrapper = new LambdaUpdateWrapper<>();
@@ -99,21 +89,30 @@ public class WorkServiceImpl
     @Override
     public boolean setNewWork(WorkDto wd) {
         Homework one = new Homework();
+        one.setCid(wd.getCid());
         one.setTitle(wd.getTitle());
+        one.setDetails(wd.getDetails());
         one.setStartTime(wd.getStartTime());
         one.setEndTime(wd.getEndTime());
         one.setEditStatus(wd.getEditStatus());
         one.setEvaStatus(wd.getEvaStatus());
         one.setUrl(wd.getUrl());
-        return save(one);
+
+        if(save(one)){
+            String cname = courseService.getById(wd.getCid()).getCname();
+            List<User> list = courseService.getAllSCList(wd.getCid());
+
+            emailService.sendNewWorkNotice(cname,wd.getTitle(),list);
+            return true;
+        }return false;
     }
 
-    @Override
-    public List<Map<String, String>> getAllWorkInfoByTid(String tid) {
-        List<Map<String,String>> list = workMapper.getAllWorkInfoByTid(tid);
-        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
-        return list;
-    }
+//    @Override
+//    public List<Map<String, String>> getAllWorkInfoByTid(String tid) {
+//        List<Map<String,String>> list = workMapper.getAllWorkInfoByTid(tid);
+//        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+//        return list;
+//    }
 
     @Override
     public List<Map<String, String>> getAllWorkInfoBySid(String sid) {
@@ -131,11 +130,7 @@ public class WorkServiceImpl
         return list;
     }
 
-    @Override
-    public String upload(MultipartFile file) {
 
-        return "1";
-    }
 
 
 }

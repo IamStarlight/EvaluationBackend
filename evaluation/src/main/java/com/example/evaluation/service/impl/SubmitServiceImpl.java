@@ -4,8 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.evaluation.controller.dto.SubmitDto;
 import com.example.evaluation.controller.dto.TeacherEvaDto;
-import com.example.evaluation.domain.Homework;
-import com.example.evaluation.domain.StuWork;
+import com.example.evaluation.entity.StuWork;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.SubmitMapper;
 import com.example.evaluation.service.SubmitService;
@@ -51,4 +50,5 @@ public class SubmitServiceImpl
         if(flag) return true;
         else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
     }
+
 }

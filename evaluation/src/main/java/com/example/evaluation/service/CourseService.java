@@ -1,8 +1,7 @@
 package com.example.evaluation.service;
 
-import com.example.evaluation.domain.Course;
-import com.example.evaluation.domain.User;
-import org.springframework.stereotype.Service;
+import com.example.evaluation.entity.Course;
+import com.example.evaluation.entity.User;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,7 @@ public interface CourseService {
 
 //    List<Course> getCourseInfoByTname(String tname);
 
-//    List<Course> getCourseInfoBySid(String sid);
+    Map<String,String> getCourseInfoByCid(String cid);
 
     boolean saveOrUpdateCourseInfo(Course course);
 
@@ -20,4 +19,6 @@ public interface CourseService {
     List<Map<String,String>> getCourseListByTid(String tid);
 
     List<Map<String,String>> getCourseListBySid(String sid);
+
+    List<User> getAllSCList(String cid);
 }

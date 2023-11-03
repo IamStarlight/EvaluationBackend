@@ -2,7 +2,7 @@ package com.example.evaluation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.evaluation.domain.User;
+import com.example.evaluation.entity.User;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.UserMapper;
 import com.example.evaluation.utils.LoginUser;
