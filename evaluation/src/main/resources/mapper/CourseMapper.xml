@@ -45,7 +45,8 @@
 <!--    </select>-->
 
     <select id = "getAllSCList"  resultType="com.example.evaluation.domain.User">
-        select * from student
+        select *
+        from student
         where sid in (select sid from sc
                       where  cid = #{cid})
 
@@ -53,15 +54,20 @@
 
 
 
-    <select id = "getCourseListByTid"  resultType="com.example.evaluation.domain.Course">
-        select * from course
-        where tid = #{tid}
+    <select id = "getCourseListByTid"  resultType="map">
+        select course.cid,cname,tname,content
+        from course,teacher
+        where course.tid=teacher.tid
+        and tid = #{tid}
 
     </select>
 
-    <select id = "getCourseListBySid"  resultType="com.example.evaluation.domain.Course">
-        select * from course
-        where cid in (select cid from sc where sid = #{sid})
+    <select id = "getCourseListBySid"  resultType="map">
+        select course.cid,cname,tname,content
+        from course,sc,teacher
+        where course.cid=sc.cid
+        and course.tid=teacher.tid
+        and sid = #{sid}
 
     </select>
 

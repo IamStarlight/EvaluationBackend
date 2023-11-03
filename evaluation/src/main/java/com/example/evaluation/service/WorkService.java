@@ -4,6 +4,7 @@ import com.example.evaluation.controller.dto.TeacherEvaDto;
 import com.example.evaluation.controller.dto.WorkDto;
 import com.example.evaluation.domain.Homework;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -29,4 +30,6 @@ public interface WorkService {
     List<Map<String,String>> getAllWorkInfoBySid(String sid);
 
     List<Homework> getAllWorkInfoByCid(String cid);
+
+    String upload(MultipartFile file);
 }

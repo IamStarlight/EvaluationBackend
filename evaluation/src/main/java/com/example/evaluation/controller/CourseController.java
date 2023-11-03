@@ -31,7 +31,7 @@ public class CourseController {
     @GetMapping("/info")
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> getCourseInfo(){
-        return new ResponseEntity<>(Result.success(courseService.getAllCourseInfo()), HttpStatus.OK);
+        return new ResponseEntity<>(Result.success(courseService.list()), HttpStatus.OK);
     }
 
     //更新课程信息
@@ -53,42 +53,29 @@ public class CourseController {
     @GetMapping("/teacher/admin")
     @PreAuthorize("hasAnyAuthority('1')")
     public ResponseEntity<Result> getCourseListByTidAdmin(@RequestBody @Valid String message){
-        return new ResponseEntity<>(Result.success(courseService .getCourseListByTid(message)), HttpStatus.OK);
+        return new ResponseEntity<>(Result.success(courseService.getCourseListByTid(message)), HttpStatus.OK);
+    }
+
+    //管理员查询学生所选课程
+    // TODO: 2023/11/2 id or name
+    @GetMapping("/student/admin")
+    @PreAuthorize("hasAuthority('1')")
+    public ResponseEntity<Result> getCourseListBySid(@RequestParam @Valid String sid){
+        return new ResponseEntity<>(Result.success(courseService.getCourseListBySid(sid)), HttpStatus.OK);
     }
 
     //教师根据tid查询所授课程
     @GetMapping("/teacher")
     @PreAuthorize("hasAnyAuthority('2')")
     public ResponseEntity<Result> getCourseListByTidTeacher(@CurrentUser User user){
-        return new ResponseEntity<>(Result.success(courseService .getCourseListByTid(user.getId())), HttpStatus.OK);
+        return new ResponseEntity<>(Result.success(courseService.getCourseListByTid(user.getId())), HttpStatus.OK);
     }
-
-    //tname查询所授课程
-//    @GetMapping("/teacher")
-//    @PreAuthorize("hasAuthority('1')")
-//    public ResponseEntity<Result> getCourseInfoByTname(@RequestBody @Valid String tname){
-//        return new ResponseEntity<>(Result.success(courseMapper.getCourseInfoByTname(tname)), HttpStatus.OK);
-//    }
-
-    //管理员查询学生所选课程
-    // TODO: 2023/11/2 id or name
-    @GetMapping("/student/admin")
-    @PreAuthorize("hasAuthority('1')")
-    public ResponseEntity<Result> getCourseListBySid(@RequestBody @Valid String sid){
-        return new ResponseEntity<>(Result.success(courseService .getCourseListBySid(sid)), HttpStatus.OK);
-    }
-
-//    @GetMapping("/student/admin")
-//    @PreAuthorize("hasAuthority('1')")
-//    public ResponseEntity<Result> getCourseInfoBySname(@RequestBody @Valid String sname){
-//        return new ResponseEntity<>(Result.success(courseMapper.getCourseInfoBySname(sname)), HttpStatus.OK);
-//    }
 
     //学生根据sid查询所选课程
     @GetMapping("/student")
     @PreAuthorize("hasAuthority('3')")
     public ResponseEntity<Result> getCourseListBySid(@CurrentUser User user){
-        return new ResponseEntity<>(Result.success(courseService .getCourseListBySid(user.getId())), HttpStatus.OK);
+        return new ResponseEntity<>(Result.success(courseService.getCourseListBySid(user.getId())), HttpStatus.OK);
     }
 
     //管理员查询某课程的选课名单

@@ -14,15 +14,15 @@ class EvaluationApplicationTests {
     @Test
     public void testBCrypt(){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        String encode1 = passwordEncoder.encode("ly");
+        String encode1 = passwordEncoder.encode("admin");
+
+        System.out.println(encode1);
+
+//        System.out.println(passwordEncoder.matches("cjx",
+//                        "$2a$10$sH3aAZuW88DHCIPle7ebhuDDPxYZJBira9.3YxnACbLUIQFwmbjMm"));
 //
-//        System.out.println(encode1);
-
-        System.out.println(passwordEncoder.matches("cjx",
-                        "$2a$10$sH3aAZuW88DHCIPle7ebhuDDPxYZJBira9.3YxnACbLUIQFwmbjMm"));
-
-        System.out.println(passwordEncoder.matches("ly",
-                "$2a$10$sH3aAZuW88DHCIPle7ebhuDDPxYZJBira9.3YxnACbLUIQFwmbjMm"));
+//        System.out.println(passwordEncoder.matches("ly",
+//                "$2a$10$sH3aAZuW88DHCIPle7ebhuDDPxYZJBira9.3YxnACbLUIQFwmbjMm"));
     }
     /*
     admin

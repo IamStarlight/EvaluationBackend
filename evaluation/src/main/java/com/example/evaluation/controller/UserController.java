@@ -87,18 +87,15 @@ public class UserController {
     @PreAuthorize("hasAuthority('1')")
     public ResponseEntity<Result> updateUserPwd(@RequestParam String id,
                                                 @RequestParam
-                                                @Valid @NotBlank(message = "原密码不能为空")
-                                                String oldpwd,
-                                                @RequestParam
                                                 @Valid @NotBlank(message = "新密码不能为空")
                                                 String newpwd){
-        return new ResponseEntity<>(Result.success(userService.updateUserPwd(id,oldpwd,newpwd)), HttpStatus.OK);
+        return new ResponseEntity<>(Result.success(userService.updateUserPwd(id,newpwd)), HttpStatus.OK);
     }
 
     //用户修改自己的密码 ok
     @PostMapping("/change/password")
     @PreAuthorize("hasAnyAuthority('1','2','3')")
-    public ResponseEntity<Result> changeMyPwd(@CurrentUser User user,
+    public ResponseEntity<Result> updateMyPwd(@CurrentUser User user,
                                                 @RequestParam
                                                 @Valid @NotBlank(message = "原密码不能为空")
                                                 String oldpwd,

@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.example.evaluation.service.WorkService;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -130,6 +131,11 @@ public class WorkServiceImpl
         return list;
     }
 
+    @Override
+    public String upload(MultipartFile file) {
+
+        return "1";
+    }
 
 
 }

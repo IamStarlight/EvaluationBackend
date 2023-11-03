@@ -84,7 +84,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Transactional
     public HashMap<String,String> login(LoginDto loginDto) {
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getId(),loginDto.getPassword());
+                new UsernamePasswordAuthenticationToken(loginDto.getUsername(),loginDto.getPassword());
 
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
 
@@ -109,17 +109,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional
     public User register(RegisterDto rdto) {
-        User one = getUserInfoByName(rdto.getUname());
+        User one = getUserInfoByName(rdto.getName());
         if(one != null)
             throw new ServiceException(HttpStatus.FORBIDDEN.value(), "用户名已存在");
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User user = new User();
-        user.setName(rdto.getUname());
+        user.setName(rdto.getName());
         user.setPassword(passwordEncoder.encode(rdto.getPassword()));
+        user.setEmail(rdto.getEmail());
         save(user);
 
-        return getUserInfoByName(rdto.getUname());
+        return getUserInfoByName(rdto.getName());
     }
     @Override
     @Transactional
@@ -169,6 +170,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
         wrapper.eq(User::getId,id).set(User::getName,newname);
+        int flag = userMapper.update(null,wrapper);
+        if(flag >= 1) return true;
+        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
+    }
+
+    @Override
+    @Transactional
+    public boolean updateUserPwd(String id, String newpwd) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        String token = passwordEncoder.encode(newpwd);
+
+        LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(User::getId,id).set(User::getPassword,token);
+
         int flag = userMapper.update(null,wrapper);
         if(flag >= 1) return true;
         else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");

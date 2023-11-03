@@ -23,6 +23,7 @@ public interface UserService {
 
     boolean updateUserName(String id,String name);
 
+    boolean updateUserPwd(String id,String newpwd);
     boolean updateUserPwd(String id,String oldpwd, String newpwd);
 
     boolean updateUserPer(String id,String per);

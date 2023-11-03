@@ -13,17 +13,13 @@ import org.springframework.stereotype.Service;
 import com.example.evaluation.service.CourseService;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements CourseService {
 
     @Autowired
     private CourseMapper courseMapper;
-
-    @Override
-    public List<Course> getAllCourseInfo() {
-        return list();
-    }
 
 //    @Override
 //    public List<Course> getCourseInfoByTname(String tname) {
@@ -67,19 +63,17 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public List<Course> getCourseListByTid(String tid) {
-        LambdaQueryWrapper<Course> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Course::getTid,tid);
-        List<Course> list = list(wrapper);
+    public List<Map<String,String>> getCourseListByTid(String tid) {
+        List<Map<String,String>> list = courseMapper.getCourseListByTid(tid);
         if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         return list;
     }
 
     @Override
-    public List<Course> getCourseListBySid(String sid) {
-        List<Course> courses = courseMapper.getCourseListBySid(sid);
-        if(courses.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
-        return courses;
+    public List<Map<String,String>> getCourseListBySid(String sid) {
+        List<Map<String,String>> list = courseMapper.getCourseListBySid(sid);
+        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        return list;
 
     }
 

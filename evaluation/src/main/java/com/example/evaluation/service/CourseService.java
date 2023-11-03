@@ -5,10 +5,9 @@ import com.example.evaluation.domain.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CourseService {
-
-    List<Course> getAllCourseInfo();
 
 //    List<Course> getCourseInfoByTname(String tname);
 
@@ -18,7 +17,7 @@ public interface CourseService {
 
     boolean deleteCourse(String cid);
 
-    List<Course> getCourseListByTid(String tid);
+    List<Map<String,String>> getCourseListByTid(String tid);
 
-    List<Course> getCourseListBySid(String sid);
+    List<Map<String,String>> getCourseListBySid(String sid);
 }
