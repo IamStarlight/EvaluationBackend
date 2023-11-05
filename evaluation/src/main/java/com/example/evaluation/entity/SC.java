@@ -18,11 +18,11 @@ public class SC implements Serializable {
 
     @TableId(value = "cid")
     @NotBlank(message = "课程id不能为空")
-    private String Cid;
+    private Integer Cid;
 
     @TableField(value = "sid")
     @NotBlank(message = "学生id不能为空")
-    private String Sid;
+    private Integer Sid;
 
     @TableField(value = "grade")
     @NotBlank(message = "成绩不能为空")

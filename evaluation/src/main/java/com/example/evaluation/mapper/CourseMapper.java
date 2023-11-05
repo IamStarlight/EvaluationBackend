@@ -16,11 +16,11 @@ import java.util.Map;
 @Component
 public interface CourseMapper extends BaseMapper<Course> {
 
-    Map<String,String> getCourseInfoByCid(@Param("cid") String cid);
+    Map<String,String> getCourseInfoByCid(@Param("cid") Integer cid);
 
-    List<User> getAllSCList(@Param("cid") String cid);
+    List<User> getAllSCList(@Param("cid") Integer cid);
 
-    List<Map<String,String>> getCourseListByTid(@Param("tid") String tid);
+    List<Map<String,String>> getCourseListByTid(@Param("tid") Integer tid);
 
-    List<Map<String,String>> getCourseListBySid(@Param("sid") String sid);
+    List<Map<String,String>> getCourseListBySid(@Param("sid") Integer sid);
 }

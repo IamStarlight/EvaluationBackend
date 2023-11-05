@@ -8,17 +8,15 @@ import java.util.Map;
 
 public interface CourseService {
 
-//    List<Course> getCourseInfoByTname(String tname);
-
-    Map<String,String> getCourseInfoByCid(String cid);
+    Map<String,String> getCourseInfoByCid(Integer cid);
 
     boolean saveOrUpdateCourseInfo(Course course);
 
-    boolean deleteCourse(String cid);
+    boolean deleteCourse(Integer cid);
 
-    List<Map<String,String>> getCourseListByTid(String tid);
+    List<Map<String,String>> getCourseListByTid(Integer tid);
 
-    List<Map<String,String>> getCourseListBySid(String sid);
+    List<Map<String,String>> getCourseListBySid(Integer sid);
 
-    List<User> getAllSCList(String cid);
+    List<User> getAllSCList(Integer cid);
 }

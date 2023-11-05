@@ -1,0 +1,161 @@
+create table student
+(
+    id         int auto_increment
+        primary key,
+    name       varchar(20)                                                                null,
+    password   varchar(255)                                                               null,
+    permission enum ('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT') default 'ROLE_STUDENT' null,
+    email      varchar(50)                                                                null
+);
+
+alter table student
+    auto_increment = 21301000;
+
+create table teacher
+(
+    id         int auto_increment
+        primary key,
+    name       varchar(20)                                                                null,
+    password   varchar(255)                                                               null,
+    permission enum ('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT') default 'ROLE_TEACHER' null,
+    email      varchar(50)                                                                null
+);
+
+alter table teacher
+    auto_increment = 1000;
+
+create table admin
+(
+    id         int auto_increment
+        primary key,
+    name       varchar(20)                                                              not null,
+    password   varchar(255)                                                             not null,
+    permission enum ('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT') default 'ROLE_ADMIN' null,
+    email      varchar(50)                                                              null
+);
+
+create table user
+(
+    id         int                                                 not null
+        primary key,
+    name       varchar(50)                                         null,
+    password   varchar(255)                                        null,
+    permission enum ('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT') null,
+    email      varchar(50)                                         null
+);
+
+create trigger insert_stu
+    after insert on student for each row
+begin
+    insert into user ( id,name,password,permission,email)
+    values( new.id, new.name,new.password,new.permission,new.email);
+end;
+
+create trigger insert_tch
+    after insert on teacher for each row
+begin
+    insert into user ( id,name,password,permission,email)
+    values( new.id, new.name,new.password,new.permission,new.email);
+end;
+
+create trigger insert_admin
+    after insert on admin for each row
+begin
+    insert into user ( id,name,password,permission,email)
+    values( new.id, new.name,new.password,new.permission,new.email);
+end;
+
+create trigger update_stu
+    after update on student for each row
+begin
+    update user
+    set name=new.name,password=new.password,permission=new.permission,email=new.email
+    where id=old.id;
+end;
+
+create trigger update_tch
+    after update on teacher for each row
+begin
+    update user
+    set name=new.name,password=new.password,permission=new.permission,email=new.email
+    where id=old.id;
+end;
+
+create trigger update_admin
+    after update on admin for each row
+begin
+    update user
+    set name=new.name,password=new.password,permission=new.permission,email=new.email
+    where id=old.id;
+end;
+
+create trigger delete_stu
+    after delete on student for each row
+begin
+    delete from user where id=old.id;
+end;
+
+create trigger delete_tch
+    after delete on teacher for each row
+begin
+    delete from user where id=old.id;
+end;
+
+create trigger delete_admin
+    after delete on admin for each row
+begin
+    delete from user where id=old.id;
+end;
+
+create table course
+(
+    cid     int auto_increment
+        primary key,
+    cname   varchar(50)  null,
+    tid     int          null,
+    content varchar(255) null
+);
+
+create table homework
+(
+    wid        int auto_increment
+        primary key,
+    cid        int                                  null,
+    title      varchar(50)                          null,
+    startTime  timestamp  default CURRENT_TIMESTAMP null,
+    endTime    datetime                             null,
+    editStatus varchar(2) default '0'               null,
+    evaStatus  varchar(2) default '0'               null,
+    url        varchar(255)                         null
+);
+
+create table my_file
+(
+    fid       int                  not null,
+    fname     varchar(255)         null,
+    type      varchar(255)         null,
+    size      bigint               null,
+    url       varchar(255)         null comment '下载链接',
+    md5       varchar(255)         null comment '文件md5',
+    is_delete tinyint(1) default 0 null,
+    enable    tinyint(1) default 1 null comment '是否禁用链接'
+);
+
+create table sc
+(
+    cid   int null,
+    sid   int null,
+    grade int null
+);
+
+create table stu_homework
+(
+    sid              int          not null,
+    wid              int          not null,
+    url              varchar(255) null,
+    submit_time      datetime     null,
+    is_late          int          null,
+    total_grade      int          null,
+    teacher_grade    int          null,
+    teacher_comments varchar(255) null
+);

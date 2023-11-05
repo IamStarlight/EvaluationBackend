@@ -23,7 +23,7 @@ public class FileController {
     //提交附件
     // TODO: 2023-10-31 uploadAttachments
     @PostMapping("/upload")
-    @PreAuthorize("hasAnyAuthority('3')")
+    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> uploadAttachments(MultipartFile file){
         return new ResponseEntity<>(Result.success(fileService.uploadAttachments(file)), HttpStatus.OK);
     }

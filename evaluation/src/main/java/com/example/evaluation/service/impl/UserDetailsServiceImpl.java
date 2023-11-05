@@ -6,6 +6,8 @@ import com.example.evaluation.entity.User;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.UserMapper;
 import com.example.evaluation.utils.LoginUser;
+import org.mybatis.logging.Logger;
+import org.mybatis.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +24,8 @@ public class UserDetailsServiceImpl extends ServiceImpl<UserMapper, User> implem
     @Autowired
     private UserServiceImpl userService;
 
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String id) {
@@ -37,7 +41,9 @@ public class UserDetailsServiceImpl extends ServiceImpl<UserMapper, User> implem
         //TODO 根据用户查询权限信息 添加到LoginUser中
         List<String> permissionKeyList =
                 Collections.singletonList(
-                        userService.getPermsByID(user.getId()).toString());
+                        String.valueOf(userService.getPermsById(user.getId())));
+        System.out.println("!!!!!!authorities in UserDetail: "+userService.getPermsById(user.getId()));
+
 
         //封装成UserDetails对象返回
         return new LoginUser(user,permissionKeyList);

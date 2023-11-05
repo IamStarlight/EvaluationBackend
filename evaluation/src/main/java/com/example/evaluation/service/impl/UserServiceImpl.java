@@ -8,6 +8,7 @@ import com.example.evaluation.controller.dto.LoginDto;
 import com.example.evaluation.controller.dto.RegisterDto;
 import com.example.evaluation.controller.dto.UpdateDto;
 import com.example.evaluation.entity.User;
+import com.example.evaluation.enums.PerEnum;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.UserMapper;
 import com.example.evaluation.service.UserService;
@@ -24,6 +25,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.NotBlank;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -55,16 +57,8 @@ public class UserServiceImpl
     }
 
     @Override
-    public String getPermsByID(String id) {
-        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(User::getId,id);
-        User one;
-        try{
-            one = getOne(wrapper);
-        }catch (Exception e){
-            log.error(e.toString());
-            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(),"系统错误");
-        }return one.getPermission();
+    public String getPermsById(Integer id) {
+        return userMapper.getPermsById(id);
     }
 
     @Override
@@ -213,7 +207,7 @@ public class UserServiceImpl
     public String logout() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        String userid = loginUser.getUser().getId();
+        String userid = String.valueOf(loginUser.getUser().getId());
         redisCache.deleteObject("login:" + userid);
         return "退出成功";
     }

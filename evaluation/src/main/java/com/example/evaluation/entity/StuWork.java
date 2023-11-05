@@ -16,10 +16,10 @@ import java.util.Date;
 @TableName("stu_homework")
 public class StuWork implements Serializable {
     @TableField(value = "sid")
-    private String Sid;
+    private Integer Sid;
 
     @TableField(value = "wid")
-    private String Wid;
+    private Integer Wid;
 
     @TableField(value = "url")
     @NotBlank(message = "url不能为空")

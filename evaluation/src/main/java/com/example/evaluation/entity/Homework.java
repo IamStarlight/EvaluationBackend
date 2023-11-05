@@ -22,11 +22,11 @@ import java.util.Date;
 public class Homework implements Serializable {
 
     @TableId(value = "wid",type=IdType.AUTO)
-    private String wid;
+    private Integer wid;
 
     @TableField
     @NotBlank(message = "课程id不能为空")
-    private String cid;
+    private Integer cid;
 
     @TableField
     @NotBlank(message = "用户名不能为空")

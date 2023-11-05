@@ -2,6 +2,7 @@ package com.example.evaluation.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.example.evaluation.entity.Result;
+import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.utils.WebUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
@@ -17,7 +18,9 @@ import java.io.IOException;
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        // TODO: 2023-11-06 http响应码错误 401
         String json = JSON.toJSONString(Result.error(HttpStatus.UNAUTHORIZED.value(),"认证失败请重新登录"));
         WebUtils.renderString(response,json);
+//        throw new ServiceException(HttpStatus.UNAUTHORIZED.value(),"认证失败请重新登录");
     }
 }

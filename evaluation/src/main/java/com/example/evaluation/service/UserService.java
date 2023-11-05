@@ -4,8 +4,10 @@ import com.example.evaluation.controller.dto.LoginDto;
 import com.example.evaluation.controller.dto.RegisterDto;
 import com.example.evaluation.controller.dto.UpdateDto;
 import com.example.evaluation.entity.User;
+import com.example.evaluation.enums.PerEnum;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotBlank;
 import java.util.HashMap;
 
 @Service
@@ -17,7 +19,7 @@ public interface UserService {
 
     User register(RegisterDto registerDto);
 
-    String getPermsByID(String id);
+    String getPermsById(Integer id);
 
     boolean deleteUserById(String uid);
 

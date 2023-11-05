@@ -15,7 +15,7 @@ public class UpdateDto {
     private String name;
 
     @NotBlank(message = "权限不能为空")
-    private String permission;
+    private Integer permission;
 
     @Email(message = "邮箱格式不正确")
     @NotBlank(message = "邮箱不能为空")

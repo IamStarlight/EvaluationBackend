@@ -23,7 +23,7 @@ public class CourseServiceImpl
     private CourseMapper courseMapper;
 
     @Override
-    public Map<String,String> getCourseInfoByCid(String cid) {
+    public Map<String,String> getCourseInfoByCid(Integer cid) {
         Map<String,String> one;
         try{
             one = courseMapper.getCourseInfoByCid(cid);
@@ -47,20 +47,20 @@ public class CourseServiceImpl
     }
 
     @Override
-    public boolean deleteCourse(String cid){
+    public boolean deleteCourse(Integer cid){
         if(removeById(cid)) return true;
         else throw new ServiceException(HttpStatus.NOT_FOUND.value(),"课程不存在");
     }
 
     @Override
-    public List<Map<String,String>> getCourseListByTid(String tid) {
+    public List<Map<String,String>> getCourseListByTid(Integer tid) {
         List<Map<String,String>> list = courseMapper.getCourseListByTid(tid);
         if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         return list;
     }
 
     @Override
-    public List<Map<String,String>> getCourseListBySid(String sid) {
+    public List<Map<String,String>> getCourseListBySid(Integer sid) {
         List<Map<String,String>> list = courseMapper.getCourseListBySid(sid);
         if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         return list;
@@ -68,7 +68,7 @@ public class CourseServiceImpl
     }
 
     @Override
-    public List<User> getAllSCList(String cid) {
+    public List<User> getAllSCList(Integer cid) {
         List<User> list = courseMapper.getAllSCList(cid);
         if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         return list;

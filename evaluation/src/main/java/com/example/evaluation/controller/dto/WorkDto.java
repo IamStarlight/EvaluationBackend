@@ -13,7 +13,7 @@ import java.util.Date;
 @Data
 public class WorkDto {
     @NotBlank(message = "课程id不能为空")
-    private String cid;
+    private Integer cid;
 
     @NotBlank(message = "标题不能为空")
     private String title;

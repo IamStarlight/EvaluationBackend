@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class Course implements Serializable {
 
     @TableId(value = "cid",type=IdType.AUTO)
-    private String Cid;
+    private Integer Cid;
 
     @TableField(value = "cname")
     @NotBlank(message = "课程名不能为空")
