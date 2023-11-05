@@ -7,6 +7,25 @@ User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
+  "name": "tch5",
+  "password": "123",
+  "permission": 2,
+  "email": "stellchen.cn@outlook.com"
+}
+
+<> 2023-11-06T022733.200.json
+
+###
+
+POST http://localhost:3309/user/register
+Content-Type: application/json
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMTQ4N2YwYTY5MWM0OGVjYTc3MjcwZmVhMDk1YzkyNSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTIwODAxMCwiZXhwIjoxNjk5MjExNjEwfQ.CGIGlp0lF4ss5TMI8DAQR3G0KrTDKC9jxak4pnV3q9s
+Content-Length: 99
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
   "name": "tch4",
   "password": "123",
   "permission": 2,
@@ -692,22 +711,6 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 }
 
 <> 2023-11-02T195620.200.json
-
-###
-
-POST http://localhost:3309/user/login
-Content-Type: application/json
-Content-Length: 45
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "id": "21301006",
-  "password": "admin"
-}
-
-<> 2023-11-02T195548.400.json
 
 ###
 

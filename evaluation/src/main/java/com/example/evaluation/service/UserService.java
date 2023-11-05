@@ -17,21 +17,20 @@ public interface UserService {
 
     HashMap<String,String> login(LoginDto loginDto);
 
-    User register(RegisterDto registerDto);
-
     String getPermsById(Integer id);
 
-    boolean deleteUserById(String uid);
+//    boolean deleteUserById(String uid);
 
-    boolean updateUserInfo(UpdateDto ud);
+//    boolean updateUserInfo(UpdateDto ud);
 
-    boolean updateUserName(String id,String name);
+    // TODO: 2023-11-06 独立update 
+//    boolean updateUserName(String id,String name);
 
-    boolean updateUserPwd(String id,String newpwd);
+//    boolean updateUserPwd(Integer id,String newpwd);
 
-    boolean updateUserPwd(String id,String oldpwd, String newpwd);
+//    boolean updateUserPwd(Integer id,String oldpwd, String newpwd);
 
-    boolean updateUserPer(String id,String per);
+//    boolean updateUserPer(String id,String per);
 
     String logout();
 }
