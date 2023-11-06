@@ -13,24 +13,14 @@ import java.util.HashMap;
 @Service
 public interface UserService {
 
-    User getUserInfoByName(String name);
-
     HashMap<String,String> login(LoginDto loginDto);
 
     String getPermsById(Integer id);
 
-//    boolean deleteUserById(String uid);
-
-//    boolean updateUserInfo(UpdateDto ud);
-
-    // TODO: 2023-11-06 独立update 
-//    boolean updateUserName(String id,String name);
-
-//    boolean updateUserPwd(Integer id,String newpwd);
-
-//    boolean updateUserPwd(Integer id,String oldpwd, String newpwd);
-
-//    boolean updateUserPer(String id,String per);
-
     String logout();
+
+    boolean updateUserPwd(Integer id, String newpwd);
+
+    boolean updateUserPwd(Integer id,String oldpwd,String newpwd);
+
 }

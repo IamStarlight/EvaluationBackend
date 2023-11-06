@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.evaluation.controller.dto.LoginDto;
 import com.example.evaluation.controller.dto.RegisterDto;
 import com.example.evaluation.controller.dto.UpdateDto;
+import com.example.evaluation.entity.Student;
 import com.example.evaluation.entity.User;
 import com.example.evaluation.enums.PerEnum;
 import com.example.evaluation.exception.ServiceException;
@@ -41,24 +42,20 @@ public class UserServiceImpl
     private RedisCache redisCache;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserMapper mapper;
 
-    @Override
-    public User getUserInfoByName(String name){
-        LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
-        wrapper.eq(User::getName,name);
-        User one;
-        try{
-            one = getOne(wrapper);
-        }catch (Exception e){
-            log.error(e.toString());
-            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "系统错误");
-        }return one;
-    }
+    @Autowired
+    private StudentServiceImpl studentService;
+
+    @Autowired
+    private TeacherServiceImpl teacherService;
+
+    @Autowired
+    private AdminServiceImpl adminService;
 
     @Override
     public String getPermsById(Integer id) {
-        return userMapper.getPermsById(id);
+        return mapper.getPermsById(id);
     }
 
     @Override
@@ -87,105 +84,6 @@ public class UserServiceImpl
         return map;
     }
 
-//    @Override
-//    @Transactional
-//    public boolean deleteUserById(String uid) {
-//        User one = getById(uid);
-//        if(one == null) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
-//
-//        if(one.getName().equals("admin"))
-//            throw new ServiceException(HttpStatus.FORBIDDEN.value(),"超级管理员admin不允许删除");
-//
-//        if(one.getPermission().equals("1"))
-//            throw new ServiceException(HttpStatus.FORBIDDEN.value(), "管理员不可删除,如需删除请修改权限后再删除");
-//
-//        if(removeById(uid)) return true;
-//        else throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
-//    }
-
-//    @Override
-//    @Transactional
-//    public boolean updateUserInfo(UpdateDto ud) {
-//        String id = ud.getId();
-//        User one = getById(id);
-//        if(one == null)throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
-//
-//        if(one.getName().equals("admin"))
-//            throw new ServiceException(HttpStatus.FORBIDDEN.value(),"超级管理员admin不可更新");
-//
-//        // TODO: 2023-11-02 objectmapper
-////        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_DEFAULT);
-////        String outJson = objectMapper.writeValueAsString(one);
-//        LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
-//        wrapper.eq(User::getId,id)
-//                .set(User::getName,ud.getName())
-//                .set(User::getPermission,ud.getPermission())
-//                .set(User::getEmail,ud.getEmail());
-//        int flag = userMapper.update(null,wrapper);
-//        if(flag >= 1) return true;
-//        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
-//    }
-
-//    @Override
-//    @Transactional
-//    public boolean updateUserName(String id,String newname) {
-//        User one = getUserInfoByName(newname);
-//        if(one != null)
-//            throw new ServiceException(HttpStatus.BAD_REQUEST.value(),"该用户名已存在");
-//
-//        LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
-//        wrapper.eq(User::getId,id).set(User::getName,newname);
-//        int flag = userMapper.update(null,wrapper);
-//        if(flag >= 1) return true;
-//        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
-//    }
-
-//    @Override
-//    @Transactional
-//    public boolean updateUserPwd(Integer id, String newpwd) {
-//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//
-//        String token = passwordEncoder.encode(newpwd);
-//
-//        LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
-//        wrapper.eq(User::getId,id).set(User::getPassword,token);
-//
-//        int flag = userMapper.update(null,wrapper);
-//        if(flag >= 1) return true;
-//        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
-//    }
-
-//    @Override
-//    @Transactional
-//    public boolean updateUserPwd(Integer id,String oldpwd, String newpwd) {
-//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//
-//        User user = getById(id);
-//        if(!passwordEncoder.matches(oldpwd,user.getPassword()))
-//            throw new ServiceException(HttpStatus.FORBIDDEN.value(),"原密码输入错误");
-//        if(newpwd.equals(oldpwd))
-//            throw new ServiceException(HttpStatus.FORBIDDEN.value(),"新密码与原密码相同");
-//
-//        String token = passwordEncoder.encode(newpwd);
-//
-//        LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
-//        wrapper.eq(User::getId,id).set(User::getPassword,token);
-//
-//        int flag = userMapper.update(null,wrapper);
-//        if(flag >= 1) return true;
-//        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
-//    }
-
-//    @Override
-//    @Transactional
-//    public boolean updateUserPer(String id, String newper) {
-//        LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
-//        wrapper.eq(User::getId,id).set(User::getPermission,newper);
-//        int flag = userMapper.update(null,wrapper);
-//        if(flag >= 1) return true;
-//        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
-//    }
-
     @Override
     @Transactional
     public String logout() {
@@ -194,5 +92,35 @@ public class UserServiceImpl
         String userid = String.valueOf(loginUser.getUser().getId());
         redisCache.deleteObject("login:" + userid);
         return "退出成功";
+    }
+
+    @Override
+    public boolean updateUserPwd(Integer id, String newpwd) {
+        User one = getById(id);
+        switch (one.getPermission()) {
+            case "ROLE_STUDENT":
+                return studentService.updateUserPwd(id, newpwd);
+            case "ROLE_TEACHER":
+                return teacherService.updateUserPwd(id, newpwd);
+            case "ROLE_ADMIN":
+                return adminService.updateUserPwd(id, newpwd);
+            default:
+                return false;
+        }
+    }
+
+    @Override
+    public boolean updateUserPwd(Integer id, String oldpwd, String newpwd) {
+        User one = getById(id);
+        switch (one.getPermission()) {
+            case "ROLE_STUDENT":
+                return studentService.updateUserPwd(id, oldpwd, newpwd);
+            case "ROLE_TEACHER":
+                return teacherService.updateUserPwd(id, oldpwd, newpwd);
+            case "ROLE_ADMIN":
+                return adminService.updateUserPwd(id, oldpwd, newpwd);
+            default:
+                return false;
+        }
     }
 }

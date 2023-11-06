@@ -14,4 +14,10 @@ public interface RoleService {
     boolean register(RegisterDto rdto);
 
     boolean updateUserInfo(UpdateDto ud);
+
+    boolean deleteUserById(Integer id);
+
+    boolean updateUserPwd(Integer id, String newpwd);
+
+    boolean updateUserPwd(Integer id, String oldpwd,String newpwd);
 }

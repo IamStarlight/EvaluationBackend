@@ -107,6 +107,23 @@ begin
     delete from user where id=old.id;
 end;
 
+CREATE TABLE  role_generator (
+   id int(20) unsigned NOT NULL auto_increment,
+
+   gen_name varchar(255) NOT NULL,
+
+   gen_value int(20) NOT NULL,
+
+   PRIMARY KEY  (id)
+
+);
+
+INSERT INTO role_generator ( gen_name ,gen_value ) VALUES ( 'STUDENT_PK',21301005);
+
+INSERT INTO role_generator ( gen_name ,gen_value ) VALUES ( 'TEACHER_PK',1005);
+
+INSERT INTO role_generator ( gen_name ,gen_value ) VALUES ( 'ADMIN_PK',5);
+
 create table course
 (
     cid     int auto_increment
@@ -159,3 +176,5 @@ create table stu_homework
     teacher_grade    int          null,
     teacher_comments varchar(255) null
 );
+
+

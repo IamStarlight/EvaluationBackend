@@ -1,16 +1,29 @@
 package com.example.evaluation.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.core.SerializableString;
+import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "admin")
-public class Admin extends User implements Serializable {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@TableName("admin")
+public class Admin implements Serializable {
 
-    private static final long serialVersionUID = 9115429216382631425L;
+    @TableId(type= IdType.AUTO)
+    private Integer id;
+
+    @TableField
+    private String name;
+
+    @TableField
+    private String password;
+
+    @TableField
+    private String email;
 
 }
