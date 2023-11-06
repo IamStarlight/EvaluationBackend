@@ -100,7 +100,7 @@ public class WorkServiceImpl
 
         if(save(one)){
             String cname = courseService.getById(wd.getCid()).getCname();
-            List<User> list = courseService.getAllSCList(wd.getCid());
+            List<Map<String,String>> list = courseService.getAllSCList(wd.getCid());
 
             emailService.sendNewWorkNotice(cname,wd.getTitle(),list);
             return true;

@@ -26,42 +26,36 @@ public class WorkController {
     @Autowired
     private SubmitServiceImpl submitService;
 
-    //查询所有作业
-    @GetMapping("/all")
-    @PreAuthorize("hasAnyAuthority('ROLE_AMDIN')")
-    public ResponseEntity<Result> getAllWorkInfo(){
-        return new ResponseEntity<>(Result.success(workService.list()), HttpStatus.OK);
-    }
-
     //根据sid查询作业
-    @GetMapping("/all/student")
+    @GetMapping("/student")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> getAllWorkInfoBySid(@RequestParam @Valid String sid){
         return new ResponseEntity<>(Result.success(workService.getAllWorkInfoBySid(sid)), HttpStatus.OK);
     }
 
-    //根据cid查询作业
-    @GetMapping("/all/course")
-    @PreAuthorize("hasAnyAuthority('ROLE_AMDIN','ROLE_TEACHER','ROLE_STUDENT')")
+    //查询对应课程的全部作业 ok
+    @GetMapping("/bycourse")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
     public ResponseEntity<Result> getAllWorkInfoByCid(@RequestParam @Valid String cid){
         return new ResponseEntity<>(Result.success(workService.getAllWorkInfoByCid(cid)), HttpStatus.OK);
     }
 
-    //根据wid查询作业 ok
+    // TODO: 2023-11-06 教师获得作业信息 作业名 截止日期 是否截止 提交人数 课堂人数 
+    //根据wid查询作业
     @GetMapping("/info")
     @PreAuthorize("hasAnyAuthority('ROLE_AMDIN','ROLE_TEACHER','ROLE_STUDENT')")
     public ResponseEntity<Result> getWorkInfoByWid(@RequestParam @Valid String wid){
         return new ResponseEntity<>(Result.success(workService.getById(wid)), HttpStatus.OK);
     }
 
-    //管理员、教师更改编辑状态 ok
+    //管理员、教师更改编辑状态
     @PostMapping("/edit/status")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<Result> updateEditStatus(@RequestParam @Valid String wid, String status){
         return new ResponseEntity<>(Result.success(workService.updateEditStatus(wid,status)), HttpStatus.OK);
     }
 
-    //管理员、教师更改互评状态 ok
+    //管理员、教师更改互评状态
     @PostMapping("/evaluate/status")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<Result> updateEvaluateStatus(@RequestParam @Valid String wid,
@@ -93,6 +87,8 @@ public class WorkController {
     public ResponseEntity<Result> submitWork(@RequestBody @Valid SubmitDto submitDto){
         return new ResponseEntity<>(Result.success(submitService.submitWork(submitDto)), HttpStatus.OK);
     }
+
+    // TODO: 2023-11-06 作业提交名单 
 
     //老师批改作业
     @PostMapping("/teacher/evaluation")

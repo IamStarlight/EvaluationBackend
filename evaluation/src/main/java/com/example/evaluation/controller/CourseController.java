@@ -1,6 +1,7 @@
 package com.example.evaluation.controller;
 
 import com.example.evaluation.annotation.CurrentUser;
+import com.example.evaluation.controller.dto.CourseDto;
 import com.example.evaluation.entity.Course;
 import com.example.evaluation.entity.Result;
 import com.example.evaluation.entity.User;
@@ -30,23 +31,32 @@ public class CourseController {
         return new ResponseEntity<>(Result.success(courseService.list()), HttpStatus.OK);
     }
 
+    //根据cid查询课程
     @GetMapping("/info")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> getCourseInfo(@RequestParam @Valid String cid){
         return new ResponseEntity<>(Result.success(courseService.getById(cid)), HttpStatus.OK);
     }
 
-    //更新课程信息
-    @PostMapping("/update")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
-    public ResponseEntity<Result> saveOrUpdateCourseInfo(@RequestBody @Valid Course course){
-        return new ResponseEntity<>(Result.success(courseService.saveOrUpdateCourseInfo(course)), HttpStatus.OK);
+    //增加课程 ok
+    @PostMapping("/add")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Result> addNewCourse(@RequestBody @Valid CourseDto dto){
+        return new ResponseEntity<>(Result.success(courseService.addNewCourse(dto)), HttpStatus.OK);
     }
 
-    //管理员删除课程
+    // TODO: 2023-11-06 只修改课程名和简介 
+    //更新课程信息 ok
+    @PostMapping("/update")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Result> updateCourseInfo(@RequestBody @Valid Course course){
+        return new ResponseEntity<>(Result.success(courseService.updateCourseInfo(course)), HttpStatus.OK);
+    }
+
+    //管理员删除课程 ok
     @PostMapping("/delete")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Result> deleteCourse(@RequestBody @Valid Integer cid){
+    public ResponseEntity<Result> deleteCourse(@RequestParam @Valid Integer cid){
         return new ResponseEntity<>(Result.success(courseService.deleteCourse(cid)), HttpStatus.OK);
     }
 
@@ -81,10 +91,13 @@ public class CourseController {
         return new ResponseEntity<>(Result.success(courseService.getCourseListBySid(user.getId())), HttpStatus.OK);
     }
 
-    //查询某课程的选课名单
+    //查询某课程的选课名单 ok
     @GetMapping("/sc")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
-    public ResponseEntity<Result> getAllSCList(@RequestBody @Valid Integer cid){
+    public ResponseEntity<Result> getAllSCList(@RequestParam @Valid Integer cid){
         return new ResponseEntity<>(Result.success(courseService.getAllSCList(cid)), HttpStatus.OK);
     }
+
+    // TODO: 2023-11-06 删除课程名单 
+    // TODO: 2023-11-06 增加课程名单 
 }

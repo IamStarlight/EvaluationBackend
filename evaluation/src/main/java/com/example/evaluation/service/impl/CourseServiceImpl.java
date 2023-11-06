@@ -2,6 +2,7 @@ package com.example.evaluation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.evaluation.controller.dto.CourseDto;
 import com.example.evaluation.entity.Course;
 import com.example.evaluation.entity.User;
 import com.example.evaluation.exception.ServiceException;
@@ -23,27 +24,19 @@ public class CourseServiceImpl
     private CourseMapper courseMapper;
 
     @Override
-    public Map<String,String> getCourseInfoByCid(Integer cid) {
-        Map<String,String> one;
-        try{
-            one = courseMapper.getCourseInfoByCid(cid);
-        }catch (Exception e){
-            log.error(e.toString());
-            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "系统错误");
-        }return one;
+    public boolean addNewCourse(CourseDto dto) {
+        Course course = new Course();
+        course.setTid(dto.getTid());
+        course.setCname(dto.getCname());
+        course.setContent(dto.getContent());
+        if(save(course)) return true;
+        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "添加课程失败");
     }
 
     @Override
-    public boolean saveOrUpdateCourseInfo(Course course) {
-        LambdaUpdateWrapper<Course> wrapper = new LambdaUpdateWrapper<>();
-        wrapper.eq(Course::getCid,course.getCid())
-                .set(Course::getCname,course.getCname())
-                .set(Course::getTid,course.getTid())
-                .set(Course::getContent,course.getContent());
-
-        boolean flag = saveOrUpdate(null,wrapper);
-        if(flag) return true;
-        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
+    public boolean updateCourseInfo(Course course) {
+        if(updateById(course)) return true;
+        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "课程不存在");
     }
 
     @Override
@@ -68,8 +61,8 @@ public class CourseServiceImpl
     }
 
     @Override
-    public List<User> getAllSCList(Integer cid) {
-        List<User> list = courseMapper.getAllSCList(cid);
+    public List<Map<String,String>> getAllSCList(Integer cid) {
+        List<Map<String,String>> list = courseMapper.getAllSCList(cid);
         if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         return list;
     }

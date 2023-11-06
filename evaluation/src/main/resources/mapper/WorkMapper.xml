@@ -2,14 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http#{//mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.evaluation.mapper.WorkMapper">
 
-<!--    List<Map<String,String>> getAllWorkInfoByTid(@Param("tid") String tid);-->
-<!--    <select id="getAllWorkInfoByTid" resultType="java.util.Map">-->
-<!--        SELET *-->
-<!--        FROM homework,course-->
-<!--        WHERE  homework.cid=course.cid-->
-<!--        AND course.tid=#{tid}-->
-<!--    </select>-->
-
 <!--    List<Map<String,String>> getAllWorkInfoBySid(@Param("sid") String sid);-->
     <select id="getAllWorkInfoBySid" resultType="java.util.Map">
         SELET wid,cname,title,startTime,endTime,editStatus,evaStatus,url

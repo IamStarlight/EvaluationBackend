@@ -1,5 +1,6 @@
 package com.example.evaluation.service;
 
+import com.example.evaluation.controller.dto.CourseDto;
 import com.example.evaluation.entity.Course;
 import com.example.evaluation.entity.User;
 
@@ -8,9 +9,9 @@ import java.util.Map;
 
 public interface CourseService {
 
-    Map<String,String> getCourseInfoByCid(Integer cid);
+    boolean addNewCourse(CourseDto dto);
 
-    boolean saveOrUpdateCourseInfo(Course course);
+    boolean updateCourseInfo(Course course);
 
     boolean deleteCourse(Integer cid);
 
@@ -18,5 +19,5 @@ public interface CourseService {
 
     List<Map<String,String>> getCourseListBySid(Integer sid);
 
-    List<User> getAllSCList(Integer cid);
+    List<Map<String,String>> getAllSCList(Integer cid);
 }

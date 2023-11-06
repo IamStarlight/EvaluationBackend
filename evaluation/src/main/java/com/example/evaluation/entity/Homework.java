@@ -21,7 +21,7 @@ import java.util.Date;
 @TableName("homework")
 public class Homework implements Serializable {
 
-    @TableId(value = "wid",type=IdType.AUTO)
+    @TableId(type=IdType.AUTO)
     private Integer wid;
 
     @TableField

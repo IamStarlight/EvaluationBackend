@@ -10,7 +10,5 @@ import java.util.Map;
 
 @Mapper
 public interface WorkMapper extends BaseMapper<Homework> {
-//    List<Map<String,String>> getAllWorkInfoByTid(@Param("tid") String tid);
-
     List<Map<String,String>> getAllWorkInfoBySid(@Param("sid") String sid);
 }

@@ -80,7 +80,7 @@ public class UserServiceImpl
         //把token响应给前端
         HashMap<String,String> map = new HashMap<>();
         map.put("token",jwt);
-//        map.put("permission",loginUser.getUser().getPermission());
+        map.put("permission",loginUser.getUser().getPermission());
         return map;
     }
 

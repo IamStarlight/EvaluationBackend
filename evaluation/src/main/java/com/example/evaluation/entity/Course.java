@@ -17,20 +17,20 @@ import java.io.Serializable;
 @TableName("course")
 public class Course implements Serializable {
 
-    @TableId(value = "cid",type=IdType.AUTO)
-    private Integer Cid;
+    @TableId(type=IdType.AUTO)
+    private Integer cid;
 
-    @TableField(value = "cname")
+    @TableField
     @NotBlank(message = "课程名不能为空")
-    private String Cname;
+    private String cname;
 
-    @TableField(value = "tid")
+    @TableField
     @NotBlank(message = "授课教师不能为空")
-    private String Tid;
+    private String tid;
 
-    @TableField(value = "content")
+    @TableField
     @NotBlank(message = "课程名不能为空")
-    private String Content;
+    private String content;
 
 
 }

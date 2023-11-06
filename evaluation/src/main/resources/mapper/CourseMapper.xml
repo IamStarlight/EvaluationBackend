@@ -3,11 +3,11 @@
 <mapper namespace="com.example.evaluation.mapper.CourseMapper">
 
 <!--    List<Map<String,String>> getAllSCList(@Param("cid") String cid);-->
-    <select id = "getAllSCList"  resultType="com.example.evaluation.entity.User">
-        select sid,sname,email
-        from student
-        where sid in (select sid from sc
-                      where  cid = #{cid})
+    <select id = "getAllSCList"  resultType="map">
+        select id,name,email
+        from student,sc
+        where sc.sid=student.id
+        and  cid=#{cid}
     </select>
 
 <!--    List<Map<String,String>> getCourseListByTid(@Param("tid") String tid);-->
