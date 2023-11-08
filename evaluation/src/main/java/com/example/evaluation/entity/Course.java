@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -19,7 +18,6 @@ import java.io.Serializable;
 public class Course implements Serializable {
 
     @TableId(type=IdType.AUTO)
-    @NotNull(message = "课程号不能为空")
     private Integer cid;
 
     @TableField
@@ -27,15 +25,15 @@ public class Course implements Serializable {
     private String cname;
 
     @TableField
-    @NotNull(message = "授课教师工号不能为空")
-    private Integer tid;
+    @NotBlank(message = "授课教师不能为空")
+    private String tid;
 
     @TableField
-//    @NotBlank(message = "课程简介不能为空")
+    @NotBlank(message = "课程名不能为空")
     private String content;
 
     @TableField
-//    @NotNull(message = "选课人数不能为空")
+    @NotBlank(message = "选课人数不能为空")
     private Integer number;
 
 
