@@ -5,9 +5,7 @@ import com.example.evaluation.controller.dto.CourseDto;
 import com.example.evaluation.entity.Course;
 import com.example.evaluation.entity.Result;
 import com.example.evaluation.entity.User;
-import com.example.evaluation.mapper.CourseMapper;
 import com.example.evaluation.service.impl.ScServiceImpl;
-import com.example.evaluation.service.impl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.evaluation.service.impl.CourseServiceImpl;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @Validated
@@ -36,67 +35,40 @@ public class CourseController {
         return new ResponseEntity<>(Result.success(service.list()), HttpStatus.OK);
     }
 
-    //根据cid查询课程
+    //根据课程号查询课程 ok
     @GetMapping("/info")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Result> getCourseInfo(@RequestParam @Valid String cid){
+    public ResponseEntity<Result> getCourseInfo(@RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                    Integer cid){
         return new ResponseEntity<>(Result.success(service.getById(cid)), HttpStatus.OK);
     }
 
-    //增加课程 ok
-    @PostMapping("/add")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Result> addNewCourse(@RequestBody @Valid CourseDto dto){
-        return new ResponseEntity<>(Result.success(service.addNewCourse(dto)), HttpStatus.OK);
-    }
-
-    //只修改课程名和简介
-    @PostMapping("/modify")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
-    public ResponseEntity<Result> updateCourseInfo(@RequestParam @Valid Integer cid,
-                                                   @RequestParam @Valid String cname,
-                                                   @RequestParam @Valid String content){
-        return new ResponseEntity<>(Result.success(service.updateCourseInfo(cid,cname,content)), HttpStatus.OK);
-    }
-
-    //更新课程信息 ok
-    @PostMapping("/update")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Result> updateCourseInfo(@RequestBody @Valid Course course){
-        return new ResponseEntity<>(Result.success(service.updateCourseInfo(course)), HttpStatus.OK);
-    }
-
-    //管理员删除课程 ok
-    @PostMapping("/delete")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Result> deleteCourse(@RequestParam @Valid Integer cid){
-        return new ResponseEntity<>(Result.success(service.deleteCourse(cid)), HttpStatus.OK);
-    }
-
-    //管理员根据查询教师所授课程
+    //管理员根据工号查询教师所授课程 ok
     // TODO: 2023/11/2 id or tname
     @GetMapping("/teacher/admin")
-    @PreAuthorize("hasAnyAuthority('ROLE_AMDIN')")
-    public ResponseEntity<Result> getCourseListByTidAdmin(@RequestBody @Valid Integer tid){
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Result> getCourseListByTidAdmin(@RequestParam @Valid @NotNull(message = "工号不能为空")
+                                                              Integer tid){
         return new ResponseEntity<>(Result.success(service.getCourseListByTid(tid)), HttpStatus.OK);
     }
 
-    //管理员查询学生所选课程
+    //管理员查询学生所选课程 ok
     // TODO: 2023/11/2 id or name
     @GetMapping("/student/admin")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Result> getCourseListBySid(@RequestParam @Valid Integer sid){
+    public ResponseEntity<Result> getCourseListBySid(@RequestParam @Valid @NotNull(message = "学号不能为空")
+                                                         Integer sid){
         return new ResponseEntity<>(Result.success(service.getCourseListBySid(sid)), HttpStatus.OK);
     }
 
-    //教师根据tid查询所授课程
+    //教师查询自己所授课程 ok
     @GetMapping("/teacher")
     @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
     public ResponseEntity<Result> getCourseListByTidTeacher(@CurrentUser User user){
         return new ResponseEntity<>(Result.success(service.getCourseListByTid(user.getId())), HttpStatus.OK);
     }
 
-    //学生根据sid查询所选课程
+    //学生查询自己所选课程 ok
     @GetMapping("/student")
     @PreAuthorize("hasAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> getCourseListBySid(@CurrentUser User user){
@@ -106,7 +78,44 @@ public class CourseController {
     //查询某课程的选课名单 ok
     @GetMapping("/sclist")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
-    public ResponseEntity<Result> getAllSCList(@RequestParam @Valid Integer cid){
+    public ResponseEntity<Result> getAllSCList(@RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                   Integer cid){
         return new ResponseEntity<>(Result.success(scService.getAllSCList(cid)), HttpStatus.OK);
+    }
+
+    //管理员增加课程 ok
+    @PostMapping("/add")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Result> addNewCourse(@RequestBody @Valid CourseDto dto){
+        service.addNewCourse(dto);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+    }
+
+    //教师修改课程简介 ok
+    @PutMapping("/modify")
+    @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
+    public ResponseEntity<Result> updateCourseInfo(@RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                        Integer cid,
+                                                   @RequestParam @Valid @NotNull(message = "课程简介不能为空")
+                                                        String content){
+        service.updateCourseInfo(cid,content);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+    }
+
+    //管理员更新课程信息 ok
+    @PutMapping("/update")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Result> updateCourseInfo(@RequestBody @Valid Course course){
+        service.updateCourseInfo(course);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+    }
+
+    //管理员删除课程 ok
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Result> deleteCourse(@RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                   Integer cid){
+        service.deleteCourse(cid);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 }

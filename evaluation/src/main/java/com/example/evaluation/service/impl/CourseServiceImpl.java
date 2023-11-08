@@ -24,35 +24,30 @@ public class CourseServiceImpl
     private CourseMapper courseMapper;
 
     @Override
-    public boolean addNewCourse(CourseDto dto) {
+    public void addNewCourse(CourseDto dto) {
         Course course = new Course();
         course.setTid(dto.getTid());
         course.setCname(dto.getCname());
         course.setContent(dto.getContent());
-        if(save(course)) return true;
-        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "添加课程失败");
+        if(!save(course)) throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "添加课程失败");
     }
 
     @Override
-    public boolean updateCourseInfo(Course course) {
-        if(updateById(course)) return true;
-        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "课程不存在");
+    public void updateCourseInfo(Course course) {
+        if(!updateById(course)) throw new ServiceException(HttpStatus.NOT_FOUND.value(), "课程不存在");
     }
 
     @Override
-    public boolean updateCourseInfo(Integer cid,String cname, String content) {
+    public void updateCourseInfo(Integer cid, String content) {
         Course course = new Course();
         course.setCid(cid);
-        course.setCname(cname);
         course.setContent(content);
-        if(updateById(course)) return true;
-        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "课程不存在");
+        if(!updateById(course)) throw new ServiceException(HttpStatus.NOT_FOUND.value(), "课程不存在");
     }
 
     @Override
-    public boolean deleteCourse(Integer cid){
-        if(removeById(cid)) return true;
-        else throw new ServiceException(HttpStatus.NOT_FOUND.value(),"课程不存在");
+    public void deleteCourse(Integer cid){
+        if(!removeById(cid)) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"课程不存在");
     }
 
     @Override
