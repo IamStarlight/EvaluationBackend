@@ -13,11 +13,11 @@ public interface CourseService {
 
     boolean updateCourseInfo(Course course);
 
+    boolean updateCourseInfo(Integer cid,String cname,String content);
+
     boolean deleteCourse(Integer cid);
 
     List<Map<String,String>> getCourseListByTid(Integer tid);
 
     List<Map<String,String>> getCourseListBySid(Integer sid);
-
-    List<Map<String,String>> getAllSCList(Integer cid);
 }

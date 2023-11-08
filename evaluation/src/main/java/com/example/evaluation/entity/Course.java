@@ -32,5 +32,9 @@ public class Course implements Serializable {
     @NotBlank(message = "课程名不能为空")
     private String content;
 
+    @TableField
+    @NotBlank(message = "选课人数不能为空")
+    private Integer number;
+
 
 }

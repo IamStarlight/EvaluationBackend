@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.jeffreyning.mybatisplus.anno.MppMultiId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,9 +22,11 @@ import java.util.Date;
 @TableName("homework")
 public class Homework implements Serializable {
 
-    @TableId(type=IdType.AUTO)
+    @MppMultiId
+    @TableField
     private Integer wid;
 
+    @MppMultiId
     @TableField
     @NotBlank(message = "课程id不能为空")
     private Integer cid;
@@ -46,10 +49,10 @@ public class Homework implements Serializable {
     private Date endTime;
 
     @TableField
-    private String editStatus;
+    private String status;
 
     @TableField
-    private String evaStatus;
+    private Integer submitNumber;
 
     @TableField
     private String url;

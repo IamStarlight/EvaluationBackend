@@ -17,10 +17,19 @@ public interface UserService {
 
     String getPermsById(Integer id);
 
-    String logout();
+    void logout();
 
-    boolean updateUserPwd(Integer id, String newpwd);
+    void register(RegisterDto d);
 
-    boolean updateUserPwd(Integer id,String oldpwd,String newpwd);
+    void updateUserPwd(Integer id, String newpwd);
 
+    void updateUserPwd(Integer id,String oldpwd,String newpwd);
+
+    Object getAllRoleInfo(String permission);
+
+    Object getOneByID(Integer id);
+
+    void updateUserInfo(UpdateDto d);
+
+    void deleteUserById(Integer id, String permission);
 }

@@ -1,60 +1,36 @@
-GET http://localhost:3309/work/bycourse?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkNGM3MzkyNDQzNWE0ODM3YjEzMGVmMjEzZjg5ZjdmMCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI3MTQ0OSwiZXhwIjoxNjk5Mjc1MDQ5fQ._i5sfoeBkE4-zKCxMeZPsQVzbXY_KtTC8pdFfSF_Lxk
+POST http://localhost:3309/user/register
+Content-Type: application/json
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzNjRlODY0YTUzN2E0NDY3YTM3MWRhZDBkYjMwMjU3ZiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQxOTU4OSwiZXhwIjoxNjk5NDIzMTg5fQ.P6Xyb1V5vM2H4HKSFb1r18KUUWPWOLmJsziyFhhpuRY
+Content-Length: 101
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-11-06T200456.200.json
+{
+  "name": "cjx5",
+  "password": "123",
+  "email": "stellchen.cn@outlook.com",
+  "permission": "3"
+}
+
+<> 2023-11-08T130420.200.json
 
 ###
 
-GET http://localhost:3309/work/bycourse?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkNGM3MzkyNDQzNWE0ODM3YjEzMGVmMjEzZjg5ZjdmMCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI3MTQ0OSwiZXhwIjoxNjk5Mjc1MDQ5fQ._i5sfoeBkE4-zKCxMeZPsQVzbXY_KtTC8pdFfSF_Lxk
+POST http://localhost:3309/user/register
+Content-Type: application/json
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzNjRlODY0YTUzN2E0NDY3YTM3MWRhZDBkYjMwMjU3ZiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQxOTU4OSwiZXhwIjoxNjk5NDIzMTg5fQ.P6Xyb1V5vM2H4HKSFb1r18KUUWPWOLmJsziyFhhpuRY
+Content-Length: 101
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-11-06T195839.500.json
-
-###
-
-GET http://localhost:3309/work/bycourse?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkNGM3MzkyNDQzNWE0ODM3YjEzMGVmMjEzZjg5ZjdmMCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI3MTQ0OSwiZXhwIjoxNjk5Mjc1MDQ5fQ._i5sfoeBkE4-zKCxMeZPsQVzbXY_KtTC8pdFfSF_Lxk
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T195546.500.json
-
-###
-
-GET http://localhost:3309/work/bycourse?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkNGM3MzkyNDQzNWE0ODM3YjEzMGVmMjEzZjg5ZjdmMCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI3MTQ0OSwiZXhwIjoxNjk5Mjc1MDQ5fQ._i5sfoeBkE4-zKCxMeZPsQVzbXY_KtTC8pdFfSF_Lxk
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T195401.500.json
-
-###
-
-GET http://localhost:3309/work/bycourse?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkNGM3MzkyNDQzNWE0ODM3YjEzMGVmMjEzZjg5ZjdmMCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI3MTQ0OSwiZXhwIjoxNjk5Mjc1MDQ5fQ._i5sfoeBkE4-zKCxMeZPsQVzbXY_KtTC8pdFfSF_Lxk
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T195302.200.json
-
-###
-
-GET http://localhost:3309/work/course?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkNGM3MzkyNDQzNWE0ODM3YjEzMGVmMjEzZjg5ZjdmMCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI3MTQ0OSwiZXhwIjoxNjk5Mjc1MDQ5fQ._i5sfoeBkE4-zKCxMeZPsQVzbXY_KtTC8pdFfSF_Lxk
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T195104.200.json
+{
+  "name": "cjx4",
+  "password": "123",
+  "email": "stellchen.cn@outlook.com",
+  "permission": "3"
+}
 
 ###
 
@@ -70,272 +46,244 @@ Accept-Encoding: br,deflate,gzip,x-gzip
   "password": "123"
 }
 
-<> 2023-11-06T195049.200.json
+<> 2023-11-08T125949.200.json
 
 ###
 
-GET http://localhost:3309/work/course?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T195044.200.json
-
-###
-
-GET http://localhost:3309/course/sc?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T193109.200.json
-
-###
-
-GET http://localhost:3309/course/sc?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T192743.200.json
-
-###
-
-GET http://localhost:3309/course/sc?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T192537.500.json
-
-###
-
-GET http://localhost:3309/course/sc?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T192452.500.json
-
-###
-
-GET http://localhost:3309/course/sc?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T192334.400.json
-
-###
-
-POST http://localhost:3309/course/delete?cid=3
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Content-Length: 0
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T192136.200.json
-
-###
-
-POST http://localhost:3309/course/delete?cid=3
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Content-Length: 0
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T192110.400.json
-
-###
-
-POST http://localhost:3309/course/update
+POST http://localhost:3309/user/update
 Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjQ2MTRlMGZiOWE0NjBjOGRjM2NmZDQ2Y2MzMWY5OCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQxNDM3OCwiZXhwIjoxNjk5NDE3OTc4fQ.K-94v_Z0otWv1pHfVv4CvekUrfsyM_lLrv9qS5j1Wks
+Content-Length: 94
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "id": 21301004,
+  "name": "cjx2",
+  "email": "21301119@bjtu.edu.cn",
+  "permission": "3"
+}
+
+<> 2023-11-08T115524.200.json
+
+###
+
+POST http://localhost:3309/user/update
+Content-Type: application/json
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjQ2MTRlMGZiOWE0NjBjOGRjM2NmZDQ2Y2MzMWY5OCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQxNDM3OCwiZXhwIjoxNjk5NDE3OTc4fQ.K-94v_Z0otWv1pHfVv4CvekUrfsyM_lLrv9qS5j1Wks
+Content-Length: 76
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "cjx2",
+  "email": "21301119@bjtu.edu.cn",
+  "permission": "3"
+}
+
+<> 2023-11-08T115458.400.json
+
+###
+
+POST http://localhost:3309/user/update
+Content-Type: application/json
+Content-Length: 76
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "cjx2",
+  "email": "21301119@bjtu.edu.cn",
+  "permission": "3"
+}
+
+<> 2023-11-08T115426.200.json
+
+###
+
+GET http://localhost:3309/user/oneinfo?id=21301000
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjQ2MTRlMGZiOWE0NjBjOGRjM2NmZDQ2Y2MzMWY5OCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQxNDM3OCwiZXhwIjoxNjk5NDE3OTc4fQ.K-94v_Z0otWv1pHfVv4CvekUrfsyM_lLrv9qS5j1Wks
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T114836.200.json
+
+###
+
+GET http://localhost:3309/user/oneinfo?id=21301000
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjQ2MTRlMGZiOWE0NjBjOGRjM2NmZDQ2Y2MzMWY5OCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQxNDM3OCwiZXhwIjoxNjk5NDE3OTc4fQ.K-94v_Z0otWv1pHfVv4CvekUrfsyM_lLrv9qS5j1Wks
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T114554.200.json
+
+###
+
+GET http://localhost:3309/user/all?permission=1
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjQ2MTRlMGZiOWE0NjBjOGRjM2NmZDQ2Y2MzMWY5OCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQxNDM3OCwiZXhwIjoxNjk5NDE3OTc4fQ.K-94v_Z0otWv1pHfVv4CvekUrfsyM_lLrv9qS5j1Wks
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T113842.200.json
+
+###
+
+GET http://localhost:3309/user/all?permission=1
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjQ2MTRlMGZiOWE0NjBjOGRjM2NmZDQ2Y2MzMWY5OCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQxNDM3OCwiZXhwIjoxNjk5NDE3OTc4fQ.K-94v_Z0otWv1pHfVv4CvekUrfsyM_lLrv9qS5j1Wks
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T113341.404.json
+
+###
+
+GET http://localhost:3309/user/all
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjQ2MTRlMGZiOWE0NjBjOGRjM2NmZDQ2Y2MzMWY5OCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQxNDM3OCwiZXhwIjoxNjk5NDE3OTc4fQ.K-94v_Z0otWv1pHfVv4CvekUrfsyM_lLrv9qS5j1Wks
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T113310.404.json
+
+###
+
+POST http://localhost:3309/user/login
+Content-Type: application/json
+Content-Length: 42
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "1",
+  "password": "123"
+}
+
+<> 2023-11-08T113258.200.json
+
+###
+
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhYjMxMzI0ZThhODU0YzYzYjIwZTRlZTA2MzMxZmNmNyIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQxMjE5MywiZXhwIjoxNjk5NDE1NzkzfQ.-rXEgNZ9jyPfvaNrv03lljFBGiWyEPuWKPE8NSFcEKY
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T110519.200.json
+
+###
+
+POST http://localhost:3309/user/register
+Content-Type: application/json
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhYjMxMzI0ZThhODU0YzYzYjIwZTRlZTA2MzMxZmNmNyIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQxMjE5MywiZXhwIjoxNjk5NDE1NzkzfQ.-rXEgNZ9jyPfvaNrv03lljFBGiWyEPuWKPE8NSFcEKY
+Content-Length: 101
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "cjx3",
+  "password": "123",
+  "email": "stellchen.cn@outlook.com",
+  "permission": "3"
+}
+
+<> 2023-11-08T110404.200.json
+
+###
+
+POST http://localhost:3309/user/register
+Content-Type: application/json
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhYjMxMzI0ZThhODU0YzYzYjIwZTRlZTA2MzMxZmNmNyIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQxMjE5MywiZXhwIjoxNjk5NDE1NzkzfQ.-rXEgNZ9jyPfvaNrv03lljFBGiWyEPuWKPE8NSFcEKY
+Content-Length: 98
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "cjx",
+  "password": "123",
+  "email": "stellchen.cn@outlook.com",
+  "permission": 1
+}
+
+<> 2023-11-08T105852.200.json
+
+###
+
+POST http://localhost:3309/user/register
+Content-Type: application/json
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhYjMxMzI0ZThhODU0YzYzYjIwZTRlZTA2MzMxZmNmNyIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQxMjE5MywiZXhwIjoxNjk5NDE1NzkzfQ.-rXEgNZ9jyPfvaNrv03lljFBGiWyEPuWKPE8NSFcEKY
+Content-Length: 98
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "cjx",
+  "password": "123",
+  "email": "stellchen.cn@outlook.com",
+  "permission": 1
+}
+
+<> 2023-11-08T105719.500.json
+
+###
+
+POST http://localhost:3309/user/login
+Content-Type: application/json
+Content-Length: 42
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "1",
+  "password": "123"
+}
+
+<> 2023-11-08T105634.200.json
+
+###
+
+POST http://localhost:3309/user/login
+Content-Type: application/json
+Content-Length: 42
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "1",
+  "password": "qwq"
+}
+
+<> 2023-11-08T105518.200.json
+
+###
+
+POST http://localhost:3309/student/update
+Content-Type: application/json
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmY2NjZDBmNGNkZTU0NjEzOGIyMWQ5ZDQyOTYyOTZmZCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2MjczMywiZXhwIjoxNjk5MjY2MzMzfQ.9NbMOrE7eK3cfnFOTyqD3WXnl_EuQiEWXAFWrHZ8hZg
 Content-Length: 72
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
-  "cid": 1,
-  "cname": "c++",
-  "tid": "1000",
-  "content": "sdhjhb"
+  "id": 21301001,
+  "name": "lsy",
+  "email": "21301119@bjtu.edu.cn"
 }
 
-<> 2023-11-06T191736.200.json
-
-###
-
-POST http://localhost:3309/course/add
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Content-Length: 63
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "cname": "python",
-  "tid": "1000",
-  "content": "sdhjhb"
-}
-
-<> 2023-11-06T191709.200.json
-
-###
-
-POST http://localhost:3309/course/add
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Content-Length: 74
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "cid": ,
-  "cname": "python",
-  "tid": "1000",
-  "content": "sdhjhb"
-}
-
-<> 2023-11-06T191251.404.json
-
-###
-
-POST http://localhost:3309/course/update
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Content-Length: 75
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "cid": 1,
-  "cname": "python",
-  "tid": "1000",
-  "content": "sdhjhb"
-}
-
-<> 2023-11-06T191138.200.json
-
-###
-
-POST http://localhost:3309/course/add
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Content-Length: 63
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "cname": "python",
-  "tid": "1000",
-  "content": "sdhjhb"
-}
-
-<> 2023-11-06T191051.404.json
-
-###
-
-POST http://localhost:3309/course/update
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Content-Length: 63
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "cname": "python",
-  "tid": "1000",
-  "content": "sdhjhb"
-}
-
-<> 2023-11-06T185604.404.json
-
-###
-
-GET http://localhost:3309/course/info?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T185045.200.json
-
-###
-
-GET http://localhost:3309/course/all
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T184918.200.json
-
-###
-
-GET http://localhost:3309/course/all
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjMjEzYTcwMmQ0ZGE0YzY3ODJiMDVlYWNlOGEzZWM5MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzY1OCwiZXhwIjoxNjk5MjcxMjU4fQ.nlD05SzjtxfSwhjy9YoqWmfx3W6w6lMLZhHxnixSnLE
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T184815.200.json
-
-###
-
-POST http://localhost:3309/user/login
-Content-Type: application/json
-Content-Length: 42
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "1",
-  "password": "123"
-}
-
-<> 2023-11-06T184738.200.json
-
-###
-
-GET http://localhost:3309/course/all
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhODA2OTI3NGUyOWE0ZjJmODQxMmUzN2ZhMGYzMzQzZiIsInN1YiI6IjEwMDAiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzU5NSwiZXhwIjoxNjk5MjcxMTk1fQ.qBhLIZDPocZEVNkYLHHR6LuKMK3tiderRWDDIJCroxY
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-06T184706.200.json
-
-###
-
-POST http://localhost:3309/user/login
-Content-Type: application/json
-Content-Length: 45
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "username": "1000",
-  "password": "123"
-}
-
-<> 2023-11-06T184635.200.json
+<> 2023-11-08T102921.200.json
 
 ###
 
@@ -353,18 +301,31 @@ Accept-Encoding: br,deflate,gzip,x-gzip
   "email": "stellchen.cn@outlook.com"
 }
 
-<> 2023-11-06T184534.200.json
+<> 2023-11-08T102900.200.json
 
 ###
 
-POST http://localhost:3309/user/logout
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkMjRkNDVmN2Q3YWY0M2M0YTVmMjQ0NGRmZDNjYzA0YiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NzM5NCwiZXhwIjoxNjk5MjcwOTk0fQ.GOI38plTkIn5HbuqIhTVhjwh7rP5OrqR6kPM5_9fFnk
+POST http://localhost:3309/user/mypassword?oldpwd=qwq&newpwd=123
+Content-Type: application/x-www-form-urlencoded
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4ZjgxNDZkNzZmZTA0Mjg5Yjg4N2Y2YTY5NzNhODQxOSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwOTcwMiwiZXhwIjoxNjk5NDEzMzAyfQ.uXuIJoUS-DSGzvaIXE_t5SUOdBH9cqmMyiwCU0j-ZNc
 Content-Length: 0
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-11-06T184430.200.json
+<> 2023-11-08T101540.200.json
+
+###
+
+POST http://localhost:3309/user/mypassword?oldpwd=123&newpwd=123
+Content-Type: application/x-www-form-urlencoded
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4ZjgxNDZkNzZmZTA0Mjg5Yjg4N2Y2YTY5NzNhODQxOSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwOTcwMiwiZXhwIjoxNjk5NDEzMzAyfQ.uXuIJoUS-DSGzvaIXE_t5SUOdBH9cqmMyiwCU0j-ZNc
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T101531.403.json
 
 ###
 
@@ -377,57 +338,114 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 
 {
   "username": "1",
-  "password": "123"
+  "password": "qwq"
 }
 
-<> 2023-11-06T184315.200.json
+<> 2023-11-08T101503.200.json
 
 ###
 
 POST http://localhost:3309/user/mypassword?oldpwd=123&newpwd=qwq
 Content-Type: application/x-www-form-urlencoded
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2YTFmYjk5MjI3OTM0MzZiOTc3ZDliNjc3ZDFkMmU5OCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NDY2NywiZXhwIjoxNjk5MjY4MjY3fQ.l9tbgkju2qKzKhW7J_jq4HOS8NXXwGsDBl-QlsW1BgE
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMzIwZjQ5ZGU2NTA0ZTRhYWM0NjFkOTI0YjgyMTQzNSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNzQ3MSwiZXhwIjoxNjk5NDExMDcxfQ.ysmwlXzcGdtOTnFfAPGSQjZMiCgl-OdDqb4ncGiROaQ
 Content-Length: 0
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-11-06T180207.200.json
+<> 2023-11-08T095556.200.json
 
 ###
 
 POST http://localhost:3309/user/mypassword?oldpwd=123&newpwd=qwq
 Content-Type: application/x-www-form-urlencoded
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMzIwZjQ5ZGU2NTA0ZTRhYWM0NjFkOTI0YjgyMTQzNSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNzQ3MSwiZXhwIjoxNjk5NDExMDcxfQ.ysmwlXzcGdtOTnFfAPGSQjZMiCgl-OdDqb4ncGiROaQ
 Content-Length: 0
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-11-06T180157.200.json
+<> 2023-11-08T095542.200.json
 
 ###
 
-POST http://localhost:3309/user/password?id=21301000&newpwd=qwq
-Content-Type: application/x-www-form-urlencoded
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2YTFmYjk5MjI3OTM0MzZiOTc3ZDliNjc3ZDFkMmU5OCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NDY2NywiZXhwIjoxNjk5MjY4MjY3fQ.l9tbgkju2qKzKhW7J_jq4HOS8NXXwGsDBl-QlsW1BgE
-Content-Length: 0
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMzIwZjQ5ZGU2NTA0ZTRhYWM0NjFkOTI0YjgyMTQzNSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNzQ3MSwiZXhwIjoxNjk5NDExMDcxfQ.ysmwlXzcGdtOTnFfAPGSQjZMiCgl-OdDqb4ncGiROaQ
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-11-06T175941.200.json
+<> 2023-11-08T095059.200.json
 
 ###
 
-POST http://localhost:3309/user/password?id=21301000&newpwd=qwq
-Content-Type: application/x-www-form-urlencoded
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2YTFmYjk5MjI3OTM0MzZiOTc3ZDliNjc3ZDFkMmU5OCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2NDY2NywiZXhwIjoxNjk5MjY4MjY3fQ.l9tbgkju2qKzKhW7J_jq4HOS8NXXwGsDBl-QlsW1BgE
-Content-Length: 0
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMzIwZjQ5ZGU2NTA0ZTRhYWM0NjFkOTI0YjgyMTQzNSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNzQ3MSwiZXhwIjoxNjk5NDExMDcxfQ.ysmwlXzcGdtOTnFfAPGSQjZMiCgl-OdDqb4ncGiROaQ
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-11-06T175803.200.json
+<> 2023-11-08T095001.200.json
+
+###
+
+GET http://localhost:3309/course/all
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMzIwZjQ5ZGU2NTA0ZTRhYWM0NjFkOTI0YjgyMTQzNSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNzQ3MSwiZXhwIjoxNjk5NDExMDcxfQ.ysmwlXzcGdtOTnFfAPGSQjZMiCgl-OdDqb4ncGiROaQ
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T094823.200.json
+
+###
+
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMzIwZjQ5ZGU2NTA0ZTRhYWM0NjFkOTI0YjgyMTQzNSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNzQ3MSwiZXhwIjoxNjk5NDExMDcxfQ.ysmwlXzcGdtOTnFfAPGSQjZMiCgl-OdDqb4ncGiROaQ
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T094545.200.json
+
+###
+
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMzIwZjQ5ZGU2NTA0ZTRhYWM0NjFkOTI0YjgyMTQzNSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNzQ3MSwiZXhwIjoxNjk5NDExMDcxfQ.ysmwlXzcGdtOTnFfAPGSQjZMiCgl-OdDqb4ncGiROaQ
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T094457.500.json
+
+###
+
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMzIwZjQ5ZGU2NTA0ZTRhYWM0NjFkOTI0YjgyMTQzNSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNzQ3MSwiZXhwIjoxNjk5NDExMDcxfQ.ysmwlXzcGdtOTnFfAPGSQjZMiCgl-OdDqb4ncGiROaQ
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T094304.500.json
+
+###
+
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMzIwZjQ5ZGU2NTA0ZTRhYWM0NjFkOTI0YjgyMTQzNSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNzQ3MSwiZXhwIjoxNjk5NDExMDcxfQ.ysmwlXzcGdtOTnFfAPGSQjZMiCgl-OdDqb4ncGiROaQ
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T094005.500.json
+
+###
+
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMzIwZjQ5ZGU2NTA0ZTRhYWM0NjFkOTI0YjgyMTQzNSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNzQ3MSwiZXhwIjoxNjk5NDExMDcxfQ.ysmwlXzcGdtOTnFfAPGSQjZMiCgl-OdDqb4ncGiROaQ
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T093803.200.json
 
 ###
 
@@ -443,108 +461,97 @@ Accept-Encoding: br,deflate,gzip,x-gzip
   "password": "123"
 }
 
-<> 2023-11-06T175748.200.json
+<> 2023-11-08T093751.200.json
 
 ###
 
-POST http://localhost:3309/user/password?id=21301000&newpwd=qwq
-Content-Type: application/x-www-form-urlencoded
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2MzExZThhMzljNTE0MmZmYjA5MWUzMGJhNjEwMzk5MiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI1ODk0NywiZXhwIjoxNjk5MjYyNTQ3fQ.e27XJMyxE80gBp-1tPsFW6f7l5LXVL0bxQ0woQwRZ2g
-Content-Length: 0
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyNjJhMDdmMGVjNTU0YjlmYmExNmNmNWExMWU4ZGI2ZiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNTE3MSwiZXhwIjoxNjk5NDA4NzcxfQ.csXWDvgPLNsok0b8ayMHQBeCpYnZYyTV7WhJG0533lA
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-11-06T175741.200.json
+<> 2023-11-08T093710.200.json
 
 ###
 
-POST http://localhost:3309/user/password?id=21301000&newpwd=qwq
-Content-Type: application/x-www-form-urlencoded
-Content-Length: 0
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyNjJhMDdmMGVjNTU0YjlmYmExNmNmNWExMWU4ZGI2ZiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNTE3MSwiZXhwIjoxNjk5NDA4NzcxfQ.csXWDvgPLNsok0b8ayMHQBeCpYnZYyTV7WhJG0533lA
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-11-06T175733.200.json
+<> 2023-11-08T093353.200.json
 
 ###
 
-POST http://localhost:3309/student/password?id=21301001&newpwd=qwq
-Content-Type: application/x-www-form-urlencoded
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmY2NjZDBmNGNkZTU0NjEzOGIyMWQ5ZDQyOTYyOTZmZCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2MjczMywiZXhwIjoxNjk5MjY2MzMzfQ.9NbMOrE7eK3cfnFOTyqD3WXnl_EuQiEWXAFWrHZ8hZg
-Content-Length: 0
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyNjJhMDdmMGVjNTU0YjlmYmExNmNmNWExMWU4ZGI2ZiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNTE3MSwiZXhwIjoxNjk5NDA4NzcxfQ.csXWDvgPLNsok0b8ayMHQBeCpYnZYyTV7WhJG0533lA
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-11-06T172926.200.json
+<> 2023-11-08T092722.200.json
 
 ###
 
-POST http://localhost:3309/student/password?id=21301001&newpwd=qwq
-Content-Type: application/x-www-form-urlencoded
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2MzExZThhMzljNTE0MmZmYjA5MWUzMGJhNjEwMzk5MiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI1ODk0NywiZXhwIjoxNjk5MjYyNTQ3fQ.e27XJMyxE80gBp-1tPsFW6f7l5LXVL0bxQ0woQwRZ2g
-Content-Length: 0
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyNjJhMDdmMGVjNTU0YjlmYmExNmNmNWExMWU4ZGI2ZiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNTE3MSwiZXhwIjoxNjk5NDA4NzcxfQ.csXWDvgPLNsok0b8ayMHQBeCpYnZYyTV7WhJG0533lA
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-<> 2023-11-06T172915.200.json
+<> 2023-11-08T092643.501.json
 
 ###
 
-POST http://localhost:3309/student/update
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmY2NjZDBmNGNkZTU0NjEzOGIyMWQ5ZDQyOTYyOTZmZCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2MjczMywiZXhwIjoxNjk5MjY2MzMzfQ.9NbMOrE7eK3cfnFOTyqD3WXnl_EuQiEWXAFWrHZ8hZg
-Content-Length: 72
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyNjJhMDdmMGVjNTU0YjlmYmExNmNmNWExMWU4ZGI2ZiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNTE3MSwiZXhwIjoxNjk5NDA4NzcxfQ.csXWDvgPLNsok0b8ayMHQBeCpYnZYyTV7WhJG0533lA
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "id": 21301001,
-  "name": "lsy",
-  "email": "21301119@bjtu.edu.cn"
-}
-
-<> 2023-11-06T172823.200.json
+<> 2023-11-08T092302.200.json
 
 ###
 
-POST http://localhost:3309/student/update
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmY2NjZDBmNGNkZTU0NjEzOGIyMWQ5ZDQyOTYyOTZmZCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2MjczMywiZXhwIjoxNjk5MjY2MzMzfQ.9NbMOrE7eK3cfnFOTyqD3WXnl_EuQiEWXAFWrHZ8hZg
-Content-Length: 72
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyNjJhMDdmMGVjNTU0YjlmYmExNmNmNWExMWU4ZGI2ZiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNTE3MSwiZXhwIjoxNjk5NDA4NzcxfQ.csXWDvgPLNsok0b8ayMHQBeCpYnZYyTV7WhJG0533lA
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "id": 21301001,
-  "name": "cjx",
-  "email": "21301119@bjtu.edu.cn"
-}
-
-<> 2023-11-06T172705.200.json
+<> 2023-11-08T092113.200.json
 
 ###
 
-POST http://localhost:3309/student/update
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmY2NjZDBmNGNkZTU0NjEzOGIyMWQ5ZDQyOTYyOTZmZCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2MjczMywiZXhwIjoxNjk5MjY2MzMzfQ.9NbMOrE7eK3cfnFOTyqD3WXnl_EuQiEWXAFWrHZ8hZg
-Content-Length: 72
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyNjJhMDdmMGVjNTU0YjlmYmExNmNmNWExMWU4ZGI2ZiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNTE3MSwiZXhwIjoxNjk5NDA4NzcxfQ.csXWDvgPLNsok0b8ayMHQBeCpYnZYyTV7WhJG0533lA
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "id": 21301001,
-  "name": "lsy",
-  "email": "21301119@bjtu.edu.cn"
-}
+<> 2023-11-08T091924.501.json
 
-<> 2023-11-06T172621.200.json
+###
+
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyNjJhMDdmMGVjNTU0YjlmYmExNmNmNWExMWU4ZGI2ZiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNTE3MSwiZXhwIjoxNjk5NDA4NzcxfQ.csXWDvgPLNsok0b8ayMHQBeCpYnZYyTV7WhJG0533lA
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T090948.200.json
+
+###
+
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyNjJhMDdmMGVjNTU0YjlmYmExNmNmNWExMWU4ZGI2ZiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQwNTE3MSwiZXhwIjoxNjk5NDA4NzcxfQ.csXWDvgPLNsok0b8ayMHQBeCpYnZYyTV7WhJG0533lA
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-08T085947.500.json
 
 ###
 
@@ -560,43 +567,57 @@ Accept-Encoding: br,deflate,gzip,x-gzip
   "password": "123"
 }
 
-<> 2023-11-06T172533.200.json
+<> 2023-11-08T085931.200.json
 
 ###
 
-POST http://localhost:3309/student/update
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2NmMwZjk4NjZlMDE0NWE5ODNlYjIzYjNiYzljMDM4YiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTIzOTM1OSwiZXhwIjoxNjk5MjQyOTU5fQ.uwU34lKmGtmCTtMsjmUwvENh88_5Af8gXuDg4PNhHkA
-Content-Length: 72
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjhlNWZjOTVjN2U0NWFjODRmYzRmOWJlZjFhNzhlOSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTM2MzYzNCwiZXhwIjoxNjk5MzY3MjM0fQ.xwQRkB9NeigEH8EkfvEjGtdwflLelhwkf1DD-Y-D9IU
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "id": 21301001,
-  "name": "lsy",
-  "email": "21301119@bjtu.edu.cn"
-}
-
-<> 2023-11-06T172527.200.json
+<> 2023-11-07T214730.400.json
 
 ###
 
-POST http://localhost:3309/student/update
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2NmMwZjk4NjZlMDE0NWE5ODNlYjIzYjNiYzljMDM4YiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTIzOTM1OSwiZXhwIjoxNjk5MjQyOTU5fQ.uwU34lKmGtmCTtMsjmUwvENh88_5Af8gXuDg4PNhHkA
-Content-Length: 72
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjhlNWZjOTVjN2U0NWFjODRmYzRmOWJlZjFhNzhlOSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTM2MzYzNCwiZXhwIjoxNjk5MzY3MjM0fQ.xwQRkB9NeigEH8EkfvEjGtdwflLelhwkf1DD-Y-D9IU
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
-{
-  "id": 21301001,
-  "name": "lsy",
-  "email": "21301119@bjtu.edu.cn"
-}
+<> 2023-11-07T214645.400.json
 
-<> 2023-11-06T172519.200.json
+###
+
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjhlNWZjOTVjN2U0NWFjODRmYzRmOWJlZjFhNzhlOSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTM2MzYzNCwiZXhwIjoxNjk5MzY3MjM0fQ.xwQRkB9NeigEH8EkfvEjGtdwflLelhwkf1DD-Y-D9IU
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-07T214342.400.json
+
+###
+
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjhlNWZjOTVjN2U0NWFjODRmYzRmOWJlZjFhNzhlOSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTM2MzYzNCwiZXhwIjoxNjk5MzY3MjM0fQ.xwQRkB9NeigEH8EkfvEjGtdwflLelhwkf1DD-Y-D9IU
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-07T213404.500.json
+
+###
+
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjhlNWZjOTVjN2U0NWFjODRmYzRmOWJlZjFhNzhlOSIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTM2MzYzNCwiZXhwIjoxNjk5MzY3MjM0fQ.xwQRkB9NeigEH8EkfvEjGtdwflLelhwkf1DD-Y-D9IU
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-07T212757.500.json
 
 ###
 
@@ -612,79 +633,7 @@ Accept-Encoding: br,deflate,gzip,x-gzip
   "password": "123"
 }
 
-<> 2023-11-06T172459.200.json
-
-###
-
-POST http://localhost:3309/student/update
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2MzExZThhMzljNTE0MmZmYjA5MWUzMGJhNjEwMzk5MiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI1ODk0NywiZXhwIjoxNjk5MjYyNTQ3fQ.e27XJMyxE80gBp-1tPsFW6f7l5LXVL0bxQ0woQwRZ2g
-Content-Length: 72
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "id": 21301001,
-  "name": "lsy",
-  "email": "21301119@bjtu.edu.cn"
-}
-
-<> 2023-11-06T172451.200.json
-
-###
-
-POST http://localhost:3309/student/update
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2MzExZThhMzljNTE0MmZmYjA5MWUzMGJhNjEwMzk5MiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI1ODk0NywiZXhwIjoxNjk5MjYyNTQ3fQ.e27XJMyxE80gBp-1tPsFW6f7l5LXVL0bxQ0woQwRZ2g
-Content-Length: 72
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "id": 21301001,
-  "name": "lsy",
-  "email": "21301119@bjtu.edu.cn"
-}
-
-<> 2023-11-06T171317.500.json
-
-###
-
-POST http://localhost:3309/student/update
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2MzExZThhMzljNTE0MmZmYjA5MWUzMGJhNjEwMzk5MiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI1ODk0NywiZXhwIjoxNjk5MjYyNTQ3fQ.e27XJMyxE80gBp-1tPsFW6f7l5LXVL0bxQ0woQwRZ2g
-Content-Length: 72
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "id": 21301001,
-  "name": "lsy",
-  "email": "21301119@bjtu.edu.cn"
-}
-
-<> 2023-11-06T171036.500.json
-
-###
-
-POST http://localhost:3309/student/update
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2MzExZThhMzljNTE0MmZmYjA5MWUzMGJhNjEwMzk5MiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI1ODk0NywiZXhwIjoxNjk5MjYyNTQ3fQ.e27XJMyxE80gBp-1tPsFW6f7l5LXVL0bxQ0woQwRZ2g
-Content-Length: 77
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "id": 21301001,
-  "name": "lsy",
-  "email": "stellachen.cn@outlook.com"
-}
-
-<> 2023-11-06T171010.500.json
+<> 2023-11-07T212715.200.json
 
 ###
 

@@ -18,8 +18,6 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     Map<String,String> getCourseInfoByCid(@Param("cid") Integer cid);
 
-    List<Map<String,String>> getAllSCList(@Param("cid") Integer cid);
-
     List<Map<String,String>> getCourseListByTid(@Param("tid") Integer tid);
 
     List<Map<String,String>> getCourseListBySid(@Param("sid") Integer sid);

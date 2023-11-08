@@ -44,6 +44,12 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.5.3</version>
         </dependency>
+<!--        mybatis plus 联合主键-->
+        <dependency>
+            <groupId>com.github.jeffreyning</groupId>
+            <artifactId>mybatisplus-plus</artifactId>
+            <version>1.7.4-RELEASE</version>
+        </dependency>
         <!-- validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

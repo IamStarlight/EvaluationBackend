@@ -24,29 +24,28 @@ public class UserDetailsServiceImpl extends ServiceImpl<UserMapper, User> implem
     @Autowired
     private UserServiceImpl userService;
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String id) {
-        //根据用户名查询用户信息
-        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(User::getId,id);
-        User user = getOne(wrapper);
+        User user = getById(id);
         //如果查询不到数据就通过抛出异常来给出提示
         if(Objects.isNull(user)){
             throw new ServiceException(HttpStatus.FORBIDDEN.value(),"用户名或密码错误");
         }
+        System.out.println("!!!!!!UserDetailServiceImpl user:"+user.getId()+", "+user.getName());
 
-        //TODO 根据用户查询权限信息 添加到LoginUser中
+        //根据用户查询权限信息 添加到LoginUser中
         List<String> permissionKeyList =
                 Collections.singletonList(
                         String.valueOf(userService.getPermsById(user.getId())));
         System.out.println("!!!!!!authorities in UserDetail: "+userService.getPermsById(user.getId()));
 
+        LoginUser loginUser = new LoginUser(user,permissionKeyList);
+        System.out.println("!!!!!!UserDetailServiceImpl LoginUser: "+loginUser.getUser().getId()+", "+loginUser.getUser().getName());
 
         //封装成UserDetails对象返回
-        return new LoginUser(user,permissionKeyList);
+//        return new LoginUser(user,permissionKeyList);
+        return loginUser;
     }
 }
 

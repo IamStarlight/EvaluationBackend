@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.jeffreyning.mybatisplus.anno.MppMultiId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,37 +19,38 @@ import java.util.Date;
 @TableName("stu_homework")
 public class StuWork implements Serializable {
 
-    @TableId(type= IdType.AUTO)
-    private Integer id;
-
-    @TableField(value = "sid")
+    @MppMultiId
+    @TableField
     private Integer sid;
 
-    @TableField(value = "wid")
+    @MppMultiId
+    @TableField
     private Integer wid;
 
-    @TableField(value = "url")
-    @NotBlank(message = "url不能为空")
+    @MppMultiId
+    @TableField
+    private Integer cid;
+
+    @TableField
+    private String details;
+
+    @TableField
     private String url;
 
-    @TableField(value = "submit_time")
-    @NotBlank(message = "提交时间不能为空")
+    @TableField
     private Date submitTime;
 
-    @TableField(value = "is_late")
+    @TableField
     @NotBlank(message = "是否晚交不能为空")
-    private Integer isLate;
+    private boolean isLate;
 
-    @TableField(value = "total_grade")
-    @NotBlank(message = "总成绩不能为空")
+    @TableField
     private Integer totalGrade;
 
-    @TableField(value = "teacher_grade")
-    @NotBlank(message = "教师评分不能为空")
+    @TableField
     private Integer teacherGrade;
 
-    @TableField(value = "teacher_comments")
-    @NotBlank(message = "教师评论不能为空")
+    @TableField
     private String teacherComments;
 
 }

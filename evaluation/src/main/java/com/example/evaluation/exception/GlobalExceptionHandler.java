@@ -3,11 +3,13 @@ package com.example.evaluation.exception;
 import com.example.evaluation.entity.Result;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import javax.validation.ConstraintViolationException;
 import java.net.BindException;
@@ -94,5 +96,29 @@ public class GlobalExceptionHandler {
 //    public ResponseEntity<Result> handleConnectionException(RedisConnectionFailureException e){
 //        //500
 //        return ResponseEntity.internalServerError().body(Result.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage()));
+//    }
+
+//    /**
+//     * 权限不足 时抛出 AccessDeniedException 异常
+//     *
+//     * @param e
+//     * @return
+//     */
+//    @ExceptionHandler({AccessDeniedException.class})
+//    @ResponseBody
+//    public ResponseEntity<Result> AccessDeniedException(AccessDeniedException e) {
+//        return ResponseEntity.badRequest().body(Result.error(HttpStatus.UNAUTHORIZED.value(), e.getMessage()));
+//    }
+
+//    /**
+//     * token 验证有误时抛出 RuntimeException 异常
+//     *
+//     * @param e
+//     * @return
+//     */
+//    @ExceptionHandler({RuntimeException.class})
+//    @ResponseBody
+//    public ResponseEntity<Result> handleRuntimeException(RuntimeException e) {
+//        return ResponseEntity.badRequest().body(Result.error(233333, e.getMessage()));
 //    }
 }

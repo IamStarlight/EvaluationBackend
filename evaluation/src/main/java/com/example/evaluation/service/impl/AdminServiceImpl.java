@@ -2,6 +2,7 @@ package com.example.evaluation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.evaluation.annotation.CurrentUser;
 import com.example.evaluation.controller.dto.RegisterDto;
 import com.example.evaluation.controller.dto.UpdateDto;
 import com.example.evaluation.entity.Admin;
@@ -25,36 +26,37 @@ public class AdminServiceImpl
     @Autowired
     private AdminMapper adminMapper;
 
+    @CurrentUser User user;
+
     @Override
-    public boolean register(RegisterDto rdto) {
+    public void register(RegisterDto rdto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Admin one = new Admin();
         one.setName(rdto.getName());
         one.setPassword(passwordEncoder.encode(rdto.getPassword()));
         one.setEmail(rdto.getEmail());
-        return save(one);
+        save(one);
     }
 
     @Override
-    public boolean updateUserInfo(UpdateDto ud) {
+    public void updateUserInfo(UpdateDto ud) {
         LambdaUpdateWrapper<Admin> wrapper = new LambdaUpdateWrapper<>();
         wrapper.eq(Admin::getId,ud.getId())
                 .set(Admin::getName,ud.getName())
                 .set(Admin::getEmail,ud.getEmail());
         int flag = adminMapper.update(null,wrapper);
-        if(flag >= 1) return true;
-        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
+        if(flag < 1) throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
     }
 
     @Override
-    public boolean updateUserPwd(Integer id, String newpwd) {
+    public void updateUserPwd(Integer id, String newpwd) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        return changePassword(id, newpwd, passwordEncoder);
+        changePassword(id, newpwd, passwordEncoder);
     }
 
     @Override
-    public boolean updateUserPwd(Integer id, String oldpwd, String newpwd) {
+    public void updateUserPwd(Integer id, String oldpwd, String newpwd) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         Admin user = getById(id);
@@ -63,23 +65,25 @@ public class AdminServiceImpl
         if(newpwd.equals(oldpwd))
             throw new ServiceException(HttpStatus.FORBIDDEN.value(),"新密码与原密码相同");
 
-        return changePassword(id, newpwd, passwordEncoder);
+        changePassword(id, newpwd, passwordEncoder);
     }
 
-    private boolean changePassword(Integer id, String newpwd, BCryptPasswordEncoder passwordEncoder) {
+    private void changePassword(Integer id, String newpwd, BCryptPasswordEncoder passwordEncoder) {
         String token = passwordEncoder.encode(newpwd);
 
         LambdaUpdateWrapper<Admin> wrapper = new LambdaUpdateWrapper<>();
         wrapper.eq(Admin::getId,id).set(Admin::getPassword,token);
 
         int flag = adminMapper.update(null,wrapper);
-        if(flag >= 1) return true;
-        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
+        if(flag < 1) throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
     }
 
     @Override
-    public boolean deleteUserById(Integer id) {
-        if(removeById(id)) return true;
-        else throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
+    public void deleteUserById(Integer id) {
+        Admin one = getById(id);
+        if(one.getId().equals(user.getId()))
+            throw new ServiceException(HttpStatus.FORBIDDEN.value(),"不能删除自己的账号");
+
+        if(!removeById(id)) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
     }
 }

@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * 在 Controller 的方法参数中使用此注解，该方法在映射时会注入当前登录的 User 对象
  */
-@Target({ElementType.FIELD, ElementType.PARAMETER}) //可用在方法的参数上
+@Target({ElementType.FIELD, ElementType.PARAMETER,ElementType.LOCAL_VARIABLE}) //可用在方法的参数上
 @Retention(RetentionPolicy.RUNTIME) //运行时有效
 public @interface CurrentUser {
 }

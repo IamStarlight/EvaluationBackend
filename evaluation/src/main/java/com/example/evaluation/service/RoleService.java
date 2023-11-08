@@ -5,19 +5,21 @@ import com.example.evaluation.controller.dto.UpdateDto;
 import com.example.evaluation.entity.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @Service
 public interface RoleService {
 
-    boolean register(RegisterDto rdto);
+    void register(RegisterDto rdto);
 
-    boolean updateUserInfo(UpdateDto ud);
+    void updateUserInfo(UpdateDto ud);
 
-    boolean deleteUserById(Integer id);
+    void deleteUserById(Integer id);
 
-    boolean updateUserPwd(Integer id, String newpwd);
+    void updateUserPwd(Integer id, String newpwd);
 
-    boolean updateUserPwd(Integer id, String oldpwd,String newpwd);
+    void updateUserPwd(Integer id, String oldpwd,String newpwd);
+
 }

@@ -2,7 +2,9 @@ package com.example.evaluation.utils;
 
 import com.example.evaluation.annotation.CurrentUser;
 import com.example.evaluation.entity.User;
+import com.example.evaluation.exception.ServiceException;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.RequestAttributes;
@@ -24,9 +26,10 @@ public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentR
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         User user = (User) webRequest.getAttribute("CurrentUser", RequestAttributes.SCOPE_REQUEST);
-        if (user != null) {
-            return user;
-        }
-        throw new MissingServletRequestPartException("CurrentUser");
+        System.out.println("!!!!!!CurrentUserResolver user: "+user);
+        if (user == null)
+            throw new ServiceException(HttpStatus.NO_CONTENT.value(), "CurrentUser为空");
+        return user;
+//        throw new MissingServletRequestPartException("CurrentUser为空");
     }
 }

@@ -40,6 +40,16 @@ public class CourseServiceImpl
     }
 
     @Override
+    public boolean updateCourseInfo(Integer cid,String cname, String content) {
+        Course course = new Course();
+        course.setCid(cid);
+        course.setCname(cname);
+        course.setContent(content);
+        if(updateById(course)) return true;
+        else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "课程不存在");
+    }
+
+    @Override
     public boolean deleteCourse(Integer cid){
         if(removeById(cid)) return true;
         else throw new ServiceException(HttpStatus.NOT_FOUND.value(),"课程不存在");
@@ -58,12 +68,5 @@ public class CourseServiceImpl
         if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         return list;
 
-    }
-
-    @Override
-    public List<Map<String,String>> getAllSCList(Integer cid) {
-        List<Map<String,String>> list = courseMapper.getAllSCList(cid);
-        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
-        return list;
     }
 }

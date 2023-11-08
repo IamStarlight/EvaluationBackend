@@ -40,28 +40,35 @@ public class WorkController {
         return new ResponseEntity<>(Result.success(workService.getAllWorkInfoByCid(cid)), HttpStatus.OK);
     }
 
-    // TODO: 2023-11-06 教师获得作业信息 作业名 截止日期 是否截止 提交人数 课堂人数 
-    //根据wid查询作业
-    @GetMapping("/info")
-    @PreAuthorize("hasAnyAuthority('ROLE_AMDIN','ROLE_TEACHER','ROLE_STUDENT')")
-    public ResponseEntity<Result> getWorkInfoByWid(@RequestParam @Valid String wid){
-        return new ResponseEntity<>(Result.success(workService.getById(wid)), HttpStatus.OK);
+    //教师获得作业信息 标题 截止日期 状态 提交人数 课堂人数
+    @GetMapping("/teacher")
+    @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
+    public ResponseEntity<Result> getWorkInfoById(@RequestParam @Valid Integer wid,
+                                                   @RequestParam @Valid Integer cid){
+        return new ResponseEntity<>(Result.success(workService.getWorkInfoById(wid,cid)), HttpStatus.OK);
     }
+
+//    //根据wid查询作业
+//    @GetMapping("/info")
+//    @PreAuthorize("hasAnyAuthority('ROLE_AMDIN','ROLE_TEACHER','ROLE_STUDENT')")
+//    public ResponseEntity<Result> getWorkInfoByWid(@RequestParam @Valid String wid){
+//        return new ResponseEntity<>(Result.success(workService.getById(wid)), HttpStatus.OK);
+//    }
 
     //管理员、教师更改编辑状态
-    @PostMapping("/edit/status")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
-    public ResponseEntity<Result> updateEditStatus(@RequestParam @Valid String wid, String status){
-        return new ResponseEntity<>(Result.success(workService.updateEditStatus(wid,status)), HttpStatus.OK);
-    }
-
-    //管理员、教师更改互评状态
-    @PostMapping("/evaluate/status")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
-    public ResponseEntity<Result> updateEvaluateStatus(@RequestParam @Valid String wid,
-                                                       @RequestParam @Valid String status){
-        return new ResponseEntity<>(Result.success(workService.updateEvaluateStatus(wid,status)), HttpStatus.OK);
-    }
+//    @PostMapping("/edit/status")
+//    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
+//    public ResponseEntity<Result> updateEditStatus(@RequestParam @Valid String wid, String status){
+//        return new ResponseEntity<>(Result.success(workService.updateEditStatus(wid,status)), HttpStatus.OK);
+//    }
+//
+//    //管理员、教师更改互评状态
+//    @PostMapping("/evaluate/status")
+//    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
+//    public ResponseEntity<Result> updateEvaluateStatus(@RequestParam @Valid String wid,
+//                                                       @RequestParam @Valid String status){
+//        return new ResponseEntity<>(Result.success(workService.updateEvaluateStatus(wid,status)), HttpStatus.OK);
+//    }
 
     //编辑作业
     // TODO: 2023-11-01 500,400 why?
@@ -81,17 +88,22 @@ public class WorkController {
     }
 
     //交作业
-    // TODO: 2023-11-01 500 saveorupdate
     @PostMapping("/submit")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> submitWork(@RequestBody @Valid SubmitDto submitDto){
         return new ResponseEntity<>(Result.success(submitService.submitWork(submitDto)), HttpStatus.OK);
     }
 
-    // TODO: 2023-11-06 作业提交名单 
+    // TODO: 2023-11-06 作业提交名单
+    @PostMapping("/submitlist")
+    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
+    public ResponseEntity<Result> getSubmitList(@RequestParam @Valid Integer wid,
+                                                @RequestParam @Valid Integer cid){
+        return new ResponseEntity<>(Result.success(submitService.getSubmitList(wid,cid)), HttpStatus.OK);
+    }
 
     //老师批改作业
-    @PostMapping("/teacher/evaluation")
+    @PostMapping("/evaluate")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> teacherEvaluation(@RequestBody @Valid TeacherEvaDto td){
         return new ResponseEntity<>(Result.success(submitService.teacherEvaluation(td)), HttpStatus.OK);

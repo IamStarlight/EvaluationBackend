@@ -8,34 +8,37 @@ import com.example.evaluation.entity.StuWork;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.SubmitMapper;
 import com.example.evaluation.service.SubmitService;
+import com.github.jeffreyning.mybatisplus.service.MppServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class SubmitServiceImpl
-        extends ServiceImpl<SubmitMapper, StuWork>
+        extends MppServiceImpl<SubmitMapper, StuWork>
         implements SubmitService {
 
     @Autowired
-    private SubmitMapper submitMapper;
+    private SubmitMapper mapper;
 
     @Autowired
     private WorkServiceImpl workService;
 
     @Override
-    public boolean submitWork(SubmitDto sd) {
-        boolean isOvertime = workService.checkOvertime(sd.getWid(), sd.getCid(), sd.getSubmitTime());
+    public boolean submitWork(SubmitDto d) {
+//        boolean isOvertime = workService.checkOvertime(d.getWid(), d.getCid(), d.getSubmitTime());
 
-        LambdaUpdateWrapper<StuWork> wrapper = new LambdaUpdateWrapper<>();
-        wrapper.eq(StuWork::getSid,sd.getSid())
-                .eq(StuWork::getWid,sd.getWid())
-                .set(StuWork::getURL,sd.getUrl())
-                .set(StuWork::getSubmitTime,sd.getSubmitTime())
-                .set(StuWork::getIsLate,isOvertime);
+        StuWork one = new StuWork();
+        one.setSid(d.getSid());
+        one.setWid(d.getWid());
+        one.setCid(d.getCid());
+        one.setDetails(d.getDetails());
+        one.setUrl(d.getUrl());
 
-        boolean flag = saveOrUpdate(null,wrapper);
-        if(flag) return true;
+        if(save(one)) return true;
         else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
     }
 
@@ -51,4 +54,10 @@ public class SubmitServiceImpl
         else throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
     }
 
+    @Override
+    public List<Map<String,String>> getSubmitList(Integer wid, Integer cid) {
+        List<Map<String,String>> list = mapper.getSubmitList(wid,cid);
+        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        return list;
+    }
 }

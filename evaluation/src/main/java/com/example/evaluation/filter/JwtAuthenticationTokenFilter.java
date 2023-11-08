@@ -1,10 +1,12 @@
 package com.example.evaluation.filter;
 
+import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.utils.JwtUtil;
 import com.example.evaluation.utils.LoginUser;
 import com.example.evaluation.utils.RedisCache;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -43,14 +45,17 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             userid = claims.getSubject();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("token非法");
+//            throw new RuntimeException("token非法");
+            throw new ServiceException(HttpStatus.UNAUTHORIZED.value(),"token非法");
         }
         //从redis中获取用户信息
         String redisKey = "login:" + userid;
         LoginUser loginUser = redisCache.getCacheObject(redisKey);
         if(Objects.isNull(loginUser)){
-            throw new RuntimeException("用户未登录");
+//            throw new RuntimeException("用户未登录");
+            throw new ServiceException(HttpStatus.FORBIDDEN.value(),"用户未登录");
         }
+        System.out.println("!!!!!!jwtAuthFilter LoginUser: "+loginUser.getUser());
         //存入SecurityContextHolder
         //获取权限信息封装到Authentication中
         UsernamePasswordAuthenticationToken authenticationToken =

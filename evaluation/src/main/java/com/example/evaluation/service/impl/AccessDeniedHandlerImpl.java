@@ -2,6 +2,7 @@ package com.example.evaluation.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.example.evaluation.entity.Result;
+import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.utils.WebUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -19,5 +20,6 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         String json = JSON.toJSONString(Result.error(HttpStatus.UNAUTHORIZED.value(), "权限不足"));
         WebUtils.renderString(response,json);
+//        throw new ServiceException(HttpStatus.UNAUTHORIZED.value(), "权限不足");
     }
 }

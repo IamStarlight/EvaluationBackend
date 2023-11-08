@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http#{//mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.evaluation.mapper.SubmitMapper">
+
+    <select id="getSubmitList" resultType="java.util.Map">
+        select id,name,url,submit_time,is_late,total_grade
+        from stu_homework,student
+        where stu_homework.sid=student.id
+        and wid=#{wid}
+        and cid=#{cid}
+    </select>
+</mapper>

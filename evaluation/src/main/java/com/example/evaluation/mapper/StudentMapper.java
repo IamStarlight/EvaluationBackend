@@ -8,9 +8,12 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 @Mapper
 @Repository
 @Component
 public interface StudentMapper extends BaseMapper<Student> {
-//     int updateUserInfo(@Param("id") Integer id, @Param("name") String name, @Param("email") String email);
+
 }

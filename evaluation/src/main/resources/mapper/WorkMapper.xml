@@ -10,4 +10,12 @@
         AND homework.cid=course.cid;
         AND sc.sid=#{sid}
     </select>
+
+    <select id="getWorkInfoById" resultType="java.util.Map">
+        select title,end_time as endTime,status,submit_number as submitNumber,number as classNumber
+        from homework
+        where number in (select number from course where cid=#{cid})
+        and cid=#{cid}
+        and wid=#{wid}
+    </select>
 </mapper>

@@ -18,8 +18,7 @@ import java.io.IOException;
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        // TODO: 2023-11-06 http响应码错误 401
-        String json = JSON.toJSONString(Result.error(HttpStatus.UNAUTHORIZED.value(),"认证失败请重新登录"));
+        String json = JSON.toJSONString(Result.error(HttpStatus.UNAUTHORIZED.value(),"密码错误请重新登录"));
         WebUtils.renderString(response,json);
 //        throw new ServiceException(HttpStatus.UNAUTHORIZED.value(),"认证失败请重新登录");
     }

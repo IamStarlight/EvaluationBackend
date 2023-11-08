@@ -26,9 +26,8 @@ public class WorkDto {
     @Future
     private Date endTime;
 
-    private String editStatus;
-
-    private String evaStatus;
+    @NotNull(message = "状态不能为空")
+    private String status;
 
     //可以为空
     private String url;
