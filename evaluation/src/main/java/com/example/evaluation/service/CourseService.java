@@ -9,13 +9,13 @@ import java.util.Map;
 
 public interface CourseService {
 
-    boolean addNewCourse(CourseDto dto);
+    void addNewCourse(CourseDto dto);
 
-    boolean updateCourseInfo(Course course);
+    void updateCourseInfo(Course course);
 
-    boolean updateCourseInfo(Integer cid,String cname,String content);
+    void updateCourseInfo(Integer cid,String content);
 
-    boolean deleteCourse(Integer cid);
+    void deleteCourse(Integer cid);
 
     List<Map<String,String>> getCourseListByTid(Integer tid);
 

@@ -29,8 +29,6 @@ public class UserController {
     @Autowired
     private UserServiceImpl service;
 
-    @CurrentUser User user;
-
     //登录用户 ok
     @PostMapping("/login")
     public ResponseEntity<Result> login(@RequestBody @Valid LoginDto LoginDto){
@@ -55,7 +53,7 @@ public class UserController {
     //获取登陆用户信息 ok
     @GetMapping("/info")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
-    public ResponseEntity<Result> getUserByID(){
+    public ResponseEntity<Result> getUserByID(@CurrentUser User user){
         if(user==null)
             throw new ServiceException(HttpStatus.NO_CONTENT.value(), "User为空");
         return new ResponseEntity<>(Result.success(user), HttpStatus.OK);
@@ -76,7 +74,8 @@ public class UserController {
     //用户修改自己的密码 ok 跳转登陆界面重新登陆
     @PutMapping("/mypassword")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
-    public ResponseEntity<Result> updateMyPwd(@RequestParam @Valid @NotBlank(message = "原密码不能为空")
+    public ResponseEntity<Result> updateMyPwd(@CurrentUser User user,
+                                              @RequestParam @Valid @NotBlank(message = "原密码不能为空")
                                               String oldpwd,
                                               @RequestParam @Valid @NotBlank(message = "新密码不能为空")
                                               String newpwd){

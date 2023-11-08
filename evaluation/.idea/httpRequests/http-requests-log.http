@@ -4,6 +4,16 @@ Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
+<> 2023-11-08T200435.200.json
+
+###
+
+GET http://localhost:3309/user/info
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0MTE3MDhjMjY3MGY0ZDI5YTkzOGVhNzYwNWNiM2U4NiIsInN1YiI6IjIiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTQ0NDYyMywiZXhwIjoxNjk5NDQ4MjIzfQ.B89QL4VJG-ZNM-gTdHM9lcaR-W4aZbhV7QlaM-gfPAI
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
 <> 2023-11-08T195730.501.json
 
 ###
@@ -706,24 +716,6 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 }
 
 <> 2023-11-08T105518.200.json
-
-###
-
-POST http://localhost:3309/student/update
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmY2NjZDBmNGNkZTU0NjEzOGIyMWQ5ZDQyOTYyOTZmZCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTI2MjczMywiZXhwIjoxNjk5MjY2MzMzfQ.9NbMOrE7eK3cfnFOTyqD3WXnl_EuQiEWXAFWrHZ8hZg
-Content-Length: 72
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "id": 21301001,
-  "name": "lsy",
-  "email": "21301119@bjtu.edu.cn"
-}
-
-<> 2023-11-08T102921.200.json
 
 ###
 
