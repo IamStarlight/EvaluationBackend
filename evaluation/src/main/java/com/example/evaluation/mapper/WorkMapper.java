@@ -22,4 +22,8 @@ public interface WorkMapper extends MppBaseMapper<Homework> {
     boolean createNewWork(@Param("wid") Integer wid,@Param("cid") Integer cid, @Param("title") String title, @Param("details") String details, @Param("url") String url, @Param("startTime") Date startTime, @Param("endTime") Date endTime, @Param("status") String status);
 
     boolean updateStatus(@Param("wid") Integer wid, @Param("cid") Integer cid, @Param("status") Integer status);
+
+    List<HomeworkInfo> getAllWorkInfoByTid(@Param("id") Integer id, @Param("cid") Integer cid);
+
+    List<HomeworkInfo> getStuWorkInfo(@Param("sid") Integer sid, @Param("cid") Integer cid);
 }

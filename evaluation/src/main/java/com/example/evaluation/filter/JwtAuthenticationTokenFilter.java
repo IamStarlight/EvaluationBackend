@@ -55,7 +55,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 //            throw new RuntimeException("用户未登录");
             throw new ServiceException(HttpStatus.FORBIDDEN.value(),"用户未登录");
         }
-        System.out.println("!!!!!!jwtAuthFilter LoginUser: "+loginUser.getUser());
+//        System.out.println("!!!!!!jwtAuthFilter LoginUser: "+loginUser.getUser());
         //存入SecurityContextHolder
         //获取权限信息封装到Authentication中
         UsernamePasswordAuthenticationToken authenticationToken =

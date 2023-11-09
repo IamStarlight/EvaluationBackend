@@ -2,6 +2,7 @@ package com.example.evaluation.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
+import com.example.evaluation.annotation.CurrentUser;
 import com.example.evaluation.controller.dto.LoginDto;
 import com.example.evaluation.controller.dto.RegisterDto;
 import com.example.evaluation.controller.dto.UpdateDto;
@@ -22,6 +23,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Service
@@ -70,7 +73,7 @@ public class UserServiceImpl
 
         //authenticate存入redis
         redisCache.setCacheObject("login:"+userId,loginUser);
-        System.out.println("!!!!!!loginuser in login: "+loginUser.getUser().getId()+", "+loginUser.getUser().getName());
+//        System.out.println("!!!!!!loginuser in login: "+loginUser.getUser().getId()+", "+loginUser.getUser().getName());
 
         //把token响应给前端
         HashMap<String,String> map = new HashMap<>();
@@ -93,10 +96,15 @@ public class UserServiceImpl
         switch (d.getPermission()) {
             case "1":
                 adminService.register(d);
+                break;
             case "2":
                 teacherService.register(d);
+                break;
             case "3":
                 studentService.register(d);
+                break;
+            default:
+                throw new ServiceException(HttpStatus.BAD_REQUEST.value(), "用户类型不存在");
         }
     }
 
@@ -106,10 +114,15 @@ public class UserServiceImpl
         switch (one.getPermission()) {
             case "ROLE_STUDENT":
                 studentService.updateUserPwd(id, newpwd);
+                break;
             case "ROLE_TEACHER":
                 teacherService.updateUserPwd(id, newpwd);
+                break;
             case "ROLE_ADMIN":
                 adminService.updateUserPwd(id, newpwd);
+                break;
+            default:
+                throw new ServiceException(HttpStatus.BAD_REQUEST.value(), "用户类型不存在");
         }
     }
 
@@ -119,16 +132,21 @@ public class UserServiceImpl
         switch (one.getPermission()) {
             case "ROLE_STUDENT":
                 studentService.updateUserPwd(id, oldpwd, newpwd);
+                break;
             case "ROLE_TEACHER":
                 teacherService.updateUserPwd(id, oldpwd, newpwd);
+                break;
             case "ROLE_ADMIN":
                 adminService.updateUserPwd(id, oldpwd, newpwd);
+                break;
+            default:
+                throw new ServiceException(HttpStatus.BAD_REQUEST.value(), "用户类型不存在");
         }
     }
 
     @Override
     public Object getAllRoleInfo(String permission) {
-        System.out.println("!!!!!!!!!进UserServiceImpl了："+permission);
+//        System.out.println("!!!!!!!!!进UserServiceImpl了："+permission);
         switch (permission) {
             case "1":
                 return adminService.list();
@@ -142,11 +160,17 @@ public class UserServiceImpl
     }
 
     @Override
-    public User getOneByID(Integer id) {
-        User one = getById(id);
-        if(one == null)
-            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
-        else return one;
+    public Object getOneByID(Integer id, String permission) {
+        switch (permission) {
+            case "1":
+                return adminService.getById(id);
+            case "2":
+                return teacherService.getById(id);
+            case "3":
+                return studentService.getById(id);
+            default:
+                return getById(id);
+        }
     }
 
     @Override
@@ -154,22 +178,32 @@ public class UserServiceImpl
         switch (d.getPermission()) {
             case "1":
                 adminService.updateUserInfo(d);
+                break;
             case "2":
                 teacherService.updateUserInfo(d);
+                break;
             case "3":
                 studentService.updateUserInfo(d);
+                break;
+            default:
+                throw new ServiceException(HttpStatus.BAD_REQUEST.value(), "用户类型不存在");
         }
     }
 
     @Override
-    public void deleteUserById(Integer id, String permission) {
+    public void deleteUserById(Integer myId,Integer id, String permission) {
         switch (permission) {
             case "1":
-                adminService.deleteUserById(id);
+                adminService.deleteUserByIdNotMe(myId,id);
+                break;
             case "2":
                 teacherService.deleteUserById(id);
+                break;
             case "3":
                 studentService.deleteUserById(id);
+                break;
+            default:
+                throw new ServiceException(HttpStatus.BAD_REQUEST.value(), "用户类型不存在");
         }
     }
 }

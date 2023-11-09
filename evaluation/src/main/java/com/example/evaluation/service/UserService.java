@@ -27,9 +27,9 @@ public interface UserService {
 
     Object getAllRoleInfo(String permission);
 
-    Object getOneByID(Integer id);
+    Object getOneByID(Integer id,String permission);
 
     void updateUserInfo(UpdateDto d);
 
-    void deleteUserById(Integer id, String permission);
+    void deleteUserById(Integer myId,Integer id, String permission);
 }

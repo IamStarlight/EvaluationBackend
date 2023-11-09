@@ -19,6 +19,8 @@ public interface WorkService extends IMppService<Homework> {
 
     List<HomeworkInfo> getWorkInfoById(Integer wid, Integer cid);
 
+    List<HomeworkInfo> getStuWorkInfo(Integer sid, Integer cid);
+
     boolean checkOvertime(Integer wid, Integer cid, Date submitTime);
 
     void createNewWork(Homework homework);
@@ -28,4 +30,6 @@ public interface WorkService extends IMppService<Homework> {
     void updateWorkInfo(Homework homework);
 
     void deleteHomework(Integer wid, Integer cid);
+
+    List<HomeworkInfo> getAllWorkInfoByTid(Integer id, Integer cid);
 }

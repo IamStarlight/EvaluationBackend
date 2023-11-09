@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class TeacherServiceImpl
         extends ServiceImpl<TeacherMapper, Teacher>
@@ -75,6 +77,10 @@ public class TeacherServiceImpl
 
     @Override
     public void deleteUserById(Integer id) {
-        if(!removeById(id)) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
+        if(!removeById(id))
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
     }
+
+//    public Map<String, String> getOneByID(Integer ) {
+//    }
 }

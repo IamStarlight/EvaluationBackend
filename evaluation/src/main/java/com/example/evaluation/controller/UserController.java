@@ -66,7 +66,7 @@ public class UserController {
     public ResponseEntity<Result> updateUserPwd(@RequestParam @Valid @NotNull(message = "id不能为空")
                                                     Integer id,
                                                 @RequestParam @Valid @NotBlank(message = "新密码不能为空")
-                                                String newpwd){
+                                                    String newpwd){
         service.updateUserPwd(id,newpwd);
         return new ResponseEntity<>((Result.success()),HttpStatus.OK);
     }
@@ -95,8 +95,10 @@ public class UserController {
     @GetMapping("/oneinfo")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> getOneByID(@RequestParam @Valid @NotNull(message = "id不能为空")
-                                                 Integer id){
-        return new ResponseEntity<>(Result.success(service.getOneByID(id)), HttpStatus.OK);
+                                                 Integer id,
+                                             @RequestParam
+                                                String permission){
+        return new ResponseEntity<>(Result.success(service.getOneByID(id,permission)), HttpStatus.OK);
     }
 
     //管理员更新用户数据
@@ -110,11 +112,12 @@ public class UserController {
     //删除用户信息
     @DeleteMapping("/delete")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Result> deleteUserById(@RequestParam @Valid @NotNull(message = "id不能为空")
+    public ResponseEntity<Result> deleteUserById(@CurrentUser User user,
+                                                 @RequestParam @Valid @NotNull(message = "id不能为空")
                                                      Integer id,
                                                  @RequestParam @Valid @NotBlank(message = "权限不能为空")
                                                     String permission){
-        service.deleteUserById(id,permission);
+        service.deleteUserById(user.getId(),id,permission);
         return new ResponseEntity<>((Result.success()),HttpStatus.OK);
     }
 }

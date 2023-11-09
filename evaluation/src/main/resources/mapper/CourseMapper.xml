@@ -26,4 +26,14 @@
         where course.tid=teacher.id
         and course.cid=#{cid}
     </select>
+
+    <select id="getAllCourseInfo" resultType="java.util.Map">
+        select cid,cname,tid,name as tname,content,class_number
+        from course,teacher
+        where course.tid=teacher.id
+    </select>
+
+    <select id="getCourseInfo" resultType="map">
+        select * from course where cid=#{cid}
+    </select>
 </mapper>

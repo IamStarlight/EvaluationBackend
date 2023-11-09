@@ -28,6 +28,7 @@ public class HomeworkInfo {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date endTime;
 
+    // TODO: 2023-11-09 int 
     private String status;
 
     private Integer submitNumber;

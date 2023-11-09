@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @Validated
@@ -19,18 +20,39 @@ public class ScController {
     @Autowired
     private ScServiceImpl service;
 
-    @PostMapping("/delete")
+    // TODO: 2023-11-09 搜索选课名单中的学生
+    @GetMapping("/student")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
+    public ResponseEntity<Result> getOneSCStudent(@RequestParam @Valid @NotNull(message = "学号不能为空")
+                                                   Integer sid,
+                                               @RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                    Integer cid){
+        return new ResponseEntity<>(Result.success(service.getOneSCStudent(sid,cid)), HttpStatus.OK);
+    }
+
+    //查询某课程的选课名单 ok
+    @GetMapping("/list")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
+    public ResponseEntity<Result> getAllSCList(@RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                               Integer cid){
+        return new ResponseEntity<>(Result.success(service.getAllSCList(cid)), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<Result> deleteScStu(@RequestParam @Valid Integer sid,
                                               @RequestParam @Valid Integer cid){
-        return new ResponseEntity<>(Result.success(service.deleteScStu(sid,cid)), HttpStatus.OK);
+        service.deleteScStu(sid,cid);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 
-    @GetMapping("/add")
+    // TODO: 2023-11-09 没这个人不能加
+    @PostMapping("/add")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<Result> addScStu(@RequestParam @Valid Integer sid,
                                            @RequestParam @Valid Integer cid){
-        return new ResponseEntity<>(Result.success(service.addScStu(sid,cid)), HttpStatus.OK);
+        service.addScStu(sid,cid);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 
 }

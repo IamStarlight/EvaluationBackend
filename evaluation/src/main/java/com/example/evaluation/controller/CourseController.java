@@ -29,10 +29,11 @@ public class CourseController {
     private ScServiceImpl scService;
 
     //管理员查看所有课程 ok
+    // TODO: 2023-11-09 tname
     @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> getAllCourseInfo(){
-        return new ResponseEntity<>(Result.success(service.list()), HttpStatus.OK);
+        return new ResponseEntity<>(Result.success(service.getAllCourseInfo()), HttpStatus.OK);
     }
 
     //根据课程号查询课程 ok
@@ -40,7 +41,7 @@ public class CourseController {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> getCourseInfo(@RequestParam @Valid @NotNull(message = "课程号不能为空")
                                                     Integer cid){
-        return new ResponseEntity<>(Result.success(service.getById(cid)), HttpStatus.OK);
+        return new ResponseEntity<>(Result.success(service.getCourseInfo(cid)), HttpStatus.OK);
     }
 
     //管理员根据工号查询教师所授课程 ok
@@ -75,13 +76,12 @@ public class CourseController {
         return new ResponseEntity<>(Result.success(service.getCourseListBySid(user.getId())), HttpStatus.OK);
     }
 
-    //查询某课程的选课名单 ok
-    @GetMapping("/sclist")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
-    public ResponseEntity<Result> getAllSCList(@RequestParam @Valid @NotNull(message = "课程号不能为空")
-                                                   Integer cid){
-        return new ResponseEntity<>(Result.success(scService.getAllSCList(cid)), HttpStatus.OK);
-    }
+
+
+    // TODO: 2023-11-09 转时间 
+    // TODO: 2023-11-09 wid自增 
+    // TODO: 2023-11-09 作业状态 
+
 
     //管理员增加课程 ok
     @PostMapping("/add")

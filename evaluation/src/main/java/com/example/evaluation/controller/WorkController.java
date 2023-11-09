@@ -66,7 +66,7 @@ public class WorkController {
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 
-    //管理员、教师编辑作业 ok
+    //管理员、教师编辑作业信息 ok
     @PutMapping("/edit")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<Result> updateWorkInfo(@RequestBody @Valid Homework homework){
@@ -96,7 +96,7 @@ public class WorkController {
 
 //--------GetMapping------------------------------------
 
-    //学生查询自己的所有作业 ok
+    //学生查询自己的所有作业 ok(写了的)
     // TODO: 2023-11-09 所有未完成的作业 
     @GetMapping("/student")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
@@ -104,7 +104,7 @@ public class WorkController {
         return new ResponseEntity<>(Result.success(workService.getAllWorkInfoBySid(user.getId())), HttpStatus.OK);
     }
 
-    // TODO: 2023-11-08 学生查询自己某课程某作业提交的作业 
+    // TODO: 2023-11-09 学生查所有老师布置的作业 sc w
 
     //123根据课程号查询课程的全部作业 ok
     @GetMapping("/bycourse")
@@ -114,14 +114,33 @@ public class WorkController {
         return new ResponseEntity<>(Result.success(workService.getAllWorkInfoByCid(cid)), HttpStatus.OK);
     }
 
-    //老师根据作业号、课程号获得作业信息 ok （标题 截止日期 状态 提交人数 课堂人数）
+    //老师查询自己教的某课程的所有作业
     @GetMapping("/teacher")
+    @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
+    public ResponseEntity<Result> getAllWorkInfoByTid(@CurrentUser User user,
+                                                      @RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                      Integer cid){
+        return new ResponseEntity<>(Result.success(workService.getAllWorkInfoByTid(user.getId(),cid)), HttpStatus.OK);
+    }
+
+    //老师根据作业号、课程号获得作业信息 ok （标题 截止日期 状态 提交人数 课堂人数）
+    @GetMapping("/list")
     @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
     public ResponseEntity<Result> getWorkInfoById(@RequestParam @Valid @NotNull(message = "作业号不能为空")
                                                         Integer wid,
                                                    @RequestParam @Valid @NotNull(message = "课程号不能为空")
                                                         Integer cid){
         return new ResponseEntity<>(Result.success(workService.getWorkInfoById(wid,cid)), HttpStatus.OK);
+    }
+
+    // TODO: 2023-11-08 查询学生某课程布置的作业
+    @GetMapping("/info")
+    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
+    public ResponseEntity<Result> getStuWorkInfo(@RequestParam @Valid @NotNull(message = "作业号不能为空")
+                                                     Integer sid,
+                                                  @RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                    Integer cid){
+        return new ResponseEntity<>(Result.success(workService.getStuWorkInfo(sid,cid)), HttpStatus.OK);
     }
 
     //管理员、教师查询作业提交名单 ok
@@ -134,8 +153,6 @@ public class WorkController {
         return new ResponseEntity<>(Result.success(submitService.getSubmitList(wid,cid)), HttpStatus.OK);
     }
 
-
-
     // TODO: 2023-11-09 更新提交作业 
 
     // TODO: 2023-10-31 statistics 
@@ -144,6 +161,7 @@ public class WorkController {
 
     // TODO: 2023-11-02 sendEmail 
 
+    //todo: stuwork 批改没批改
     
 
 }

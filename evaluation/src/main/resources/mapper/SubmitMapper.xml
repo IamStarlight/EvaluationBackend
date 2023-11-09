@@ -3,7 +3,7 @@
 <mapper namespace="com.example.evaluation.mapper.SubmitMapper">
 
     <select id="getSubmitList" resultType="java.util.Map">
-        select id,name,details,url,submit_time,is_late,total_grade
+        select id,name,details,url,submit_time,is_late,teacher_grade,total_grade
         from stu_homework,student
         where stu_homework.sid=student.id
         and wid=#{wid}
@@ -12,7 +12,7 @@
 
     <update id="teacherEvaluation">
         update stu_homework
-        set teacher_grade=#{teacherGrade},teacher_comments=#{teacherComments}
+        set teacher_grade=#{teacherGrade},teacher_comments=#{teacherComments},total_grade=#{tempGrade}
         where sid=#{sid}
         and wid=#{wid}
         and cid=#{cid}

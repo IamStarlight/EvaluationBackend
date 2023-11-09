@@ -22,4 +22,6 @@ public interface ScMapper extends MppBaseMapper<SC> {
     boolean deleteScStu(@Param("sid") Integer sid, @Param("cid") Integer cid);
 
     boolean addScStu(@Param("sid") Integer sid, @Param("cid") Integer cid);
+
+    List<Map<String, String>> getOneSCStudent(@Param("sid") Integer sid, @Param("cid") Integer cid);
 }

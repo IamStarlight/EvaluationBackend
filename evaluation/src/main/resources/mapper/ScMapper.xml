@@ -19,7 +19,15 @@
 
 <!--    boolean addScStu(@Param("sid")Integer sid,@Param("cid") Integer cid);-->
     <insert id="addScStu">
-        insert into sc(sid,cid)
-        values (sid=#{sid},cid=#{cid})
+        insert into sc(sid,cid,grade)
+        values (#{sid},#{cid},0)
     </insert>
+
+    <select id="getOneSCStudent" resultType="java.util.Map">
+        select *
+        from student,sc
+        where student.sid=#{sid}
+        and sc.sid=student.sid
+        and sc.cid=#{cid}
+    </select>
 </mapper>

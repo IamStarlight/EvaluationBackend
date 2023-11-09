@@ -6,17 +6,16 @@ import com.example.evaluation.annotation.CurrentUser;
 import com.example.evaluation.controller.dto.RegisterDto;
 import com.example.evaluation.controller.dto.UpdateDto;
 import com.example.evaluation.entity.Admin;
-import com.example.evaluation.entity.Student;
-import com.example.evaluation.entity.Teacher;
 import com.example.evaluation.entity.User;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.AdminMapper;
-import com.example.evaluation.mapper.TeacherMapper;
 import com.example.evaluation.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class AdminServiceImpl
@@ -25,8 +24,6 @@ public class AdminServiceImpl
 
     @Autowired
     private AdminMapper adminMapper;
-
-    @CurrentUser User user;
 
     @Override
     public void register(RegisterDto rdto) {
@@ -80,10 +77,16 @@ public class AdminServiceImpl
 
     @Override
     public void deleteUserById(Integer id) {
+        if(!removeById(id))
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
+    }
+
+    public void deleteUserByIdNotMe(Integer myId,Integer id) {
         Admin one = getById(id);
-        if(one.getId().equals(user.getId()))
+        if(one.getId().equals(myId))
             throw new ServiceException(HttpStatus.FORBIDDEN.value(),"不能删除自己的账号");
 
-        if(!removeById(id)) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
+        if(!removeById(id))
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
     }
 }

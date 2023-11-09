@@ -174,17 +174,20 @@ create table stu_homework
 #     after insert on sc for each row
 # begin
 #     update course
-#     set number=number+1
+#     set class_number=class_number+1
 #     where cid=new.cid;
 # end;
-
+#
 # create trigger minus_sc_number
 #     after delete on sc for each row
 # begin
 #     update course
-#     set number=number-1
+#     set class_number=class_number-1
 #     where cid=old.cid;
 # end;
+
+# drop trigger sc_number;
+# drop trigger minus_sc_number;
 
 # create trigger insert_submit_work
 #     after insert on stu_homework for each row

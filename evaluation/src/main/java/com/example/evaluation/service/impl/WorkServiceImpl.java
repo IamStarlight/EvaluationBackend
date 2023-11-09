@@ -13,7 +13,6 @@ import com.example.evaluation.service.WorkService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class WorkServiceImpl
@@ -56,6 +55,13 @@ public class WorkServiceImpl
     }
 
     @Override
+    public List<HomeworkInfo> getStuWorkInfo(Integer sid, Integer cid) {
+        List<HomeworkInfo> one = mapper.getStuWorkInfo(sid,cid);
+        if(one==null) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        return one;
+    }
+
+    @Override
     public boolean checkOvertime(Integer wid, Integer cid, Date submitTime) {
         Homework idEntity = new Homework();
         idEntity.setWid(wid);
@@ -71,27 +77,24 @@ public class WorkServiceImpl
         Date startTime = new Date();
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        System.out.println("!!!!!!!!!!!createNewWork date="+startTime+" "+"format="+formatter.format(startTime));
+//        System.out.println("!!!!!!!!!!!createNewWork date="+startTime+" "+"format="+formatter.format(startTime));
 
         h.setStartTime(startTime);
 
         if(!save(h))
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "创建作业失败");
-
-//        if(!mapper.createNewWork(h.getWid(),h.getCid(),h.getTitle(),h.getDetails(),h.getUrl(),startTime,h.getEndTime(),h.getStatus()))
-//            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "创建作业失败");
     }
 
     @Override
     public void updateStatus(Integer wid, Integer cid, Integer status) {
         if(!mapper.updateStatus(wid,cid,status))
-            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(),"作业状态更新失败");
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
     }
 
     @Override
     public void updateWorkInfo(Homework homework) {
         if(!updateByMultiId(homework))
-            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(),"作业信息更新失败");
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
     }
 
     @Override
@@ -100,6 +103,16 @@ public class WorkServiceImpl
         idEntity.setWid(wid);
         idEntity.setCid(cid);
         if(!deleteByMultiId(idEntity))
-            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(),"作业删除失败");
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
     }
+
+    @Override
+    public List<HomeworkInfo> getAllWorkInfoByTid(Integer id, Integer cid) {
+        List<HomeworkInfo> one = mapper.getAllWorkInfoByTid(id,cid);
+        if(one.isEmpty())
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+        return one;
+    }
+
+
 }

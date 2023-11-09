@@ -20,4 +20,6 @@ public interface CourseService {
     List<Map<String,String>> getCourseListByTid(Integer tid);
 
     List<Map<String,String>> getCourseListBySid(Integer sid);
+
+    List<Map<String, String>> getCourseInfo(Integer cid);
 }

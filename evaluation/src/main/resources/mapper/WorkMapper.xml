@@ -3,7 +3,7 @@
 <mapper namespace="com.example.evaluation.mapper.WorkMapper">
 
     <select id="getAllWorkInfoBySid" resultType="com.example.evaluation.controller.dto.HomeworkInfo">
-        SELECT wid,cname,title,details,start_time,end_time,status,url
+        SELECT wid,cname,title,details,start_time,end_time,status,url,submit_number
         FROM homework,sc,course
         WHERE sc.sid=#{sid}
         AND homework.cid=sc.cid
@@ -11,7 +11,7 @@
     </select>
 
     <select id="getAllWorkInfoByCid" resultType="com.example.evaluation.controller.dto.HomeworkInfo">
-        SELECT wid,cname,title,details,start_time,end_time,status,url
+        SELECT wid,cname,title,details,start_time,end_time,status,url,submit_number,status
         FROM homework,course
         WHERE homework.cid=course.cid
         AND homework.cid=#{cid}
@@ -36,4 +36,20 @@
         where wid=#{wid}
         and cid=#{cid}
     </update>
+
+    <select id="getAllWorkInfoByTid" resultType="com.example.evaluation.controller.dto.HomeworkInfo">
+        SELECT wid,cname,title,details,start_time,end_time,status,url,submit_number
+        FROM homework,course
+        WHERE course.tid=#{tid}
+        AND homework.cid=course.cid;
+    </select>
+
+    <select id="getStuWorkInfo" resultType="com.example.evaluation.controller.dto.HomeworkInfo">
+        select wid,cname,title,details,end_time,status
+        from homework,course,sc
+        where sc.sid=#{sid}
+        and homework.cid=sc.cid
+        and homework.cid=course.cid
+        and homework.cid=#{cid}
+    </select>
 </mapper>

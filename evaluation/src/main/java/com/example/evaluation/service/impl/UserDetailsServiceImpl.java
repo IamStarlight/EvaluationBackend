@@ -32,16 +32,16 @@ public class UserDetailsServiceImpl extends ServiceImpl<UserMapper, User> implem
         if(Objects.isNull(user)){
             throw new ServiceException(HttpStatus.FORBIDDEN.value(),"用户名或密码错误");
         }
-        System.out.println("!!!!!!UserDetailServiceImpl user:"+user.getId()+", "+user.getName());
+//        System.out.println("!!!!!!UserDetailServiceImpl user:"+user.getId()+", "+user.getName());
 
         //根据用户查询权限信息 添加到LoginUser中
         List<String> permissionKeyList =
                 Collections.singletonList(
                         String.valueOf(userService.getPermsById(user.getId())));
-        System.out.println("!!!!!!authorities in UserDetail: "+userService.getPermsById(user.getId()));
+//        System.out.println("!!!!!!authorities in UserDetail: "+userService.getPermsById(user.getId()));
 
         LoginUser loginUser = new LoginUser(user,permissionKeyList);
-        System.out.println("!!!!!!UserDetailServiceImpl LoginUser: "+loginUser.getUser().getId()+", "+loginUser.getUser().getName());
+//        System.out.println("!!!!!!UserDetailServiceImpl LoginUser: "+loginUser.getUser().getId()+", "+loginUser.getUser().getName());
 
         //封装成UserDetails对象返回
 //        return new LoginUser(user,permissionKeyList);

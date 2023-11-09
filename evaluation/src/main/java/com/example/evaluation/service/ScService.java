@@ -12,7 +12,7 @@ public interface ScService extends IMppService<SC> {
 
     List<Map<String,String>> getAllSCList(Integer cid);
 
-    boolean deleteScStu(Integer sid, Integer cid);
+    void deleteScStu(Integer sid, Integer cid);
 
-    boolean addScStu(Integer sid, Integer cid);
+    void addScStu(Integer sid, Integer cid);
 }

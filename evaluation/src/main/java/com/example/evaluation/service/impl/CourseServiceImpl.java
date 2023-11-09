@@ -1,10 +1,8 @@
 package com.example.evaluation.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.evaluation.controller.dto.CourseDto;
 import com.example.evaluation.entity.Course;
-import com.example.evaluation.entity.User;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.CourseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.example.evaluation.service.CourseService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +20,7 @@ public class CourseServiceImpl
         implements CourseService {
 
     @Autowired
-    private CourseMapper courseMapper;
+    private CourseMapper mapper;
 
     @Override
     public void addNewCourse(CourseDto dto) {
@@ -52,16 +51,31 @@ public class CourseServiceImpl
 
     @Override
     public List<Map<String,String>> getCourseListByTid(Integer tid) {
-        List<Map<String,String>> list = courseMapper.getCourseListByTid(tid);
+        List<Map<String,String>> list = mapper.getCourseListByTid(tid);
         if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         return list;
     }
 
     @Override
     public List<Map<String,String>> getCourseListBySid(Integer sid) {
-        List<Map<String,String>> list = courseMapper.getCourseListBySid(sid);
+        List<Map<String,String>> list = mapper.getCourseListBySid(sid);
         if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         return list;
 
+    }
+
+    public List<Map<String,String>> getAllCourseInfo() {
+        List<Map<String,String>> list = mapper.getAllCourseInfo();
+        if(list.isEmpty())
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+        return list;
+    }
+
+    @Override
+    public List<Map<String, String>> getCourseInfo(Integer cid) {
+        List<Map<String, String>> one = mapper.getCourseInfo(cid);
+        if(one.isEmpty())
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        return one;
     }
 }

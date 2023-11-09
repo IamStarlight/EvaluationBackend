@@ -47,7 +47,8 @@ public class SubmitServiceImpl
 
     @Override
     public void teacherEvaluation(TeacherEvaDto d) {
-        if(!mapper.teacherEvaluation(d.getSid(),d.getWid(),d.getCid(),d.getTeacherGrade(),d.getTeacherComments()))
+        Integer tempGrade = (int) (d.getTeacherGrade() * 0.5);
+        if(!mapper.teacherEvaluation(d.getSid(),d.getWid(),d.getCid(),d.getTeacherGrade(),d.getTeacherComments(),tempGrade))
             throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
     }
 

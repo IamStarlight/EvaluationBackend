@@ -21,5 +21,4 @@ public interface RoleService {
     void updateUserPwd(Integer id, String newpwd);
 
     void updateUserPwd(Integer id, String oldpwd,String newpwd);
-
 }
