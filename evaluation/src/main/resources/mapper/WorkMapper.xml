@@ -2,20 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http#{//mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.evaluation.mapper.WorkMapper">
 
-<!--    List<Map<String,String>> getAllWorkInfoBySid(@Param("sid") String sid);-->
-    <select id="getAllWorkInfoBySid" resultType="java.util.Map">
-        SELET wid,cname,title,startTime,endTime,editStatus,evaStatus,url
+    <select id="getAllWorkInfoBySid" resultType="com.example.evaluation.controller.dto.HomeworkInfo">
+        SELECT wid,cname,title,details,start_time,end_time,status,url
         FROM homework,sc,course
-        WHERE  homework.cid=sc.cid
+        WHERE sc.sid=#{sid}
+        AND homework.cid=sc.cid
         AND homework.cid=course.cid;
-        AND sc.sid=#{sid}
     </select>
 
-    <select id="getWorkInfoById" resultType="java.util.Map">
-        select title,end_time as endTime,status,submit_number as submitNumber,number as classNumber
-        from homework
-        where number in (select number from course where cid=#{cid})
-        and cid=#{cid}
+    <select id="getAllWorkInfoByCid" resultType="com.example.evaluation.controller.dto.HomeworkInfo">
+        SELECT wid,cname,title,details,start_time,end_time,status,url
+        FROM homework,course
+        WHERE homework.cid=course.cid
+        AND homework.cid=#{cid}
+    </select>
+
+    <select id="getWorkInfoById" resultType="com.example.evaluation.controller.dto.HomeworkInfo">
+        select wid,cname,title,details,end_time,submit_number,class_number,status
+        from homework,course
+        where homework.cid=course.cid
+        and homework.cid=#{cid}
         and wid=#{wid}
     </select>
+
+    <insert id="createNewWork">
+        insert into homework(wid,cid,title,details,start_time,end_time,status,url)
+        values (#{wid},#{cid},#{title},#{details},#{startTime},#{endTime},#{status},#{url})
+    </insert>
+
+    <update id="updateStatus">
+        update homework
+        set status=#{status}
+        where wid=#{wid}
+        and cid=#{cid}
+    </update>
 </mapper>

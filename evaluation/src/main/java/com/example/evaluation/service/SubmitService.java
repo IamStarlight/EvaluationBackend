@@ -2,6 +2,7 @@ package com.example.evaluation.service;
 
 import com.example.evaluation.controller.dto.SubmitDto;
 import com.example.evaluation.controller.dto.TeacherEvaDto;
+import com.example.evaluation.entity.Homework;
 import com.example.evaluation.entity.StuWork;
 import com.github.jeffreyning.mybatisplus.service.IMppService;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,9 +12,9 @@ import java.util.Map;
 
 public interface SubmitService extends IMppService<StuWork> {
 
-    boolean submitWork(SubmitDto sd);
+    void submitWork(StuWork stuWork);
 
-    boolean teacherEvaluation(TeacherEvaDto td);
+    void teacherEvaluation(TeacherEvaDto td);
 
     List<Map<String,String>> getSubmitList(Integer wid, Integer cid);
 }

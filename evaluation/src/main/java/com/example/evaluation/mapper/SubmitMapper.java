@@ -16,4 +16,6 @@ import java.util.Map;
 @Component
 public interface SubmitMapper extends MppBaseMapper<StuWork> {
     List<Map<String, String>> getSubmitList(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    boolean teacherEvaluation(@Param("sid") Integer sid, @Param("wid") Integer wid, @Param("cid") Integer cid, @Param("teacherGrade") Integer teacherGrade, @Param("teacherComments") String teacherComments);
 }

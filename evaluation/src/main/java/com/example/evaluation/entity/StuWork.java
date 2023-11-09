@@ -8,8 +8,10 @@ import com.github.jeffreyning.mybatisplus.anno.MppMultiId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -38,10 +40,11 @@ public class StuWork implements Serializable {
     private String url;
 
     @TableField
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date submitTime;
 
     @TableField
-    @NotBlank(message = "是否晚交不能为空")
+    @NotNull(message = "是否晚交不能为空")
     private boolean isLate;
 
     @TableField

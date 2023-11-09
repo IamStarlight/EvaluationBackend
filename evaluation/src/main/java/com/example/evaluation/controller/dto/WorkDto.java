@@ -20,9 +20,11 @@ public class WorkDto {
 
     private String details;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date startTime;
 
     @NotNull(message = "截止时间不能为空")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Future
     private Date endTime;
 

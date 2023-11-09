@@ -36,7 +36,6 @@ public class Course implements Serializable {
 
     @TableField
 //    @NotNull(message = "选课人数不能为空")
-    private Integer number;
-
+    private Integer classNumber;
 
 }

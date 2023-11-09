@@ -4,7 +4,7 @@
 
 <!--    List<Map<String,String>> getCourseListByTid(@Param("tid") String tid);-->
     <select id = "getCourseListByTid"  resultType="map">
-        select course.cid,cname,name as tname,content,number
+        select course.cid,cname,name as tname,content,class_number
         from course,teacher
         where course.tid=teacher.id
         and course.tid = #{tid}
@@ -21,7 +21,7 @@
 
 <!--    Map<String,String> getCourseInfoByCid(@Param("cid") String cid);-->
     <select id="getCourseInfoByCid" resultType="map">
-        select course.cid,cname,name as tname,content,number
+        select course.cid,cname,name as tname,content,class_number
         from course,teacher
         where course.tid=teacher.id
         and course.cid=#{cid}

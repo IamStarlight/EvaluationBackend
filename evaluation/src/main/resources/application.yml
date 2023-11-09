@@ -45,7 +45,7 @@ spring:
 #    password: 'ly123'
 
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd HH:mm
     time-zone: GMT+8
 
   main:

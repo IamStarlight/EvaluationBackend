@@ -1,5 +1,6 @@
 package com.example.evaluation.service;
 
+import com.example.evaluation.controller.dto.HomeworkInfo;
 import com.example.evaluation.controller.dto.WorkDto;
 import com.example.evaluation.entity.Homework;
 import com.github.jeffreyning.mybatisplus.service.IMppService;
@@ -12,23 +13,19 @@ import java.util.Map;
 @Service
 public interface WorkService extends IMppService<Homework> {
 
-//    Homework getWorkInfoByWid(String wid);
+    List<HomeworkInfo> getAllWorkInfoBySid(Integer sid);
 
-//    boolean updateEditStatus(String wid,String status);
-//
-//    boolean updateEvaluateStatus(String wid, String status);
+    List<HomeworkInfo> getAllWorkInfoByCid(Integer cid);
 
-    boolean checkOvertime(String wid, String cid, Date submitTime);
+    List<HomeworkInfo> getWorkInfoById(Integer wid, Integer cid);
 
-    boolean updateWorkInfo(String wid, WorkDto wd);
+    boolean checkOvertime(Integer wid, Integer cid, Date submitTime);
 
-    boolean setNewWork(WorkDto wd);
+    void createNewWork(Homework homework);
 
-//    List<Map<String,String>> getAllWorkInfoByTid(String tid);
+    void updateStatus(Integer wid, Integer cid, Integer status);
 
-    List<Map<String,String>> getAllWorkInfoBySid(String sid);
+    void updateWorkInfo(Homework homework);
 
-    List<Homework> getAllWorkInfoByCid(String cid);
-
-    List<Map<String, String>> getWorkInfoById(Integer wid, Integer cid);
+    void deleteHomework(Integer wid, Integer cid);
 }

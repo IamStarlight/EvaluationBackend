@@ -97,4 +97,113 @@ create table stu_homework
     teacher_comments varchar(255) null
 );
 
+# create trigger insert_stu
+#     after insert on student for each row
+# begin
+#     insert into user ( id,name,password,email,permission)
+#     values( new.id,new.name,new.password,new.email, 'ROLE_STUDENT');
+# end;
+#
+# create trigger insert_tch
+#     after insert on teacher for each row
+# begin
+#     insert into user ( id,name,password,email,permission)
+#     values( new.id,new.name,new.password,new.email, 'ROLE_TEACHER');
+# end;
+#
+# create trigger insert_admin
+#     after insert on admin for each row
+# begin
+#     insert into user ( id,name,password,email,permission)
+#     values( new.id,new.name,new.password,new.email, 'ROLE_ADMIN');
+# end;
+#
+# create trigger delete_stu
+#     after delete on student for each row
+# begin
+#     delete from user where id=old.id;
+# end;
+#
+# create trigger delete_tch
+#     after delete on teacher for each row
+# begin
+#     delete from user where id=old.id;
+# end;
+#
+# create trigger delete_admin
+#     after delete on admin for each row
+# begin
+#     delete from user where id=old.id;
+# end;
+#
+# create trigger update_stu
+#     after update on student for each row
+# begin
+#     update user
+#     set name=new.name,password=new.password,email=new.email
+#     where id=old.id;
+# end;
+#
+# create trigger update_tch
+#     after update on teacher for each row
+# begin
+#     update user
+#     set name=new.name,password=new.password,email=new.email
+#     where id=old.id;
+# end;
+#
+# create trigger update_admin
+#     after update on admin for each row
+# begin
+#     update user
+#     set name=new.name,password=new.password,email=new.email
+#     where id=old.id;
+# end;
+
+# DROP TRIGGER insert_stu;
+# DROP TRIGGER insert_tch;
+# DROP TRIGGER insert_admin;
+# DROP TRIGGER update_stu;
+# DROP TRIGGER update_tch;
+# DROP TRIGGER update_admin;
+# DROP TRIGGER delete_stu;
+# DROP TRIGGER delete_tch;
+# DROP TRIGGER delete_admin;
+
+# create trigger sc_number
+#     after insert on sc for each row
+# begin
+#     update course
+#     set number=number+1
+#     where cid=new.cid;
+# end;
+
+# create trigger minus_sc_number
+#     after delete on sc for each row
+# begin
+#     update course
+#     set number=number-1
+#     where cid=old.cid;
+# end;
+
+# create trigger insert_submit_work
+#     after insert on stu_homework for each row
+# begin
+#     update homework
+#     set submit_number=submit_number+1
+#     where wid=new.wid
+#     and cid=new.cid;
+# end;
+#
+# create trigger delete_submit_work
+#     after delete on stu_homework for each row
+# begin
+#     update homework
+#     set submit_number=submit_number-1
+#     where wid=old.wid
+#     and cid=old.cid;
+# end;
+
+# drop trigger insert_submit_work;
+# drop trigger delete_submit_work;
 
