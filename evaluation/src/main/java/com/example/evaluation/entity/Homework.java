@@ -25,6 +25,7 @@ public class Homework implements Serializable {
 
     @MppMultiId
     @TableField
+    @NotNull(message = "作业id不能为空")
     private Integer wid;
 
     @MppMultiId

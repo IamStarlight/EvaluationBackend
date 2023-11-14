@@ -6,10 +6,17 @@ spring:
   application:
     name: evaluation
 
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+#    password: 123456
+#    database: 0
+#    timeout: 5000
+
+
   redis:
     host: 127.0.0.1
     port: 6379
-    password: 123456
     database: 0
     timeout: 5000
 
@@ -30,17 +37,25 @@ spring:
 #      max-wait: -1s
 #      max-active: -1
 
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    name: '@cjx'
+#    url: jdbc:mysql://localhost:3306/evasys?serverTimezone=GMT
+#    username: 'root'
+#    password: 'root'
+
+# 远端数据配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    name: '@cjx'
-    url: jdbc:mysql://localhost:3306/evasys?serverTimezone=GMT
+    name: 'remote'
+    url: jdbc:mysql://123.56.255.156:3306/evaluation?serverTimezone=Asia/Shanghai
     username: 'root'
-    password: 'root'
+    password: 'BJTU2023shixun@'
 
 #  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    name: 'ly'
-#    url: jdbc:mysql://localhost:3306/evasys?serverTimezone=GMT
+#    url: jdbc:mysql://localhost:3306/evasys?serverTimezone=Asia/Shanghai
 #    username: 'root'
 #    password: 'ly123'
 

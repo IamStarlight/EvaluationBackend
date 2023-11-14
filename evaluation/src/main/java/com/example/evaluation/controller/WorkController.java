@@ -1,14 +1,11 @@
 package com.example.evaluation.controller;
 
 import com.example.evaluation.annotation.CurrentUser;
-import com.example.evaluation.controller.dto.SubmitDto;
-import com.example.evaluation.controller.dto.TeacherEvaDto;
-import com.example.evaluation.controller.dto.WorkDto;
+import com.example.evaluation.controller.dto.EvaDto;
 import com.example.evaluation.entity.Homework;
 import com.example.evaluation.entity.Result;
 import com.example.evaluation.entity.StuWork;
 import com.example.evaluation.entity.User;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +16,6 @@ import com.example.evaluation.service.impl.SubmitServiceImpl;
 import com.example.evaluation.service.impl.WorkServiceImpl;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @RestController
@@ -77,20 +73,8 @@ public class WorkController {
     //老师批改作业 ok
     @PutMapping("/evaluate")
     @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
-    public ResponseEntity<Result> teacherEvaluation(@RequestBody @Valid TeacherEvaDto d){
+    public ResponseEntity<Result> teacherEvaluation(@RequestBody @Valid EvaDto d){
         submitService.teacherEvaluation(d);
-        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
-    }
-
-//--------DeleteMapping------------------------------------
-    //管理员、教师删除作业 ok
-    @DeleteMapping("/delete")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
-    public ResponseEntity<Result> deleteHomework(@RequestParam @Valid @NotNull(message = "作业号不能为空")
-                                                 Integer wid,
-                                                 @RequestParam @Valid @NotNull(message = "课程号不能为空")
-                                                 Integer cid){
-        workService.deleteHomework(wid,cid);
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 
@@ -134,8 +118,9 @@ public class WorkController {
     }
 
     // TODO: 2023-11-08 查询学生某课程布置的作业
+    // TODO: 2023-11-10 不能大于100分 
     @GetMapping("/info")
-    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
     public ResponseEntity<Result> getStuWorkInfo(@RequestParam @Valid @NotNull(message = "作业号不能为空")
                                                      Integer sid,
                                                   @RequestParam @Valid @NotNull(message = "课程号不能为空")
@@ -151,6 +136,18 @@ public class WorkController {
                                                 @RequestParam @Valid @NotNull(message = "课程号不能为空")
                                                 Integer cid){
         return new ResponseEntity<>(Result.success(submitService.getSubmitList(wid,cid)), HttpStatus.OK);
+    }
+
+//--------DeleteMapping------------------------------------
+    //管理员、教师删除作业 ok
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
+    public ResponseEntity<Result> deleteHomework(@RequestParam @Valid @NotNull(message = "作业号不能为空")
+                                                 Integer wid,
+                                                 @RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                 Integer cid){
+        workService.deleteHomework(wid,cid);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 
     // TODO: 2023-11-09 更新提交作业 

@@ -28,5 +28,5 @@ public class FileController {
         return new ResponseEntity<>(Result.success(fileService.uploadAttachments(file)), HttpStatus.OK);
     }
 
-    // TODO: 2023-10-31 downloadAttachments
+    // todo: 2023-10-31 downloadAttachments
 }

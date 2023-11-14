@@ -1,3 +1,77 @@
+POST http://123.56.255.156:3309/user/login
+Content-Type: application/json
+Content-Length: 42
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "1",
+  "password": "123"
+}
+
+<> 2023-11-14T145358.200.json
+
+###
+
+POST http://123.56.255.156:3309/user/login
+Content-Type: application/json
+Content-Length: 42
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "1",
+  "password": "123"
+}
+
+<> 2023-11-13T214101.200.json
+
+###
+
+POST http://123.56.255.156:3309/user/login
+Content-Type: application/json
+Content-Length: 42
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "1",
+  "password": "123"
+}
+
+<> 2023-11-13T213330.200.json
+
+###
+
+POST http://123.56.255.156:3309/user/login
+Content-Type: application/json
+Content-Length: 46
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "admin",
+  "password": "123"
+}
+
+<> 2023-11-13T213233.403.json
+
+###
+
+POST http://123.56.255.156:3309/user/login
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-13T213217.400.json
+
+###
+
 DELETE http://localhost:3309/user/delete?id=7&permission=1
 Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMzc0MTJjY2Q3YmQ0MWNlODMzMWUwYWFkOTUxZjFjOCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTUzMTM2NCwiZXhwIjoxNjk5NTM0OTY0fQ.4BquW69-eM5lMGhiRmnindViZAGkyk_uLrl7A_W39Q4
 Connection: Keep-Alive
@@ -698,77 +772,6 @@ User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 <> 2023-11-09T125707.200.json
-
-###
-
-PUT http://localhost:3309/homework/edit/status?wid=1&cid=1&status=2
-Content-Type: application/x-www-form-urlencoded
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmY2Q1YTg1ZjlhMTc0YTJiYjE5ZTYyZGM3MmNkYzk1MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTUwMzIxMCwiZXhwIjoxNjk5NTA2ODEwfQ.EiAezzeJywHEczF-w-7l6KbPbIOt3oyAIDXB0ywYrus
-Content-Length: 0
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-09T125605.500.json
-
-###
-
-PUT http://localhost:3309/homework/edit
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmY2Q1YTg1ZjlhMTc0YTJiYjE5ZTYyZGM3MmNkYzk1MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTUwMzIxMCwiZXhwIjoxNjk5NTA2ODEwfQ.EiAezzeJywHEczF-w-7l6KbPbIOt3oyAIDXB0ywYrus
-Content-Length: 62
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "wid": 1,
-  "cid": 1,
-  "endTime": "2023-11-15 16:19:34"
-}
-
-<> 2023-11-09T125500.200.json
-
-###
-
-PUT http://localhost:3309/homework/edit
-Content-Type: application/json
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJmY2Q1YTg1ZjlhMTc0YTJiYjE5ZTYyZGM3MmNkYzk1MCIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTUwMzIxMCwiZXhwIjoxNjk5NTA2ODEwfQ.EiAezzeJywHEczF-w-7l6KbPbIOt3oyAIDXB0ywYrus
-Content-Length: 145
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "wid": 1,
-  "cid": 1,
-  "title": "dasdas",
-  "details": "sadasas",
-  "startTime": "2023-11-09 16:19:34",
-  "endTime": "2023-11-10 16:19:34"
-}
-
-<> 2023-11-09T125128.200.json
-
-###
-
-GET http://localhost:3309/homework/teacher?wid=1&cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIwYmMyMjk1ZTVmZWM0MDU3OTIwYjFmNTAxY2MyY2NjOCIsInN1YiI6IjEwMDAiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTUwNTEzMCwiZXhwIjoxNjk5NTA4NzMwfQ.oromiMml-hw9p3jzGcZ-mJT212aNJG9bSFgJAkvCyaQ
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-09T124748.200.json
-
-###
-
-GET http://localhost:3309/homework/teacher?wid=1&cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIwYmMyMjk1ZTVmZWM0MDU3OTIwYjFmNTAxY2MyY2NjOCIsInN1YiI6IjEwMDAiLCJpc3MiOiJzZyIsImlhdCI6MTY5OTUwNTEzMCwiZXhwIjoxNjk5NTA4NzMwfQ.oromiMml-hw9p3jzGcZ-mJT212aNJG9bSFgJAkvCyaQ
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-09T124649.200.json
 
 ###
 

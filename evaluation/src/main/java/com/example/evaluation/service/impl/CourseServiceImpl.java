@@ -52,14 +52,16 @@ public class CourseServiceImpl
     @Override
     public List<Map<String,String>> getCourseListByTid(Integer tid) {
         List<Map<String,String>> list = mapper.getCourseListByTid(tid);
-        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        //老师没课程无需报错，返回空值
+//        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         return list;
     }
 
     @Override
     public List<Map<String,String>> getCourseListBySid(Integer sid) {
         List<Map<String,String>> list = mapper.getCourseListBySid(sid);
-        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        //学生没课程无需报错，返回空值即可
+//        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         return list;
 
     }

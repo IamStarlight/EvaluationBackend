@@ -12,6 +12,10 @@ import java.util.Date;
 
 @Data
 public class WorkDto {
+
+    @NotNull(message = "作业id不能为空")
+    private Integer wid;
+
     @NotBlank(message = "课程id不能为空")
     private Integer cid;
 
@@ -20,16 +24,10 @@ public class WorkDto {
 
     private String details;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private Date startTime;
-
     @NotNull(message = "截止时间不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Future
     private Date endTime;
-
-    @NotNull(message = "状态不能为空")
-    private String status;
 
     //可以为空
     private String url;

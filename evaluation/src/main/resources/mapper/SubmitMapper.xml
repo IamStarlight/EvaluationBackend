@@ -12,7 +12,7 @@
 
     <update id="teacherEvaluation">
         update stu_homework
-        set teacher_grade=#{teacherGrade},teacher_comments=#{teacherComments},total_grade=#{tempGrade}
+        set teacher_grade=#{teacherGrade},teacher_comments=#{teacherComments},total_grade=teacher_grade+peer_grade
         where sid=#{sid}
         and wid=#{wid}
         and cid=#{cid}

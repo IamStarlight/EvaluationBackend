@@ -23,7 +23,9 @@ public interface WorkService extends IMppService<Homework> {
 
     boolean checkOvertime(Integer wid, Integer cid, Date submitTime);
 
-    void createNewWork(Homework homework);
+    void createNewWork(Homework h);
+
+    void createNewWork(WorkDto homework);
 
     void updateStatus(Integer wid, Integer cid, Integer status);
 

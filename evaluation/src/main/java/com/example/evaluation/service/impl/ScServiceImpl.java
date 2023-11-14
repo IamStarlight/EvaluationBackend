@@ -24,26 +24,30 @@ public class ScServiceImpl
     @Override
     public List<Map<String,String>> getAllSCList(Integer cid) {
         List<Map<String,String>> list = mapper.getAllSCList(cid);
-        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+//        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         return list;
     }
 
     @Override
     public void deleteScStu(Integer sid, Integer cid) {
-        if(!mapper.deleteScStu(sid,cid))
+        if(!mapper.deleteScStu(sid,cid)) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        }
     }
 
     @Override
     public void addScStu(Integer sid, Integer cid) {
         System.out.println("!!!!!!!!sid="+sid+" cid="+cid);
-        if(!mapper.addScStu(sid,cid))
+        if(!mapper.addScStu(sid,cid)) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        }
     }
 
     public List<Map<String,String>> getOneSCStudent(Integer sid, Integer cid) {
         List<Map<String,String>> list = mapper.getOneSCStudent(sid,cid);
-        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        if(list.isEmpty()) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        }
         return list;
     }
 }

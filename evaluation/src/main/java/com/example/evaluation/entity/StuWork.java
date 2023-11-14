@@ -56,4 +56,7 @@ public class StuWork implements Serializable {
     @TableField
     private String teacherComments;
 
+    @TableField
+    private Integer peerGrade;
+
 }

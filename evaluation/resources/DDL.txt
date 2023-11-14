@@ -1,11 +1,10 @@
 create table student
 (
-    id         int auto_increment
+    id       int auto_increment
         primary key,
-    name       varchar(20)                                                                null,
-    password   varchar(255)                                                               null,
-    permission enum ('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT') default 'ROLE_STUDENT' null,
-    email      varchar(50)                                                                null
+    name     varchar(20)  null,
+    password varchar(255) null,
+    email    varchar(50)  null
 );
 
 alter table student
@@ -13,12 +12,11 @@ alter table student
 
 create table teacher
 (
-    id         int auto_increment
+    id       int auto_increment
         primary key,
-    name       varchar(20)                                                                null,
-    password   varchar(255)                                                               null,
-    permission enum ('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT') default 'ROLE_TEACHER' null,
-    email      varchar(50)                                                                null
+    name     varchar(20)  null,
+    password varchar(255) null,
+    email    varchar(50)  null
 );
 
 alter table teacher
@@ -26,44 +24,46 @@ alter table teacher
 
 create table admin
 (
-    id         int auto_increment
+    id       int auto_increment
         primary key,
-    name       varchar(20)                                                              not null,
-    password   varchar(255)                                                             not null,
-    permission enum ('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT') default 'ROLE_ADMIN' null,
-    email      varchar(50)                                                              null
+    name     varchar(20)  not null,
+    password varchar(255) null,
+    email    varchar(50)  null
 );
 
 create table user
 (
     id         int                                                 not null
         primary key,
-    name       varchar(50)                                         null,
+    name       varchar(20)                                         null,
     password   varchar(255)                                        null,
-    permission enum ('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT') null,
-    email      varchar(50)                                         null
+    email      varchar(50)                                         null,
+    permission enum ('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT') null
 );
 
 create table course
 (
-    cid     int auto_increment
+    cid          int auto_increment
         primary key,
-    cname   varchar(50)  null,
-    tid     int          null,
-    content varchar(255) null
+    cname        varchar(50)   null,
+    tid          int           null,
+    content      varchar(255)  null comment '课程简介',
+    class_number int default 0 null comment '选课人数'
 );
+
 
 create table homework
 (
-    wid        int auto_increment
-        primary key,
-    cid        int                                  null,
-    title      varchar(50)                          null,
-    startTime  timestamp  default CURRENT_TIMESTAMP null,
-    endTime    datetime                             null,
-    editStatus varchar(2) default '0'               null,
-    evaStatus  varchar(2) default '0'               null,
-    url        varchar(255)                         null
+    wid           int                                                                                                                       not null,
+    cid           int                                                                                                                       not null,
+    title         varchar(50)                                                                                     default 'No Title'        null,
+    details       text                                                                                                                      null,
+    start_time    timestamp                                                                                       default CURRENT_TIMESTAMP null,
+    end_time      datetime                                                                                                                  null,
+    status        enum ('draft', 'released', 'teacher evaluating', 'mutual evaluating', 'grade released', 'over') default 'draft'           null,
+    submit_number int                                                                                             default 0                 null,
+    url           varchar(255)                                                                                                              null,
+    primary key (wid, cid)
 );
 
 create table my_file
@@ -80,133 +80,135 @@ create table my_file
 
 create table sc
 (
-    cid   int null,
-    sid   int null,
-    grade int null
+    sid   int           not null,
+    cid   int           not null,
+    grade int default 0 null,
+    primary key (sid, cid)
 );
 
 create table stu_homework
 (
-    sid              int          not null,
-    wid              int          not null,
-    url              varchar(255) null,
-    submit_time      datetime     null,
-    is_late          int          null,
-    total_grade      int          null,
-    teacher_grade    int          null,
-    teacher_comments varchar(255) null
+    sid              int                                    not null,
+    wid              int                                    not null,
+    cid              int                                    not null,
+    details          text                                   null,
+    url              varchar(255)                           null,
+    submit_time      timestamp    default CURRENT_TIMESTAMP null,
+    is_late          tinyint(1)   default 0                 null,
+    total_grade      int          default 0                 null,
+    teacher_grade    int          default 0                 null,
+    teacher_comments varchar(255) default 'No comment'      null,
+    primary key (sid, wid, cid)
 );
 
-# create trigger insert_stu
-#     after insert on student for each row
-# begin
-#     insert into user ( id,name,password,email,permission)
-#     values( new.id,new.name,new.password,new.email, 'ROLE_STUDENT');
-# end;
-#
-# create trigger insert_tch
-#     after insert on teacher for each row
-# begin
-#     insert into user ( id,name,password,email,permission)
-#     values( new.id,new.name,new.password,new.email, 'ROLE_TEACHER');
-# end;
-#
-# create trigger insert_admin
-#     after insert on admin for each row
-# begin
-#     insert into user ( id,name,password,email,permission)
-#     values( new.id,new.name,new.password,new.email, 'ROLE_ADMIN');
-# end;
-#
-# create trigger delete_stu
-#     after delete on student for each row
-# begin
-#     delete from user where id=old.id;
-# end;
-#
-# create trigger delete_tch
-#     after delete on teacher for each row
-# begin
-#     delete from user where id=old.id;
-# end;
-#
-# create trigger delete_admin
-#     after delete on admin for each row
-# begin
-#     delete from user where id=old.id;
-# end;
-#
-# create trigger update_stu
-#     after update on student for each row
-# begin
-#     update user
-#     set name=new.name,password=new.password,email=new.email
-#     where id=old.id;
-# end;
-#
-# create trigger update_tch
-#     after update on teacher for each row
-# begin
-#     update user
-#     set name=new.name,password=new.password,email=new.email
-#     where id=old.id;
-# end;
-#
-# create trigger update_admin
-#     after update on admin for each row
-# begin
-#     update user
-#     set name=new.name,password=new.password,email=new.email
-#     where id=old.id;
-# end;
+create trigger insert_stu
+    after insert on student for each row
+begin
+    insert into user ( id,name,password,email,permission)
+    values( new.id,new.name,new.password,new.email, 'ROLE_STUDENT');
+end;
 
-# DROP TRIGGER insert_stu;
-# DROP TRIGGER insert_tch;
-# DROP TRIGGER insert_admin;
-# DROP TRIGGER update_stu;
-# DROP TRIGGER update_tch;
-# DROP TRIGGER update_admin;
-# DROP TRIGGER delete_stu;
-# DROP TRIGGER delete_tch;
-# DROP TRIGGER delete_admin;
+create trigger insert_tch
+    after insert on teacher for each row
+begin
+    insert into user ( id,name,password,email,permission)
+    values( new.id,new.name,new.password,new.email, 'ROLE_TEACHER');
+end;
 
-# create trigger sc_number
-#     after insert on sc for each row
-# begin
-#     update course
-#     set class_number=class_number+1
-#     where cid=new.cid;
-# end;
-#
-# create trigger minus_sc_number
-#     after delete on sc for each row
-# begin
-#     update course
-#     set class_number=class_number-1
-#     where cid=old.cid;
-# end;
+create trigger insert_admin
+    after insert on admin for each row
+begin
+    insert into user ( id,name,password,email,permission)
+    values( new.id,new.name,new.password,new.email, 'ROLE_ADMIN');
+end;
 
-# drop trigger sc_number;
-# drop trigger minus_sc_number;
+create trigger delete_stu
+    after delete on student for each row
+begin
+    delete from user where id=old.id;
+end;
 
-# create trigger insert_submit_work
-#     after insert on stu_homework for each row
-# begin
-#     update homework
-#     set submit_number=submit_number+1
-#     where wid=new.wid
-#     and cid=new.cid;
-# end;
-#
-# create trigger delete_submit_work
-#     after delete on stu_homework for each row
-# begin
-#     update homework
-#     set submit_number=submit_number-1
-#     where wid=old.wid
-#     and cid=old.cid;
-# end;
+create trigger delete_tch
+    after delete on teacher for each row
+begin
+    delete from user where id=old.id;
+end;
 
-# drop trigger insert_submit_work;
-# drop trigger delete_submit_work;
+create trigger delete_admin
+    after delete on admin for each row
+begin
+    delete from user where id=old.id;
+end;
+
+create trigger update_stu
+    after update on student for each row
+begin
+    update user
+    set name=new.name,password=new.password,email=new.email
+    where id=old.id;
+end;
+
+create trigger update_tch
+    after update on teacher for each row
+begin
+    update user
+    set name=new.name,password=new.password,email=new.email
+    where id=old.id;
+end;
+
+create trigger update_admin
+    after update on admin for each row
+begin
+    update user
+    set name=new.name,password=new.password,email=new.email
+    where id=old.id;
+end;
+
+create trigger sc_number
+    after insert on sc for each row
+begin
+    update course
+    set class_number=class_number+1
+    where cid=new.cid;
+end;
+
+create trigger minus_sc_number
+    after delete on sc for each row
+begin
+    update course
+    set class_number=class_number-1
+    where cid=old.cid;
+end;
+
+create trigger insert_submit_work
+    after insert on stu_homework for each row
+begin
+    update homework
+    set submit_number=submit_number+1
+    where wid=new.wid
+    and cid=new.cid;
+end;
+
+create trigger delete_submit_work
+    after delete on stu_homework for each row
+begin
+    update homework
+    set submit_number=submit_number-1
+    where wid=old.wid
+    and cid=old.cid;
+end;
+
+DROP TRIGGER insert_stu;
+DROP TRIGGER insert_tch;
+DROP TRIGGER insert_admin;
+DROP TRIGGER update_stu;
+DROP TRIGGER update_tch;
+DROP TRIGGER update_admin;
+DROP TRIGGER delete_stu;
+DROP TRIGGER delete_tch;
+DROP TRIGGER delete_admin;
+drop trigger sc_number;
+drop trigger minus_sc_number;
+drop trigger insert_submit_work;
+drop trigger delete_submit_work;
 

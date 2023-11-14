@@ -29,6 +29,8 @@ public class UserController {
     @Autowired
     private UserServiceImpl service;
 
+//--------PostMapping------------------------------------
+
     //登录用户 ok
     @PostMapping("/login")
     public ResponseEntity<Result> login(@RequestBody @Valid LoginDto LoginDto){
@@ -50,23 +52,23 @@ public class UserController {
         return new ResponseEntity<>((Result.success()),HttpStatus.OK);
     }
 
-    //获取登陆用户信息 ok
-    @GetMapping("/info")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
-    public ResponseEntity<Result> getUserByID(@CurrentUser User user){
-        if(user==null)
-            throw new ServiceException(HttpStatus.NO_CONTENT.value(), "User为空");
-        return new ResponseEntity<>(Result.success(user), HttpStatus.OK);
+//--------PutMapping------------------------------------
 
+    //管理员更新用户数据
+    @PutMapping("/update")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public ResponseEntity<Result> updateUserInfo(@RequestBody @Valid UpdateDto d){
+        service.updateUserInfo(d);
+        return new ResponseEntity<>((Result.success()),HttpStatus.OK);
     }
 
     //管理员更改用户密码 ok
     @PutMapping("/password")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> updateUserPwd(@RequestParam @Valid @NotNull(message = "id不能为空")
-                                                    Integer id,
+                                                Integer id,
                                                 @RequestParam @Valid @NotBlank(message = "新密码不能为空")
-                                                    String newpwd){
+                                                String newpwd){
         service.updateUserPwd(id,newpwd);
         return new ResponseEntity<>((Result.success()),HttpStatus.OK);
     }
@@ -83,11 +85,23 @@ public class UserController {
         return new ResponseEntity<>((Result.success()),HttpStatus.OK);
     }
 
+//--------GetMapping------------------------------------
+
+    //获取登陆用户信息 ok
+    @GetMapping("/info")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
+    public ResponseEntity<Result> getUserByID(@CurrentUser User user){
+        if(user==null)
+            throw new ServiceException(HttpStatus.NO_CONTENT.value(), "User为空");
+        return new ResponseEntity<>(Result.success(user), HttpStatus.OK);
+
+    }
+
     //管理员查询所有学生or老师or管理员信息 ok
     @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> getAllRoleInfo(@RequestParam @Valid @NotBlank(message = "权限不能为空")
-                                                    String permission){
+                                                 String permission){
         return new ResponseEntity<>(Result.success(service.getAllRoleInfo(permission)), HttpStatus.OK);
     }
 
@@ -95,19 +109,13 @@ public class UserController {
     @GetMapping("/oneinfo")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> getOneByID(@RequestParam @Valid @NotNull(message = "id不能为空")
-                                                 Integer id,
+                                             Integer id,
                                              @RequestParam
-                                                String permission){
+                                             String permission){
         return new ResponseEntity<>(Result.success(service.getOneByID(id,permission)), HttpStatus.OK);
     }
 
-    //管理员更新用户数据
-    @PutMapping("/update")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Result> updateUserInfo(@RequestBody @Valid UpdateDto d){
-        service.updateUserInfo(d);
-        return new ResponseEntity<>((Result.success()),HttpStatus.OK);
-    }
+//--------DeleteMapping------------------------------------
 
     //删除用户信息
     @DeleteMapping("/delete")
