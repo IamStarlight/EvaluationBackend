@@ -24,7 +24,7 @@ public interface PeerMapper extends MppBaseMapper<PeerEva> {
     boolean peerEvaluation(@Param("evaSid") Integer evaSid, @Param("sid") Integer sid, @Param("wid") Integer wid, @Param("cid") Integer cid, @Param("grade") Integer grade, @Param("comments") String comments);
 
     //学生查看要评价的作业份数和作业内容
-    List<StuWork> selectAllWork(@Param("sid") Integer sid, @Param("cid") Integer cid);
+    List<StuWork> selectAllWork(@Param("evaSId") Integer evaSId, @Param("cid") Integer cid);
 
     //教师获取某位学生(互评学生)的评价名单、分数以及评论
     List<PeerEva> selectForTeacher(@Param("evaSid") Integer evaSid);

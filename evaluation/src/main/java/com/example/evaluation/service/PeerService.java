@@ -14,7 +14,7 @@ public interface PeerService extends IMppService<PeerEva> {
 
     void addEvaluation(Integer evaSid, EvaDto d);
 
-    List<StuWork> selectAllWork(Integer sid, Integer cid);
+    List<StuWork> selectAllWork(Integer evaSid, Integer cid);
 
     List<PeerEva> selectForTeacher(Integer evaSid);
 

@@ -54,8 +54,9 @@ public class PeerEvaController {
     // TODO: 2023-11-14 获取要评价的作业份数和作业们 （评分的学生）
     @GetMapping("/Allwork")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
-    public ResponseEntity<Result> selectAllWork(@RequestBody @Valid EvaDto d){
-        service.selectAllWork(d.getSid(), d.getCid());
+    public ResponseEntity<Result> selectAllWork(@CurrentUser User user,
+                                                @RequestBody @Valid EvaDto d){
+        service.selectAllWork(user.getId(), d.getCid());
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 

@@ -36,9 +36,9 @@ public class PeerServiceImpl
     }
 
     @Override
-    public List<StuWork> selectAllWork(Integer sid, Integer cid) {
+    public List<StuWork> selectAllWork(Integer evaSid, Integer cid) {
         //返回要评价的作业列表
-        List<StuWork> list = mapper.selectAllWork(sid,cid);
+        List<StuWork> list = mapper.selectAllWork(evaSid,cid);
         return list;
     }
 
