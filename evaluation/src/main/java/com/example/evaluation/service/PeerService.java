@@ -14,11 +14,13 @@ public interface PeerService extends IMppService<PeerEva> {
 
     void addEvaluation(Integer evaSid, EvaDto d);
 
-    List<StuWork> selectAllWork(Integer evaSid, Integer cid);
+    List<StuWork> selectAllWork(Integer evaSid, Integer cid, Integer wid);
 
-    List<PeerEva> selectForTeacher(Integer evaSid);
+    List<PeerEva> selectForTeacher(Integer evaSid, Integer wid);
 
-    List<PeerEva> selectForStudent(Integer sid, Integer cid);
+    List<PeerEva> selectForStudent(Integer sid, Integer cid, Integer wid);
+
+    StuWork selectOneWork(Integer sid, Integer cid, Integer wid);
 }
 
 

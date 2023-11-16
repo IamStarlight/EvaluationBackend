@@ -56,7 +56,7 @@ public class PeerEvaController {
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> selectAllWork(@CurrentUser User user,
                                                 @RequestBody @Valid EvaDto d){
-        service.selectAllWork(user.getId(), d.getCid());
+        service.selectAllWork(user.getId(), d.getCid(),d.getWid());
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 
@@ -64,8 +64,10 @@ public class PeerEvaController {
     @GetMapping("/EvaluationList")
     @PreAuthorize("hasAnyAuthority('POLE_TEACHER')")
     public ResponseEntity<Result> selectForTeacher(@RequestBody @Valid @NotNull(message = "评价学生id不能为空")
-                                                   Integer evaSid){
-        service.selectForTeacher(evaSid);
+                                                   Integer evaSid,
+                                                   @RequestBody @Valid @NotNull(message = "作业id不能为空")
+                                                   Integer wid){
+        service.selectForTeacher(evaSid, wid);
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 
@@ -76,8 +78,23 @@ public class PeerEvaController {
     public ResponseEntity<Result> selectForStudent(@RequestBody @Valid @NotNull(message = "被评学生id不能为空")
                                                    Integer sid,
                                                    @RequestBody @Valid @NotNull(message = "课程id不能为空")
-                                                   Integer cid){
-        service.selectForStudent(sid, cid);
+                                                   Integer cid,
+                                                   @RequestBody @Valid @NotNull(message = "作业id不能为空")
+                                                   Integer wid){
+        service.selectForStudent(sid, cid, wid);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+    }
+
+    // TODO: 2023-11-16 获取其中的一份需要互评的作业
+    @GetMapping("/OneWork")
+    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
+    public ResponseEntity<Result> selectForOneWork(@RequestBody @Valid @NotNull(message = "被评学生id不能为空")
+                                                   Integer sid,
+                                                   @RequestBody @Valid @NotNull(message = "课程id不能为空")
+                                                   Integer cid,
+                                                   @RequestBody @Valid @NotNull(message = "作业id不能为空")
+                                                   Integer wid) {
+        service.selectOneWork(sid, cid, wid);
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 

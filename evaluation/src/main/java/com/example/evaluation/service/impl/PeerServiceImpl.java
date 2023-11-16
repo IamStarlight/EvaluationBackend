@@ -36,23 +36,29 @@ public class PeerServiceImpl
     }
 
     @Override
-    public List<StuWork> selectAllWork(Integer evaSid, Integer cid) {
+    public List<StuWork> selectAllWork(Integer evaSid, Integer cid, Integer wid) {
         //返回要评价的作业列表
-        List<StuWork> list = mapper.selectAllWork(evaSid,cid);
+        List<StuWork> list = mapper.selectAllWork(evaSid,cid,wid);
         return list;
     }
 
     @Override
-    public List<PeerEva> selectForTeacher(Integer evaSid) {
+    public List<PeerEva> selectForTeacher(Integer evaSid, Integer wid) {
         //返回该学生互评过的作业
-        List<PeerEva> list = mapper.selectForTeacher(evaSid);
+        List<PeerEva> list = mapper.selectForTeacher(evaSid, wid);
         return list;
     }
 
     @Override
-    public List<PeerEva> selectForStudent(Integer sid, Integer cid) {
+    public List<PeerEva> selectForStudent(Integer sid, Integer cid, Integer wid) {
         //返回该学生被互评作业得到的分数及评语
-        List<PeerEva> list = mapper.selectForStudent(sid, cid);
+        List<PeerEva> list = mapper.selectForStudent(sid, cid, wid);
         return list;
+    }
+
+    @Override
+    public StuWork selectOneWork(Integer sid, Integer cid, Integer wid) {
+        StuWork stuWork = mapper.selectOneWork(sid,cid,wid);
+        return stuWork;
     }
 }
