@@ -10,4 +10,26 @@
         and wid=#{wid}
         and cid=#{cid}
     </update>
+
+    <insert id="addEvaluation">
+        insert into peer_evaluation
+        values (#{evaSid},#{sid},#{wid},#{cid},#{grade},#{comments})
+    </insert>
+
+    <select id="selectAllWork">
+        select * from stu_homework
+        where sid=#{sid}
+        and cid=#{cid}
+    </select>
+
+    <select id="selectForTeacher">
+        select * from peer_evaluation
+        where evaSid=#{evaSid}
+    </select>
+
+    <select id="selectForStudent">
+        select * from peer_evaluation
+        where sid=#{sid}
+        and cid=#{cid}
+    </select>
 </mapper>
