@@ -49,6 +49,16 @@ public class PeerEvaController {
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 
+    //教师评分评语
+    // TODO: 2023-11-17
+    @PutMapping("/teacherEvaluation")
+    @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
+    public ResponseEntity<Result> teaEvaluation(@CurrentUser User user,
+                                                 @RequestBody @Valid EvaDto d){
+        service.teaEvaluation(user.getId(),d);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+    }
+
 //--------GetMapping------------------------------------
 
     // TODO: 2023-11-14 获取要评价的作业份数和作业们 （评分的学生）
@@ -56,7 +66,16 @@ public class PeerEvaController {
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> selectAllWork(@CurrentUser User user,
                                                 @RequestBody @Valid EvaDto d){
-        service.selectAllWork(user.getId(), d.getCid(),d.getWid());
+        service.selectAllWork(user.getId(), d.getCid());
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+    }
+
+    // TODO: 2023-11-18 获取要评价的作业份数和作业们 （教师）
+    @GetMapping("/AllworkForTeacher")
+    @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
+    public ResponseEntity<Result> selectTeaAllWork(@CurrentUser User user,
+                                                @RequestBody @Valid EvaDto d){
+        service.selectTeaAllWork(user.getId(), d.getCid());
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 
@@ -95,6 +114,19 @@ public class PeerEvaController {
                                                    @RequestBody @Valid @NotNull(message = "作业id不能为空")
                                                    Integer wid) {
         service.selectOneWork(sid, cid, wid);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+    }
+
+    // TODO: 2023-11-18 教师获取其中的一份需要互评的作业
+    @GetMapping("/OneWorkForTeacher")
+    @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
+    public ResponseEntity<Result> selectForOneWorkTea(@RequestBody @Valid @NotNull(message = "被评学生id不能为空")
+                                                   Integer sid,
+                                                   @RequestBody @Valid @NotNull(message = "课程id不能为空")
+                                                   Integer cid,
+                                                   @RequestBody @Valid @NotNull(message = "作业id不能为空")
+                                                   Integer wid) {
+        service.selectOneWorkForTea(sid, cid, wid);
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 

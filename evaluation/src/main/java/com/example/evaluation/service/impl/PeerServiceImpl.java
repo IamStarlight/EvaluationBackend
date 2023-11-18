@@ -36,9 +36,23 @@ public class PeerServiceImpl
     }
 
     @Override
-    public List<StuWork> selectAllWork(Integer evaSid, Integer cid, Integer wid) {
-        //返回要评价的作业列表
-        List<StuWork> list = mapper.selectAllWork(evaSid,cid,wid);
+    public void teaEvaluation(Integer tid, EvaDto d) {
+        if(!mapper.teaEvaluation(tid,d.getSid(),d.getWid(),d.getCid(),d.getGrade(),d.getComments())) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+        }
+    }
+
+    @Override
+    public List<StuWork> selectAllWork(Integer evaSid, Integer cid) {
+        //返回学生要评价的作业列表
+        List<StuWork> list = mapper.selectAllWork(evaSid,cid);
+        return list;
+    }
+
+    @Override
+    public List<StuWork> selectTeaAllWork(Integer tid, Integer cid) {
+        //返回教师要评价的作业列表
+        List<StuWork> list = mapper.selectTeaAllWork(tid,cid);
         return list;
     }
 
@@ -59,6 +73,12 @@ public class PeerServiceImpl
     @Override
     public StuWork selectOneWork(Integer sid, Integer cid, Integer wid) {
         StuWork stuWork = mapper.selectOneWork(sid,cid,wid);
+        return stuWork;
+    }
+
+    @Override
+    public StuWork selectOneWorkForTea(Integer sid, Integer cid, Integer wid) {
+        StuWork stuWork = mapper.selectOneWorkForTea(sid,cid,wid);
         return stuWork;
     }
 }

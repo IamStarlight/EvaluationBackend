@@ -11,6 +11,14 @@
         and cid=#{cid}
     </update>
 
+    <update id="teaEvaluation">
+        update stu_homework
+        set teacherGrade=#{teacherGrade},teacherComments=#{teacherComments}
+        where sid=#{sid}
+        and wid=#{wid}
+        and cid=#{cid}
+    </update>
+
     <insert id="addEvaluation">
         insert into peer_evaluation
         values (#{evaSid},#{sid},#{wid},#{cid},#{grade},#{comments})
@@ -18,11 +26,15 @@
 
     <select id="selectAllWork">
         select * from stu_homework
-        where wid=#{wid}
-        and sid in(
+        where sid in(
         select sid from peer_evaluation
-        where evaSId=#{evaSId}
+        where evaSId=#{evaSid}
         and cid=#{cid})
+    </select>
+
+    <select id="selectTeaAllWork">
+        select * from stu_homework
+        where wid=#{wid}
     </select>
 
     <select id="selectForTeacher">
@@ -39,6 +51,13 @@
     </select>
 
     <select id="selectOneWork">
+        select * from stu_homework
+        where sid=#{sid}
+        and cid=#{cid}
+        and wid=#{wid}
+    </select>
+
+    <select id="selectOneWorkForTea">
         select * from stu_homework
         where sid=#{sid}
         and cid=#{cid}

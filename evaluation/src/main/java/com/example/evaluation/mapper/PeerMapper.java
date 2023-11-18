@@ -20,11 +20,17 @@ public interface PeerMapper extends MppBaseMapper<PeerEva> {
     //增加一条评分记录
     boolean addEvaluation(@Param("evaSid") Integer evaSid, @Param("sid") Integer sid, @Param("wid") Integer wid, @Param("cid") Integer cid, @Param("grade") Integer grade, @Param("comments") String comments);
 
-    //更新一条评分记录
+    //互评学生给评分评语
     boolean peerEvaluation(@Param("evaSid") Integer evaSid, @Param("sid") Integer sid, @Param("wid") Integer wid, @Param("cid") Integer cid, @Param("grade") Integer grade, @Param("comments") String comments);
 
+    //教师给作业评分评语
+    boolean teaEvaluation(@Param("tid") Integer tid, @Param("sid") Integer sid, @Param("wid") Integer wid, @Param("cid") Integer cid, @Param("teacherGrade") Integer teacherGrade, @Param("teacherComments") String teacherComments);
+
     //学生查看要评价的作业份数列表
-    List<StuWork> selectAllWork(@Param("evaSid") Integer evaSId, @Param("cid") Integer cid, @Param("wid") Integer wid);
+    List<StuWork> selectAllWork(@Param("evaSid") Integer evaSid, @Param("cid") Integer cid);
+
+    //教师查看要评价的作业份数列表
+    List<StuWork> selectTeaAllWork(@Param("tid") Integer tid, @Param("cid") Integer cid);
 
     //教师获取某位学生(互评学生)的评价名单、分数以及评论
     List<PeerEva> selectForTeacher(@Param("evaSid") Integer evaSid, @Param("wid") Integer wid);
@@ -34,4 +40,7 @@ public interface PeerMapper extends MppBaseMapper<PeerEva> {
 
     //互评学生查看具体的某份作业
     StuWork selectOneWork(@Param("sid") Integer sid, @Param("cid") Integer cid, @Param("wid") Integer wid);
+
+    //教师查看具体的某份作业
+    StuWork selectOneWorkForTea(@Param("sid") Integer sid, @Param("cid") Integer cid, @Param("wid") Integer wid);
 }
