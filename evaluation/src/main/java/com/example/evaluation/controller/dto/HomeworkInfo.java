@@ -34,4 +34,18 @@ public class HomeworkInfo {
     private Integer submitNumber;
 
     private String url;
+
+    private Integer totalGrade;
+
+    private boolean isRead;
+
+    private boolean isEva;
+
+    private boolean isAppeal;
+
+    private boolean isSubmit;
+
+    private boolean isOverEvaDdl;
+
+    // TODO: 2023-11-20 迟交不让交
 }

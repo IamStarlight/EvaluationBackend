@@ -29,4 +29,6 @@ public interface SubmitService extends IMppService<StuWork> {
     List<Map<String,String>> getHomeworkToRead(Integer tid, Integer cid);
 
     void updateSubmitWork(StuWork stuWork);
+
+    void deleteOneSubmittedHomework(Integer id, Integer wid, Integer cid);
 }

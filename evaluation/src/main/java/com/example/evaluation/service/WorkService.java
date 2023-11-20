@@ -39,4 +39,7 @@ public interface WorkService extends IMppService<Homework> {
     List<HomeworkInfo> getAllWorkInfoByTid(Integer id, Integer cid);
 
     void updateOpenPeer(OpenPeerDto d);
+
+    Object getOneWorkInfoBySid(Integer id, Integer wid, Integer cid);
+
 }

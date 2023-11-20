@@ -2,8 +2,8 @@ package com.example.evaluation.service.impl;
 
 import com.example.evaluation.controller.dto.AppealDto;
 import com.example.evaluation.controller.dto.EvaDto;
+import com.example.evaluation.entity.Homework;
 import com.example.evaluation.entity.StuWork;
-import com.example.evaluation.enums.SubmitStatusEnum;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.SubmitMapper;
 import com.example.evaluation.service.SubmitService;
@@ -47,13 +47,11 @@ public class SubmitServiceImpl
         Date submitTime = new Date();
         w.setSubmitTime(submitTime);
         boolean isOvertime = workService.checkOvertime(w.getWid(), w.getCid(), w.getSubmitTime());
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-//        System.out.println("!!!!!!!!!date="+submitTime+" format date="+formatter.format(submitTime));
 
         if(isOvertime){
-            w.setSubmitStatus(SubmitStatusEnum.LATE);
+            throw new ServiceException(HttpStatus.FORBIDDEN.value(), "作业已截止");
         }else{
-            w.setSubmitStatus(SubmitStatusEnum.SUBMITTED);
+            w.setSubmit(true);
         }
         w.setSubmitTime(submitTime);
 
@@ -80,6 +78,7 @@ public class SubmitServiceImpl
 
     @Override
     public List<Map<String,String>> getMySubmit(Integer sid, Integer wid, Integer cid) {
+        // TODO: 2023-11-20 空的不显示 
         List<Map<String,String>> list = mapper.getMySubmit(sid,wid,cid);
         if(list.isEmpty()) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
@@ -123,13 +122,25 @@ public class SubmitServiceImpl
 //        System.out.println("!!!!!!!!!date="+submitTime+" format date="+formatter.format(submitTime));
 
         if(isOvertime){
-            w.setSubmitStatus(SubmitStatusEnum.LATE);
+            throw new ServiceException(HttpStatus.FORBIDDEN.value(), "作业已截止");
         }else{
-            w.setSubmitStatus(SubmitStatusEnum.SUBMITTED);
+            w.setSubmit(true);
         }
 
         if(!updateByMultiId(w)) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
+        }
+    }
+
+    @Override
+    public void deleteOneSubmittedHomework(Integer id, Integer wid, Integer cid) {
+        StuWork idEntity = new StuWork();
+        idEntity.setSid(id);
+        idEntity.setWid(wid);
+        idEntity.setCid(cid);
+        // TODO: 2023-11-20 学生把提交的作业删了，issubmit也要改成0
+        if(!deleteByMultiId(idEntity)) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
     }
 }

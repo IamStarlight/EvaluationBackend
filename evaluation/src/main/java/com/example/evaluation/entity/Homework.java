@@ -67,5 +67,8 @@ public class Homework implements Serializable {
     private boolean isOpenPeer;
 
     @TableField
-    private Date peerDdl;
+    private Date evaDdl;
+
+    @TableField
+    private boolean isOverEvaDdl;
 }

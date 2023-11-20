@@ -19,7 +19,7 @@
     </update>
 
     <select id="getMySubmit" resultType="java.util.Map">
-        select id,name,details,url,submit_time,submit_status,teacher_grade,total_grade
+        select id,name,details,url,submit_time,is_submit,teacher_grade,total_grade
         from stu_homework,student
         where stu_homework.sid=student.id
         and wid=#{wid}

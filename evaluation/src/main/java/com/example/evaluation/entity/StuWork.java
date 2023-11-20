@@ -57,13 +57,13 @@ public class StuWork implements Serializable {
     private Integer peerGrade;
 
     @TableField
-    private SubmitStatusEnum submitStatus;
+    private boolean isSubmit;
 
     @TableField
     private boolean isRead;
 
     @TableField
-    private boolean isPeer;
+    private boolean isEva;
 
     @TableField
     private boolean isAppeal;

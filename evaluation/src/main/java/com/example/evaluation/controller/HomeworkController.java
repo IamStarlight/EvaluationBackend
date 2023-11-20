@@ -67,7 +67,7 @@ public class HomeworkController {
     }
 
     // TODO: 2023-11-20  // 学生更新提交作业 ok
-    @PostMapping("/submit/update")
+    @PutMapping("/submit/update")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> updateSubmitWork(@RequestBody @Valid StuWork stuWork){
         submitService.updateSubmitWork(stuWork);
@@ -108,12 +108,16 @@ public class HomeworkController {
 
 //--------GetMapping------------------------------------
 
-    // 学生查询自己选的所有课的所有作业 ?
-//    @GetMapping("/student")
-//    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
-//    public ResponseEntity<Result> getAllWorkInfoBySid(@CurrentUser User user){
-//        return new ResponseEntity<>(Result.success(workService.getAllWorkInfoBySid(user.getId())), HttpStatus.OK);
-//    }
+    // 学生查询自己选的某节课的一个作业
+    @GetMapping("/one")
+    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
+    public ResponseEntity<Result> getOneWorkInfoBySid(@CurrentUser User user,
+                                                      @RequestParam @Valid @NotNull(message = "作业号不能为空")
+                                                            Integer wid,
+                                                      @RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                            Integer cid){
+        return new ResponseEntity<>(Result.success(workService.getOneWorkInfoBySid(user.getId(),wid,cid)), HttpStatus.OK);
+    }
 
     // TODO: 2023-11-20  //查询学生选的所有课程中所有未完成的作业 ok
     @GetMapping("/todo")
@@ -122,6 +126,8 @@ public class HomeworkController {
         return new ResponseEntity<>(Result.success(submitService.getStuWorkTodoInfo(user.getId())), HttpStatus.OK);
     }
 
+    // TODO: 2023-11-20 截止了status也要改
+    // TODO: 2023-11-20 删除作业，submit也要同步删除
     // TODO: 2023-11-20  //查询学生选的某课程布置的全部作业 ok
     @GetMapping("/info")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
@@ -169,7 +175,7 @@ public class HomeworkController {
     }
 
     // TODO: 2023-11-20  //一个学生一次作业的具体内容 ok
-    @GetMapping("/detail")
+    @GetMapping("/details")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
     public ResponseEntity<Result> getMySubmit(@RequestParam @Valid @NotNull(message = "学号不能为空")
                                                     Integer sid,
@@ -197,7 +203,21 @@ public class HomeworkController {
                                                  Integer wid,
                                                  @RequestParam @Valid @NotNull(message = "课程号不能为空")
                                                  Integer cid){
+
         workService.deleteHomework(wid,cid);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+    }
+
+    // TODO: 2023-11-20 删除提交的作业
+    @DeleteMapping("/delete/one")
+    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
+    public ResponseEntity<Result> deleteOneSubmittedHomework(@CurrentUser User user,
+                                                             @RequestParam @Valid @NotNull(message = "作业号不能为空")
+                                                                 Integer wid,
+                                                             @RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                                 Integer cid){
+        // TODO: 2023-11-20 删除提交但是查出的作业也没了 
+        submitService.deleteOneSubmittedHomework(user.getId(),wid,cid);
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 

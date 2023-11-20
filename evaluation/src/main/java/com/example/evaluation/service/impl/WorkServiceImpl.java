@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.example.evaluation.service.WorkService;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -62,20 +61,9 @@ public class WorkServiceImpl
     @Override
     public List<HomeworkInfo> getStuWorkInfo(Integer sid, Integer cid) {
         List<HomeworkInfo> list = mapper.getStuWorkInfo(sid,cid);
-        if(list==null) {
+        if(list.isEmpty()) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
-
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-//        for (Map<String, Object> map : list) {
-//            for (Map.Entry<String, Object> m : map.entrySet()) {
-//                if("end_time".equals(m.getKey())){
-//                    Date endTime = (Date) m.getValue();
-//                    m.setValue(formatter.format(endTime));
-//                }
-//            }
-//        }
         return list;
     }
 
@@ -192,6 +180,16 @@ public class WorkServiceImpl
         if(!mapper.updateOpenPeer(d.getWid(),d.getCid(),d.getStatus(),d.getDdl())) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
+    }
+
+
+    @Override
+    public Object getOneWorkInfoBySid(Integer id, Integer wid, Integer cid) {
+        List<HomeworkInfo> one = mapper.getOneWorkInfoBySid(id,cid,wid);
+        if(one.isEmpty()) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+        }
+        return one;
     }
 
 

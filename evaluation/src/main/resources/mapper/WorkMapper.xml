@@ -45,12 +45,15 @@
     </select>
 
     <select id="getStuWorkInfo" resultType="com.example.evaluation.controller.dto.HomeworkInfo">
-        select wid,cname,title,details,end_time,status
-        from homework,course,sc
-        where sc.sid=#{sid}
+        select homework.wid,cname,homework.title,homework.end_time,status,total_grade,is_read,is_eva,is_appeal,is_submit,is_over_eva_ddl
+        from homework,course,sc,stu_homework
+        where homework.cid=#{cid}
+        and sc.sid=#{sid}
         and homework.cid=sc.cid
-        and homework.cid=course.cid
-        and homework.cid=#{cid}
+        and sc.cid=course.cid
+        and homework.cid=stu_homework.cid
+        and sc.sid=stu_homework.sid
+        and homework.wid=stu_homework.wid
     </select>
 
     <update id="updateOpenPeer">
@@ -60,4 +63,12 @@
         and cid=#{cid}
     </update>
 
+    <select id="getOneWorkInfoBySid" resultType="com.example.evaluation.controller.dto.HomeworkInfo">
+        SELECT wid,cname,title,details,start_time,end_time,status,url,submit_number
+        FROM homework,sc,course
+        WHERE sc.sid=#{id}
+        AND homework.wid=#{wid}
+        AND homework.cid=sc.cid
+        AND homework.cid=course.cid;
+    </select>
 </mapper>

@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface WorkMapper extends MppBaseMapper<Homework> {
@@ -29,5 +28,5 @@ public interface WorkMapper extends MppBaseMapper<Homework> {
 
     boolean updateOpenPeer(@Param("wid") Integer wid, @Param("cid") Integer cid, @Param("status") Integer status, @Param("ddl") Date ddl);
 
-
+    List<HomeworkInfo> getOneWorkInfoBySid(@Param("id") Integer id, @Param("cid") Integer cid, @Param("wid") Integer wid);
 }
