@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.example.evaluation.enums.StatusEnum;
 import com.github.jeffreyning.mybatisplus.anno.MppMultiId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,22 +41,31 @@ public class Homework implements Serializable {
     private String details;
 
     @TableField
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private String url;
+
+    @TableField
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @FutureOrPresent
     private Date startTime;
 
     @TableField
     @NotNull(message = "截止时间不能为空")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Future
     private Date endTime;
-
-    @TableField
-    private String status;
 
     @TableField
     private Integer submitNumber;
 
     @TableField
-    private String url;
+    private Integer evaNumber;
+
+    @TableField
+    private String status;
+
+    @TableField
+    private boolean isOpenPeer;
+
+    @TableField
+    private Date peerDdl;
 }

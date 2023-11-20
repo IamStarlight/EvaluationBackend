@@ -30,7 +30,7 @@
         values (#{wid},#{cid},#{title},#{details},#{startTime},#{endTime},#{status},#{url})
     </insert>
 
-    <update id="updateStatus">
+    <update id="updateVisible">
         update homework
         set status=#{status}
         where wid=#{wid}
@@ -40,7 +40,7 @@
     <select id="getAllWorkInfoByTid" resultType="com.example.evaluation.controller.dto.HomeworkInfo">
         SELECT wid,cname,title,details,start_time,end_time,status,url,submit_number
         FROM homework,course
-        WHERE course.tid=#{tid}
+        WHERE course.tid=#{id}
         AND homework.cid=course.cid;
     </select>
 
@@ -52,4 +52,12 @@
         and homework.cid=course.cid
         and homework.cid=#{cid}
     </select>
+
+    <update id="updateOpenPeer">
+        update homework
+        set is_open_peer=#{status},peer_ddl=#{ddl}
+        where wid=#{wid}
+        and cid=#{cid}
+    </update>
+
 </mapper>

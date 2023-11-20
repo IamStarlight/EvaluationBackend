@@ -1,6 +1,7 @@
 package com.example.evaluation.controller.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.example.evaluation.enums.StatusEnum;
 import com.github.jeffreyning.mybatisplus.anno.MppMultiId;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,7 +29,6 @@ public class HomeworkInfo {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date endTime;
 
-    // TODO: 2023-11-09 int 
     private String status;
 
     private Integer submitNumber;

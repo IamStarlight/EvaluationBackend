@@ -6,8 +6,26 @@
         update peer_evaluation
         set grade=#{grade},comments=#{comments}
         where eva_sid=#{evaSid}
-        and sid=#{sid}
+        and be_eva_sid=#{sid}
         and wid=#{wid}
         and cid=#{cid}
     </update>
+
+    <select id="getEvaluatingStudentVision" resultType="java.util.Map">
+        select id as sid,name as sname,details,url,grade as eva_grade,comments as eva_comments
+        from peer_evaluation,student,stu_homework
+        where peer_evaluation.eva_sid=student.id
+        and peer_evaluation.wid=stu_homework.wid
+        and peer_evaluation.cid=stu_homework.cid
+        and eva_sid=#{id}
+    </select>
+
+    <select id="getBeEvaluatedStudentVision" resultType="java.util.Map">
+        select id as sid,name as sname,details,url,grade as eva_grade,comments as eva_comments
+        from peer_evaluation,student,stu_homework
+        where peer_evaluation.eva_sid=student.id
+        and peer_evaluation.wid=stu_homework.wid
+        and peer_evaluation.cid=stu_homework.cid
+        and be_eva_sid=#{id}
+    </select>
 </mapper>

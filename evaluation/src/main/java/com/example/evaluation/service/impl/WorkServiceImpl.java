@@ -1,9 +1,10 @@
 package com.example.evaluation.service.impl;
 
-import com.example.evaluation.controller.dto.EvaDto;
 import com.example.evaluation.controller.dto.HomeworkInfo;
+import com.example.evaluation.controller.dto.OpenPeerDto;
 import com.example.evaluation.controller.dto.WorkDto;
 import com.example.evaluation.entity.Homework;
+import com.example.evaluation.enums.StatusEnum;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.WorkMapper;
 import com.github.jeffreyning.mybatisplus.service.MppServiceImpl;
@@ -12,9 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.example.evaluation.service.WorkService;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class WorkServiceImpl
@@ -23,6 +23,12 @@ public class WorkServiceImpl
 
     @Autowired
     private WorkMapper mapper;
+
+    @Autowired
+    private ScServiceImpl scService;
+
+    @Autowired
+    private SubmitServiceImpl submitService;
 
     @Override
     public List<HomeworkInfo> getAllWorkInfoBySid(Integer sid) {
@@ -55,11 +61,22 @@ public class WorkServiceImpl
     // TODO: 2023-11-10 批量导入选课列表
     @Override
     public List<HomeworkInfo> getStuWorkInfo(Integer sid, Integer cid) {
-        List<HomeworkInfo> one = mapper.getStuWorkInfo(sid,cid);
-        if(one==null) {
+        List<HomeworkInfo> list = mapper.getStuWorkInfo(sid,cid);
+        if(list==null) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
-        return one;
+
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+//        for (Map<String, Object> map : list) {
+//            for (Map.Entry<String, Object> m : map.entrySet()) {
+//                if("end_time".equals(m.getKey())){
+//                    Date endTime = (Date) m.getValue();
+//                    m.setValue(formatter.format(endTime));
+//                }
+//            }
+//        }
+        return list;
     }
 
     @Override
@@ -69,17 +86,28 @@ public class WorkServiceImpl
         idEntity.setCid(cid);
         Homework one = selectByMultiId(idEntity);
         if(one == null) {
-            throw new ServiceException(HttpStatus.BAD_REQUEST.value(),"该作业不存在");
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"该作业不存在");
         }
         return submitTime.compareTo(one.getEndTime()) > 0;
     }
 
     @Override
     public void createNewWork(Homework h) {
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
         Date startTime = new Date();
         h.setStartTime(startTime);
+
+//        String endTime = formatter.format(h.getEndTime());
+//        h.setEndTime(endTime);
+
         if(!save(h)) {
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "创建作业失败");
+        }
+        // is_submit: 创建一个作业后，stu_homework自动出现班级里所有人的记录，设置默认值为0
+        List<Integer> list = scService.getAllSCListSid(h.getCid());
+        for (Integer sid : list) {
+            submitService.generateSubmitList(sid,h.getWid(),h.getCid());
         }
     }
 
@@ -102,16 +130,29 @@ public class WorkServiceImpl
         h.setUrl(d.getUrl());
         h.setStartTime(startTime);
 //        h.setEndTime(endTime);
-
-
         if(!save(h)) {
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "创建作业失败");
         }
     }
 
     @Override
-    public void updateStatus(Integer wid, Integer cid, Integer status) {
-        if(!mapper.updateStatus(wid,cid,status)) {
+    public void updateVisible(Integer wid, Integer cid, Integer s) {
+        StatusEnum status;
+        switch (s){
+            case 1:{
+                status=StatusEnum.DRAFT;
+                break;
+            } case 2:{
+                status=StatusEnum.RELEASED;
+                break;
+            } case 3:{
+                status=StatusEnum.OVER;
+                break;
+            } default:{
+                throw new ServiceException(HttpStatus.FORBIDDEN.value(),"错误的作业状态码");
+            }
+        }
+        if(!mapper.updateVisible(wid,cid,status)) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
     }
@@ -141,5 +182,17 @@ public class WorkServiceImpl
         }
         return one;
     }
+
+    @Override
+    public void updateOpenPeer(OpenPeerDto d) {
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//        System.out.println("!!!!!!!!!date="+submitTime+" format date="+formatter.format(submitTime));
+
+//        String peer_ddl = formatter.format(ddl);
+        if(!mapper.updateOpenPeer(d.getWid(),d.getCid(),d.getStatus(),d.getDdl())) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        }
+    }
+
 
 }

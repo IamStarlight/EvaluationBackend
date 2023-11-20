@@ -1,6 +1,6 @@
 package com.example.evaluation.controller;
 
-import com.example.evaluation.entity.Result;
+import com.example.evaluation.utils.Result;
 import com.example.evaluation.service.impl.FileServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

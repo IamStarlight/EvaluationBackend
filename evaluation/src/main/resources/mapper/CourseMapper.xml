@@ -34,6 +34,9 @@
     </select>
 
     <select id="getCourseInfo" resultType="map">
-        select * from course where cid=#{cid}
+        select cid,cname,tid,name as tname,content,class_number
+        from course,teacher
+        where course.tid=teacher.id
+        where cid=#{cid}
     </select>
 </mapper>

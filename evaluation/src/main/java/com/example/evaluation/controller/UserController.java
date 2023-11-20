@@ -4,7 +4,7 @@ import com.example.evaluation.annotation.CurrentUser;
 import com.example.evaluation.controller.dto.LoginDto;
 import com.example.evaluation.controller.dto.RegisterDto;
 import com.example.evaluation.controller.dto.UpdateDto;
-import com.example.evaluation.entity.Result;
+import com.example.evaluation.utils.Result;
 import com.example.evaluation.entity.User;
 import com.example.evaluation.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,6 @@ import com.example.evaluation.service.impl.UserServiceImpl;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-// TODO: 2023-11-06 validation 
 
 @RestController
 @Validated
@@ -91,8 +89,9 @@ public class UserController {
     @GetMapping("/info")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
     public ResponseEntity<Result> getUserByID(@CurrentUser User user){
-        if(user==null)
+        if(user==null) {
             throw new ServiceException(HttpStatus.NO_CONTENT.value(), "User为空");
+        }
         return new ResponseEntity<>(Result.success(user), HttpStatus.OK);
 
     }

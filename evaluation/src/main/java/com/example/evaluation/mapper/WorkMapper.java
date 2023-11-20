@@ -1,8 +1,8 @@
 package com.example.evaluation.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.evaluation.controller.dto.HomeworkInfo;
 import com.example.evaluation.entity.Homework;
+import com.example.evaluation.enums.StatusEnum;
 import com.github.jeffreyning.mybatisplus.base.MppBaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -21,9 +21,13 @@ public interface WorkMapper extends MppBaseMapper<Homework> {
 
     boolean createNewWork(@Param("wid") Integer wid,@Param("cid") Integer cid, @Param("title") String title, @Param("details") String details, @Param("url") String url, @Param("startTime") Date startTime, @Param("endTime") Date endTime, @Param("status") String status);
 
-    boolean updateStatus(@Param("wid") Integer wid, @Param("cid") Integer cid, @Param("status") Integer status);
+    boolean updateVisible(@Param("wid") Integer wid, @Param("cid") Integer cid, @Param("status") StatusEnum status);
 
     List<HomeworkInfo> getAllWorkInfoByTid(@Param("id") Integer id, @Param("cid") Integer cid);
 
     List<HomeworkInfo> getStuWorkInfo(@Param("sid") Integer sid, @Param("cid") Integer cid);
+
+    boolean updateOpenPeer(@Param("wid") Integer wid, @Param("cid") Integer cid, @Param("status") Integer status, @Param("ddl") Date ddl);
+
+
 }

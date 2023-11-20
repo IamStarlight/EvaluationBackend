@@ -24,10 +24,17 @@
     </insert>
 
     <select id="getOneSCStudent" resultType="java.util.Map">
-        select *
+        select id,name,email
         from student,sc
-        where student.sid=#{sid}
-        and sc.sid=student.sid
+        where id=#{sid}
+        and sc.sid=student.id
         and sc.cid=#{cid}
+    </select>
+
+    <select id="getAllSCListSid" resultType="java.lang.Integer">
+        select id
+        from student,sc
+        where sc.sid=student.id
+        and  cid=#{cid}
     </select>
 </mapper>

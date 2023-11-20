@@ -1,6 +1,6 @@
 package com.example.evaluation.controller;
 
-import com.example.evaluation.entity.Result;
+import com.example.evaluation.utils.Result;
 import com.example.evaluation.service.impl.ScServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,16 @@ public class ScController {
     @Autowired
     private ScServiceImpl service;
 
-    // TODO: 2023-11-09 搜索选课名单中的学生
+    // TODO: 2023-11-20  // 添加选课名单，一次加一个 ok
+    @PostMapping("/add")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
+    public ResponseEntity<Result> addScStu(@RequestParam @Valid Integer sid,
+                                           @RequestParam @Valid Integer cid){
+        service.addScStu(sid,cid);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+    }
+
+    // TODO: 2023-11-20  // 根据学号搜索选课名单中的一个学生 ok
     @GetMapping("/student")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<Result> getOneSCStudent(@RequestParam @Valid @NotNull(message = "学号不能为空")
@@ -38,20 +47,12 @@ public class ScController {
         return new ResponseEntity<>(Result.success(service.getAllSCList(cid)), HttpStatus.OK);
     }
 
+    // 删除选课学生
     @DeleteMapping("/delete")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<Result> deleteScStu(@RequestParam @Valid Integer sid,
                                               @RequestParam @Valid Integer cid){
         service.deleteScStu(sid,cid);
-        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
-    }
-
-    // TODO: 2023-11-09 没这个人不能加
-    @PostMapping("/add")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
-    public ResponseEntity<Result> addScStu(@RequestParam @Valid Integer sid,
-                                           @RequestParam @Valid Integer cid){
-        service.addScStu(sid,cid);
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 

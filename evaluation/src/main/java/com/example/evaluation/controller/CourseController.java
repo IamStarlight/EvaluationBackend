@@ -3,7 +3,7 @@ package com.example.evaluation.controller;
 import com.example.evaluation.annotation.CurrentUser;
 import com.example.evaluation.controller.dto.CourseDto;
 import com.example.evaluation.entity.Course;
-import com.example.evaluation.entity.Result;
+import com.example.evaluation.utils.Result;
 import com.example.evaluation.entity.User;
 import com.example.evaluation.service.impl.ScServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,12 +62,13 @@ public class CourseController {
 //--------GetMapping------------------------------------
 
     //管理员查看所有课程 ok
-    // TODO: 2023-11-09 tname
     @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> getAllCourseInfo(){
         return new ResponseEntity<>(Result.success(service.getAllCourseInfo()), HttpStatus.OK);
     }
+
+    // TODO: 2023-11-20 cname查课程 模糊查询
 
     //根据课程号查询课程 ok
     @GetMapping("/info")
@@ -78,7 +79,6 @@ public class CourseController {
     }
 
     //管理员根据工号查询教师所授课程 ok
-    // TODO: 2023/11/2 id or tname
     @GetMapping("/teacher/admin")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> getCourseListByTidAdmin(@RequestParam @Valid @NotNull(message = "工号不能为空")
@@ -86,14 +86,17 @@ public class CourseController {
         return new ResponseEntity<>(Result.success(service.getCourseListByTid(tid)), HttpStatus.OK);
     }
 
+    // TODO: 2023-11-20  tname模糊查询
+
     //管理员查询学生所选课程 ok
-    // TODO: 2023/11/2 id or name
     @GetMapping("/student/admin")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> getCourseListBySid(@RequestParam @Valid @NotNull(message = "学号不能为空")
                                                      Integer sid){
         return new ResponseEntity<>(Result.success(service.getCourseListBySid(sid)), HttpStatus.OK);
     }
+
+    // TODO: 2023-11-20  sname模糊查询
 
     //教师查询自己所授课程 ok
     @GetMapping("/teacher")
@@ -119,9 +122,5 @@ public class CourseController {
         service.deleteCourse(cid);
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
-
-    // TODO: 2023-11-09 转时间
-    // TODO: 2023-11-09 wid自增
-    // TODO: 2023-11-09 作业状态
 
 }

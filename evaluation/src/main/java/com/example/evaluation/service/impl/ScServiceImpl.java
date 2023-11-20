@@ -1,6 +1,5 @@
 package com.example.evaluation.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.evaluation.entity.SC;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.ScMapper;
@@ -22,6 +21,13 @@ public class ScServiceImpl
     private ScMapper mapper;
 
     @Override
+    public List<Integer> getAllSCListSid(Integer cid) {
+        List<Integer> list = mapper.getAllSCListSid(cid);
+//        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        return list;
+    }
+
+    @Override
     public List<Map<String,String>> getAllSCList(Integer cid) {
         List<Map<String,String>> list = mapper.getAllSCList(cid);
 //        if(list.isEmpty()) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
@@ -37,17 +43,21 @@ public class ScServiceImpl
 
     @Override
     public void addScStu(Integer sid, Integer cid) {
-        System.out.println("!!!!!!!!sid="+sid+" cid="+cid);
+        // TODO: 2023-11-09 没这个人不能加，外键
+
+        if(getOneSCStudent(sid,cid)==null){// 重了报错
+            throw new ServiceException(HttpStatus.FOUND.value(),"学生已在选课列表中");
+        }
         if(!mapper.addScStu(sid,cid)) {
-            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+            throw new ServiceException(HttpStatus.NOT_MODIFIED.value(),"添加学生失败");
         }
     }
 
     public List<Map<String,String>> getOneSCStudent(Integer sid, Integer cid) {
         List<Map<String,String>> list = mapper.getOneSCStudent(sid,cid);
-        if(list.isEmpty()) {
-            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
-        }
+//        if(list.isEmpty()) {
+//            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+//        }
         return list;
     }
 }

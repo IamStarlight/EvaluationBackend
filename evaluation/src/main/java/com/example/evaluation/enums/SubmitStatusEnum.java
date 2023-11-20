@@ -2,15 +2,15 @@ package com.example.evaluation.enums;
 
 import com.baomidou.mybatisplus.annotation.IEnum;
 
-public enum StatusEnum implements IEnum<Integer> {
-    DRAFT(1,"草稿"),
-    RELEASED(2,"已发布"),
-    OVER(3,"已截止");
+public enum SubmitStatusEnum implements IEnum<Integer> {
+    NOT_SUBMIT(1,"未交"),
+    SUBMITTED(2,"已交"),
+    LATE(3,"迟交");
 
     private Integer per;
     private String desc;
 
-    StatusEnum(int per, String desc){
+    SubmitStatusEnum(int per, String desc){
         this.per = per;
         this.desc = desc;
     }

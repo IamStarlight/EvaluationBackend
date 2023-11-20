@@ -24,7 +24,7 @@ public class PeerEva implements Serializable {
     @MppMultiId
     @TableField
     @NotNull(message = "被评学生id不能为空")
-    private Integer sid;
+    private Integer beEvaSid;
 
     @MppMultiId
     @TableField

@@ -28,12 +28,16 @@ public class CourseServiceImpl
         course.setTid(dto.getTid());
         course.setCname(dto.getCname());
         course.setContent(dto.getContent());
-        if(!save(course)) throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "添加课程失败");
+        if(!save(course)) {
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "添加课程失败");
+        }
     }
 
     @Override
     public void updateCourseInfo(Course course) {
-        if(!updateById(course)) throw new ServiceException(HttpStatus.NOT_FOUND.value(), "课程不存在");
+        if(!updateById(course)) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "课程不存在");
+        }
     }
 
     @Override
@@ -41,12 +45,16 @@ public class CourseServiceImpl
         Course course = new Course();
         course.setCid(cid);
         course.setContent(content);
-        if(!updateById(course)) throw new ServiceException(HttpStatus.NOT_FOUND.value(), "课程不存在");
+        if(!updateById(course)) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "课程不存在");
+        }
     }
 
     @Override
     public void deleteCourse(Integer cid){
-        if(!removeById(cid)) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"课程不存在");
+        if(!removeById(cid)) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"课程不存在");
+        }
     }
 
     @Override
@@ -68,16 +76,18 @@ public class CourseServiceImpl
 
     public List<Map<String,String>> getAllCourseInfo() {
         List<Map<String,String>> list = mapper.getAllCourseInfo();
-        if(list.isEmpty())
+        if(list.isEmpty()) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+        }
         return list;
     }
 
     @Override
     public List<Map<String, String>> getCourseInfo(Integer cid) {
         List<Map<String, String>> one = mapper.getCourseInfo(cid);
-        if(one.isEmpty())
+        if(one.isEmpty()) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        }
         return one;
     }
 }

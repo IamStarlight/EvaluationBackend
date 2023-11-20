@@ -10,6 +10,8 @@ import java.util.Map;
 @Service
 public interface ScService extends IMppService<SC> {
 
+    List<Integer> getAllSCListSid(Integer cid);
+
     List<Map<String,String>> getAllSCList(Integer cid);
 
     void deleteScStu(Integer sid, Integer cid);

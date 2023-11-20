@@ -2,11 +2,9 @@ package com.example.evaluation.controller;
 
 import com.example.evaluation.annotation.CurrentUser;
 import com.example.evaluation.controller.dto.EvaDto;
-import com.example.evaluation.entity.Result;
+import com.example.evaluation.utils.Result;
 import com.example.evaluation.entity.User;
 import com.example.evaluation.service.impl.PeerServiceImpl;
-import com.example.evaluation.service.impl.SubmitServiceImpl;
-import com.example.evaluation.service.impl.WorkServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 @RestController
 @Validated
@@ -28,8 +25,8 @@ public class PeerEvaController {
 //--------PostMapping------------------------------------
 //--------PutMapping------------------------------------
 
-    //同学互评,评分评语
-    // TODO: 2023-11-14 评一个，已评价人数+1 
+    // TODO: 2023-11-20  //我评别人 现在没有生成名单！！！
+    // TODO: 2023-11-14 评一个，已评价人数+1
     @PutMapping("/evaluate")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> peerEvaluation(@CurrentUser User user,
@@ -39,11 +36,20 @@ public class PeerEvaController {
     }
 
 //--------GetMapping------------------------------------
-    // TODO: 2023-11-14 获取要评价的作业份数和作业们 （评分的学生）
+    // TODO: 2023-11-20  //获取要评价的作业份数和作业们 （评分的学生）
+    @GetMapping("/evaluating")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
+    public ResponseEntity<Result> getEvaluatingStudentVision(@CurrentUser User user){
+        return new ResponseEntity<>(Result.success(service.getEvaluatingStudentVision(user.getId())), HttpStatus.OK);
+    }
 
-    // TODO: 2023-11-14  获取同学A的作业的评价名单，分数，评论（教师）
+    // TODO: 2023-11-20  //获取同学A的作业的互评分数们，评论们（被评的学生）
+    @GetMapping("/beevaluated")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
+    public ResponseEntity<Result> getBeEvaluatedStudentVision(@CurrentUser User user){
+        return new ResponseEntity<>(Result.success(service.getBeEvaluatedStudentVision(user.getId())), HttpStatus.OK);
+    }
 
-    // TODO: 2023-11-14 获取同学A的作业的互评分数们，评论们（被评的学生） 
 //--------DeleteMapping------------------------------------
 
 }

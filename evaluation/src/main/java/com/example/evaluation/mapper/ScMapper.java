@@ -17,6 +17,8 @@ import java.util.Map;
 @Component
 public interface ScMapper extends MppBaseMapper<SC> {
 
+    List<Integer> getAllSCListSid(@Param("cid") Integer cid);
+
     List<Map<String,String>> getAllSCList(@Param("cid") Integer cid);
 
     boolean deleteScStu(@Param("sid") Integer sid, @Param("cid") Integer cid);

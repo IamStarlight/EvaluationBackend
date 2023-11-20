@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.example.evaluation.enums.SubmitStatusEnum;
 import com.github.jeffreyning.mybatisplus.anno.MppMultiId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,10 +45,6 @@ public class StuWork implements Serializable {
     private Date submitTime;
 
     @TableField
-    @NotNull(message = "是否晚交不能为空")
-    private boolean isLate;
-
-    @TableField
     private Integer totalGrade;
 
     @TableField
@@ -58,5 +55,23 @@ public class StuWork implements Serializable {
 
     @TableField
     private Integer peerGrade;
+
+    @TableField
+    private SubmitStatusEnum submitStatus;
+
+    @TableField
+    private boolean isRead;
+
+    @TableField
+    private boolean isPeer;
+
+    @TableField
+    private boolean isAppeal;
+
+    @TableField
+    private String appealReason;
+
+    @TableField
+    private String appealReply;
 
 }
