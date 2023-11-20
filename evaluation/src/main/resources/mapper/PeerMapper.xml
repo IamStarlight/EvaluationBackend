@@ -28,4 +28,57 @@
         and peer_evaluation.cid=stu_homework.cid
         and be_eva_sid=#{id}
     </select>
+
+    <update id="teaEvaluation">
+        update stu_homework
+        set teacherGrade=#{teacherGrade},teacherComments=#{teacherComments}
+        where sid=#{sid}
+        and wid=#{wid}
+        and cid=#{cid}
+    </update>
+
+    <insert id="addEvaluation">
+        insert into peer_evaluation
+        values (#{evaSid},#{sid},#{wid},#{cid},#{grade},#{comments})
+    </insert>
+
+    <select id="selectAllWork">
+        select * from stu_homework
+        where sid in(
+        select sid from peer_evaluation
+        where evaSId=#{evaSid}
+        and cid=#{cid})
+    </select>
+
+    <select id="selectTeaAllWork">
+        select * from stu_homework
+        where wid=#{wid}
+    </select>
+
+    <select id="selectForTeacher">
+        select * from peer_evaluation
+        where evaSid=#{evaSid}
+        and wid=#{wid}
+    </select>
+
+    <select id="selectForStudent">
+        select * from peer_evaluation
+        where sid=#{sid}
+        and cid=#{cid}
+        and wid=#{wid}
+    </select>
+
+    <select id="selectOneWork">
+        select * from stu_homework
+        where sid=#{sid}
+        and cid=#{cid}
+        and wid=#{wid}
+    </select>
+
+    <select id="selectOneWorkForTea">
+        select * from stu_homework
+        where sid=#{sid}
+        and cid=#{cid}
+        and wid=#{wid}
+    </select>
 </mapper>

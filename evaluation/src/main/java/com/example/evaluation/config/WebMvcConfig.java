@@ -1,8 +1,6 @@
 package com.example.evaluation.config;
 
 import com.example.evaluation.utils.CurrentUserMethodArgumentResolver;
-import javafx.application.Application;
-import javafx.stage.Stage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
