@@ -2,7 +2,6 @@ package com.example.evaluation.service.impl;
 
 import com.example.evaluation.controller.dto.AppealDto;
 import com.example.evaluation.controller.dto.EvaDto;
-import com.example.evaluation.entity.Homework;
 import com.example.evaluation.entity.StuWork;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.SubmitMapper;
@@ -97,7 +96,8 @@ public class SubmitServiceImpl
 
     @Override
     public void studentAppealing(AppealDto d) {
-        if(!mapper.studentAppealing(d.getSid(),d.getWid(),d.getCid(),d.getReason())) {
+        Date appealTime = new Date();
+        if(!mapper.studentAppealing(d.getSid(),d.getWid(),d.getCid(),d.getReason(),appealTime)) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
         }
     }
@@ -142,5 +142,23 @@ public class SubmitServiceImpl
         if(!deleteByMultiId(idEntity)) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
+    }
+
+    @Override
+    public List<Map<String,String>> checkAppealing(Integer cid) {
+        List<Map<String,String>> list = mapper.checkAppealing(cid);
+        if(list.isEmpty()) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+        }
+        return list;
+    }
+
+    @Override
+    public List<Map<String,String>> checkOneAppealing(Integer sid, Integer wid, Integer cid) {
+        List<Map<String,String>> list = mapper.checkOneAppealing(sid,wid,cid);
+        if(list.isEmpty()) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+        }
+        return list;
     }
 }

@@ -3,6 +3,7 @@ package com.example.evaluation.controller;
 import com.example.evaluation.annotation.CurrentUser;
 import com.example.evaluation.controller.dto.AppealDto;
 import com.example.evaluation.controller.dto.EvaDto;
+import com.example.evaluation.controller.dto.NewHomeworkDto;
 import com.example.evaluation.controller.dto.OpenPeerDto;
 import com.example.evaluation.entity.Homework;
 import com.example.evaluation.utils.Result;
@@ -33,11 +34,11 @@ public class HomeworkController {
     private SubmitServiceImpl submitService;
 
 //--------PostMapping------------------------------------
-
+// TODO: 2023-11-21 自动截止 
     //管理员、教师创建新作业 ok
     @PostMapping("/create")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
-    public ResponseEntity<Result> createNewWork(@RequestBody @Valid Homework homework){
+    public ResponseEntity<Result> createNewWork(@RequestBody @Valid NewHomeworkDto homework){
         workService.createNewWork(homework);
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
@@ -145,7 +146,7 @@ public class HomeworkController {
         return new ResponseEntity<>(Result.success(workService.getAllWorkInfoByCid(cid)), HttpStatus.OK);
     }
 
-    // TODO: 2023-11-20  //老师查询自己教的某课程的所有作业 ok
+    //老师查询自己教的某课程的所有作业 ok
     @GetMapping("/teacher")
     @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
     public ResponseEntity<Result> getAllWorkInfoByTid(@CurrentUser User user,
@@ -154,6 +155,16 @@ public class HomeworkController {
         return new ResponseEntity<>(Result.success(workService.getAllWorkInfoByTid(user.getId(),cid)), HttpStatus.OK);
     }
 
+    //老师查询自己教的某课程的所有草稿箱里的作业
+    @GetMapping("/draft")
+    @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
+    public ResponseEntity<Result> getAllDraftWorkInfoByTid(@CurrentUser User user,
+                                                      @RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                      Integer cid){
+        return new ResponseEntity<>(Result.success(workService.getAllDraftWorkInfoByTid(user.getId(),cid)), HttpStatus.OK);
+    }
+
+    // TODO: 2023-11-21 老师改别的成绩 ，重发互评？
     //老师根据作业号、课程号获得作业信息 ok （标题 截止日期 状态 提交人数 课堂人数）
     @GetMapping("/list")
     @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
@@ -195,6 +206,28 @@ public class HomeworkController {
         return new ResponseEntity<>(Result.success(submitService.getHomeworkToRead(user.getId(),cid)), HttpStatus.OK);
     }
 
+    //老师查看申诉 ok
+    @GetMapping("/check")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
+    public ResponseEntity<Result> checkAppealing(@RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                       Integer cid){
+        return new ResponseEntity<>(Result.success(submitService.checkAppealing(cid)), HttpStatus.OK);
+    }
+
+    //老师查看一个申诉 ok
+    @GetMapping("/checkone")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
+    public ResponseEntity<Result> checkOneAppealing(@RequestParam @Valid @NotNull(message = "学号不能为空")
+                                                        Integer sid,
+                                                    @RequestParam @Valid @NotNull(message = "作业号不能为空")
+                                                        Integer wid,
+                                                    @RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                        Integer cid){
+        return new ResponseEntity<>(Result.success(submitService.checkOneAppealing(sid,wid,cid)), HttpStatus.OK);
+    }
+
+    // TODO: 2023-11-21 重发互评
+
 //--------DeleteMapping------------------------------------
     //管理员、教师删除作业 ok
     @DeleteMapping("/delete")
@@ -216,7 +249,7 @@ public class HomeworkController {
                                                                  Integer wid,
                                                              @RequestParam @Valid @NotNull(message = "课程号不能为空")
                                                                  Integer cid){
-        // TODO: 2023-11-20 删除提交但是查出的作业也没了 
+        // TODO: 2023-11-20 删除提交但是查出的作业也没了
         submitService.deleteOneSubmittedHomework(user.getId(),wid,cid);
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }

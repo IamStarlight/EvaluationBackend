@@ -1,5 +1,116 @@
 POST http://localhost:3309/homework/create
 Content-Type: application/json
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJlN2E1MjVmMjA5OGI0MDEzYWRiZWQ2OTNkNGI3YjUwYSIsInN1YiI6IjEwMDAiLCJpc3MiOiJzZyIsImlhdCI6MTcwMDUzNjI1MSwiZXhwIjoxNzAwNTM5ODUxfQ.Wo74SD0GARhUSv80On9JHSA9x8XztzPIS70yrSz_PXM
+Content-Length: 91
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "cid": 1,
+  "title": "543554",
+  "details": "bbbbbb",
+  "endTime": "2023-11-25 22:34"
+}
+
+<> 2023-11-21T112025.200.json
+
+###
+
+POST http://localhost:3309/homework/create
+Content-Type: application/json
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJlN2E1MjVmMjA5OGI0MDEzYWRiZWQ2OTNkNGI3YjUwYSIsInN1YiI6IjEwMDAiLCJpc3MiOiJzZyIsImlhdCI6MTcwMDUzNjI1MSwiZXhwIjoxNzAwNTM5ODUxfQ.Wo74SD0GARhUSv80On9JHSA9x8XztzPIS70yrSz_PXM
+Content-Length: 88
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "cid": 1,
+  "title": "444",
+  "details": "bbbbbb",
+  "endTime": "2023-11-25 22:34"
+}
+
+<> 2023-11-21T112015.200.json
+
+###
+
+POST http://localhost:3309/homework/create
+Content-Type: application/json
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJlN2E1MjVmMjA5OGI0MDEzYWRiZWQ2OTNkNGI3YjUwYSIsInN1YiI6IjEwMDAiLCJpc3MiOiJzZyIsImlhdCI6MTcwMDUzNjI1MSwiZXhwIjoxNzAwNTM5ODUxfQ.Wo74SD0GARhUSv80On9JHSA9x8XztzPIS70yrSz_PXM
+Content-Length: 88
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "cid": 1,
+  "title": "444",
+  "details": "bbbbbb",
+  "endTime": "2023-11-25 22:34"
+}
+
+<> 2023-11-21T111825.500.json
+
+###
+
+POST http://localhost:3309/homework/create
+Content-Type: application/json
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJlN2E1MjVmMjA5OGI0MDEzYWRiZWQ2OTNkNGI3YjUwYSIsInN1YiI6IjEwMDAiLCJpc3MiOiJzZyIsImlhdCI6MTcwMDUzNjI1MSwiZXhwIjoxNzAwNTM5ODUxfQ.Wo74SD0GARhUSv80On9JHSA9x8XztzPIS70yrSz_PXM
+Content-Length: 88
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "cid": 1,
+  "title": "444",
+  "details": "bbbbbb",
+  "endTime": "2023-11-25 22:34"
+}
+
+<> 2023-11-21T111251.500.json
+
+###
+
+POST http://localhost:3309/homework/create
+Content-Type: application/json
+Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJlN2E1MjVmMjA5OGI0MDEzYWRiZWQ2OTNkNGI3YjUwYSIsInN1YiI6IjEwMDAiLCJpc3MiOiJzZyIsImlhdCI6MTcwMDUzNjI1MSwiZXhwIjoxNzAwNTM5ODUxfQ.Wo74SD0GARhUSv80On9JHSA9x8XztzPIS70yrSz_PXM
+Content-Length: 88
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "cid": 1,
+  "title": "444",
+  "details": "bbbbbb",
+  "endTime": "2023-11-25 22:34"
+}
+
+<> 2023-11-21T111113.500.json
+
+###
+
+POST http://123.56.255.156:3309/user/login
+Content-Type: application/json
+Content-Length: 49
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "21301000",
+  "password": "123"
+}
+
+<> 2023-11-20T231129.200.json
+
+###
+
+POST http://localhost:3309/homework/create
+Content-Type: application/json
 Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIwYzEyYzQxOTk1MDU0YjdiOWFhMDE4MTc5OTIwYWUxNiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTcwMDQ5MDUwNSwiZXhwIjoxNzAwNDk0MTA1fQ.uGh7J1R7qJBadry_yUgwNNVYcVh5A1jDMSfeT5dA6MA
 Content-Length: 100
 Connection: Keep-Alive
@@ -587,66 +698,6 @@ User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 <> 2023-11-20T194845.200.json
-
-###
-
-GET http://localhost:3309/homework/teacher?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxZTM0MzBjNDU3YmY0YjgwYTM1NDUxZjA2OWIwNDRiMSIsInN1YiI6IjEwMDAiLCJpc3MiOiJzZyIsImlhdCI6MTcwMDQ4MDc2MCwiZXhwIjoxNzAwNDg0MzYwfQ.BsJL_l9eQA881SynnqzfhxdUsp1NPZqQhAUEUSbpPYg
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-20T194721.200.json
-
-###
-
-GET http://localhost:3309/homework/teacher?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxZTM0MzBjNDU3YmY0YjgwYTM1NDUxZjA2OWIwNDRiMSIsInN1YiI6IjEwMDAiLCJpc3MiOiJzZyIsImlhdCI6MTcwMDQ4MDc2MCwiZXhwIjoxNzAwNDg0MzYwfQ.BsJL_l9eQA881SynnqzfhxdUsp1NPZqQhAUEUSbpPYg
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-20T194633.500.json
-
-###
-
-GET http://localhost:3309/homework/info?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0MjU4MDczODljZDI0NDAzODBmZGQzN2NkNjEyMGFlZSIsInN1YiI6IjIxMzAxMDAwIiwiaXNzIjoic2ciLCJpYXQiOjE3MDA0Nzk2NzksImV4cCI6MTcwMDQ4MzI3OX0.BsWwwdZY44PUKAoiwE3CH0yMsk3F5bAoPrMF-Q_CFjI
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-20T194503.200.json
-
-###
-
-GET http://localhost:3309/homework/info?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0MjU4MDczODljZDI0NDAzODBmZGQzN2NkNjEyMGFlZSIsInN1YiI6IjIxMzAxMDAwIiwiaXNzIjoic2ciLCJpYXQiOjE3MDA0Nzk2NzksImV4cCI6MTcwMDQ4MzI3OX0.BsWwwdZY44PUKAoiwE3CH0yMsk3F5bAoPrMF-Q_CFjI
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-20T194422.500.json
-
-###
-
-GET http://localhost:3309/homework/info?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0MjU4MDczODljZDI0NDAzODBmZGQzN2NkNjEyMGFlZSIsInN1YiI6IjIxMzAxMDAwIiwiaXNzIjoic2ciLCJpYXQiOjE3MDA0Nzk2NzksImV4cCI6MTcwMDQ4MzI3OX0.BsWwwdZY44PUKAoiwE3CH0yMsk3F5bAoPrMF-Q_CFjI
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-20T194211.500.json
-
-###
-
-GET http://localhost:3309/homework/info?cid=1
-Token: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0MjU4MDczODljZDI0NDAzODBmZGQzN2NkNjEyMGFlZSIsInN1YiI6IjIxMzAxMDAwIiwiaXNzIjoic2ciLCJpYXQiOjE3MDA0Nzk2NzksImV4cCI6MTcwMDQ4MzI3OX0.BsWwwdZY44PUKAoiwE3CH0yMsk3F5bAoPrMF-Q_CFjI
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-11-20T194007.500.json
 
 ###
 

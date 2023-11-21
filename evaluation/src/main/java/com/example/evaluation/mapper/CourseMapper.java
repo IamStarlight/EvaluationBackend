@@ -2,7 +2,6 @@ package com.example.evaluation.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.evaluation.entity.Course;
-import com.example.evaluation.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -25,4 +24,8 @@ public interface CourseMapper extends BaseMapper<Course> {
     List<Map<String, String>> getAllCourseInfo();
 
     List<Map<String, String>> getCourseInfo(@Param("cid") Integer cid);
+
+    Integer getHomeworkNumber(@Param("cid") Integer cid);
+
+    boolean updateHomeworkNumber(@Param("cid") Integer cid, @Param("newNumber") Integer newNumber);
 }

@@ -49,8 +49,8 @@ public class Homework implements Serializable {
     private Date startTime;
 
     @TableField
-    @NotNull(message = "截止时间不能为空")
-//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+//    @NotNull(message = "截止时间不能为空")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Future
     private Date endTime;
 

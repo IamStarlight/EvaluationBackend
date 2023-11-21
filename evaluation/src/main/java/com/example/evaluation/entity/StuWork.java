@@ -69,6 +69,10 @@ public class StuWork implements Serializable {
     private boolean isAppeal;
 
     @TableField
+    private Date appealTime;
+
+    @TableField
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private String appealReason;
 
     @TableField

@@ -31,4 +31,8 @@ public interface SubmitService extends IMppService<StuWork> {
     void updateSubmitWork(StuWork stuWork);
 
     void deleteOneSubmittedHomework(Integer id, Integer wid, Integer cid);
+
+    List<Map<String,String>> checkAppealing(Integer cid);
+
+    List<Map<String,String>> checkOneAppealing(Integer sid, Integer wid, Integer cid);
 }

@@ -39,4 +39,16 @@
         where course.tid=teacher.id
         where cid=#{cid}
     </select>
+
+    <select id="getHomeworkNumber" resultType="java.lang.Integer">
+        select homework_number
+        from course
+        where cid=#{cid}
+    </select>
+
+    <update id="updateHomeworkNumber">
+        update course
+        set homework_number=#{newNumber}
+        where cid=#{cid}
+    </update>
 </mapper>

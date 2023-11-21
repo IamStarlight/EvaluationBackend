@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.example.evaluation.service.CourseService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -89,5 +88,17 @@ public class CourseServiceImpl
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
         return one;
+    }
+
+    @Override
+    public Integer getHomeworkNumber(Integer cid) {
+        return mapper.getHomeworkNumber(cid);
+    }
+
+    @Override
+    public void updateHomeworkNumber(Integer cid, Integer wid) {
+        if(!mapper.updateHomeworkNumber(cid,wid)) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"课程不存在");
+        }
     }
 }

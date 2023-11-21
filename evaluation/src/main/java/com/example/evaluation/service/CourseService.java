@@ -2,7 +2,6 @@ package com.example.evaluation.service;
 
 import com.example.evaluation.controller.dto.CourseDto;
 import com.example.evaluation.entity.Course;
-import com.example.evaluation.entity.User;
 
 import java.util.List;
 import java.util.Map;
@@ -22,4 +21,8 @@ public interface CourseService {
     List<Map<String,String>> getCourseListBySid(Integer sid);
 
     List<Map<String, String>> getCourseInfo(Integer cid);
+
+    Integer getHomeworkNumber(Integer cid);
+
+    void updateHomeworkNumber(Integer cid, Integer wid);
 }

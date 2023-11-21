@@ -1,6 +1,7 @@
 package com.example.evaluation.service.impl;
 
 import com.example.evaluation.controller.dto.HomeworkInfo;
+import com.example.evaluation.controller.dto.NewHomeworkDto;
 import com.example.evaluation.controller.dto.OpenPeerDto;
 import com.example.evaluation.controller.dto.WorkDto;
 import com.example.evaluation.entity.Homework;
@@ -28,6 +29,9 @@ public class WorkServiceImpl
 
     @Autowired
     private SubmitServiceImpl submitService;
+
+    @Autowired
+    private CourseServiceImpl courseService;
 
     @Override
     public List<HomeworkInfo> getAllWorkInfoBySid(Integer sid) {
@@ -82,16 +86,19 @@ public class WorkServiceImpl
     @Override
     public void createNewWork(Homework h) {
 //        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Integer wid = courseService.getHomeworkNumber(h.getCid())+1;
+        System.out.println("!!!!!!!!!!!!!!!wid="+wid);
+        h.setWid(wid);
+        System.out.println("!!!!!!!!!!!!h.wid="+h.getWid());
 
         Date startTime = new Date();
         h.setStartTime(startTime);
 
-//        String endTime = formatter.format(h.getEndTime());
-//        h.setEndTime(endTime);
-
+        System.out.println("homework:"+h);
         if(!save(h)) {
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "创建作业失败");
         }
+        courseService.updateHomeworkNumber(h.getCid(),wid);
         // is_submit: 创建一个作业后，stu_homework自动出现班级里所有人的记录，设置默认值为0
         List<Integer> list = scService.getAllSCListSid(h.getCid());
         for (Integer sid : list) {
@@ -100,26 +107,32 @@ public class WorkServiceImpl
     }
 
     @Override
-    public void createNewWork(WorkDto d) {
-        Date startTime = new Date();
+    public void createNewWork(NewHomeworkDto h) {
 //        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-//        System.out.println("!!!!!!!!!!!createNewWork date="+startTime+" "+"format="+formatter.format(startTime));
+        Integer wid = courseService.getHomeworkNumber(h.getCid())+1;
+        h.setWid(wid);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(d.getEndTime());
-        calendar.set(Calendar.HOUR,calendar.get(Calendar.HOUR)+8);
-        Date time = calendar.getTime();
-
-        Homework h = new Homework();
-        h.setWid(d.getWid());
-        h.setCid(d.getCid());
-        h.setTitle(d.getTitle());
-        h.setDetails(d.getDetails());
-        h.setUrl(d.getUrl());
+        Date startTime = new Date();
         h.setStartTime(startTime);
-//        h.setEndTime(endTime);
-        if(!save(h)) {
+
+        Homework w = new Homework();
+        w.setWid(h.getWid());
+        w.setCid(h.getCid());
+        w.setTitle(h.getTitle());
+        w.setDetails(h.getDetails());
+        w.setUrl(h.getUrl());
+        w.setStatus(h.getStatus());
+        w.setStartTime(h.getStartTime());
+        w.setEndTime(h.getEndTime());
+
+        if(!save(w)) {
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "创建作业失败");
+        }
+        courseService.updateHomeworkNumber(h.getCid(),wid);
+        // is_submit: 创建一个作业后，stu_homework自动出现班级里所有人的记录，设置默认值为0
+        List<Integer> list = scService.getAllSCListSid(h.getCid());
+        for (Integer sid : list) {
+            submitService.generateSubmitList(sid,h.getWid(),h.getCid());
         }
     }
 
@@ -193,4 +206,12 @@ public class WorkServiceImpl
     }
 
 
+    @Override
+    public List<HomeworkInfo> getAllDraftWorkInfoByTid(Integer id, Integer cid) {
+        List<HomeworkInfo> one = mapper.getAllDraftWorkInfoByTid(id,cid);
+        if(one.isEmpty()) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+        }
+        return one;
+    }
 }

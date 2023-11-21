@@ -71,4 +71,12 @@
         AND homework.cid=sc.cid
         AND homework.cid=course.cid;
     </select>
+
+    <select id="getAllDraftWorkInfoByTid" resultType="com.example.evaluation.controller.dto.HomeworkInfo">
+        SELECT wid,cname,title,details,start_time,end_time,status,url,submit_number
+        FROM homework,course
+        WHERE course.tid=#{id}
+        AND status=1
+        AND homework.cid=course.cid;
+    </select>
 </mapper>

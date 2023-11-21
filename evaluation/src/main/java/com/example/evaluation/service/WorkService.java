@@ -1,6 +1,7 @@
 package com.example.evaluation.service;
 
 import com.example.evaluation.controller.dto.HomeworkInfo;
+import com.example.evaluation.controller.dto.NewHomeworkDto;
 import com.example.evaluation.controller.dto.OpenPeerDto;
 import com.example.evaluation.controller.dto.WorkDto;
 import com.example.evaluation.entity.Homework;
@@ -28,7 +29,7 @@ public interface WorkService extends IMppService<Homework> {
 
     void createNewWork(Homework h);
 
-    void createNewWork(WorkDto homework);
+    void createNewWork(NewHomeworkDto homework);
 
     void updateVisible(Integer wid, Integer cid, Integer status);
 
@@ -42,4 +43,5 @@ public interface WorkService extends IMppService<Homework> {
 
     Object getOneWorkInfoBySid(Integer id, Integer wid, Integer cid);
 
+    List<HomeworkInfo> getAllDraftWorkInfoByTid(Integer id, Integer cid);
 }

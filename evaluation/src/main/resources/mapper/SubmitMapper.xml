@@ -39,7 +39,7 @@
 
     <update id="studentAppealing">
         update stu_homework
-        set is_appeal=1,appeal_reason=#{reason}
+        set is_appeal=1,appeal_reason=#{reason},appeal_time=#{appealTime}
         where sid=#{sid}
         and wid=#{wid}
         and cid=#{wid}
@@ -52,5 +52,25 @@
         and course.cid=#{cid}
         and stu_homework.cid=course.cid
         and stu_homework.is_read=0
+    </select>
+
+    <select id="checkAppealing" resultType="java.util.Map">
+        select id as sid,stu_homework.wid,name as sname,title,appeal_reason,appeal_time
+        from student,stu_homework,homework
+        where stu_homework.cid=#{cid}
+        and is_appeal=1
+        and stu_homework.cid=homework.cid
+        and stu_homework.wid=homework.wid
+        and stu_homework.sid=student.id
+    </select>
+
+    <select id="checkOneAppealing" resultType="java.util.Map">
+        select title,stu_homework.details,stu_homework.url,total_grade,teacher_grade,peer_grade,appeal_reason,appeal_time
+        from stu_homework,homework
+        where stu_homework.cid=#{cid}
+        and stu_homework.wid=#{wid}
+        and stu_homework.sid=#{sid}
+        and stu_homework.cid=homework.cid
+        and stu_homework.wid=homework.wid
     </select>
 </mapper>
