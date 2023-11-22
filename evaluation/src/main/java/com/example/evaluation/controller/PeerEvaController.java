@@ -61,7 +61,7 @@ public class PeerEvaController {
     }
 
     //教师评分评语
-    @PutMapping("/teacherEvaluation")
+    @PutMapping("/teacherevaluation")
     @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
     public ResponseEntity<Result> teaEvaluation(@CurrentUser User user,
                                                  @RequestBody @Valid EvaDto d){
@@ -87,7 +87,7 @@ public class PeerEvaController {
     // TODO: 2023-11-20 少3接口 
 
     // TODO: 2023-11-14 获取同学A的作业的互评分数们，评论们（被评的学生）
-    @GetMapping("/EvaluationForOneWork")
+    @GetMapping("/evalistforonework")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> selectForStudent(@RequestBody @Valid @NotNull(message = "被评学生id不能为空")
                                                    Integer sid,
@@ -100,7 +100,7 @@ public class PeerEvaController {
     }
 
     // TODO: 2023-11-16 获取其中的一份需要互评的作业
-    @GetMapping("/OneWork")
+    @GetMapping("/onework")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> selectForOneWork(@RequestBody @Valid @NotNull(message = "被评学生id不能为空")
                                                    Integer sid,
@@ -113,7 +113,7 @@ public class PeerEvaController {
     }
 
     // TODO: 2023-11-18 教师获取其中的一份需要互评的作业
-    @GetMapping("/OneWorkForTeacher")
+    @GetMapping("/oneworkforteacher")
     @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
     public ResponseEntity<Result> selectForOneWorkTea(@RequestBody @Valid @NotNull(message = "被评学生id不能为空")
                                                    Integer sid,
