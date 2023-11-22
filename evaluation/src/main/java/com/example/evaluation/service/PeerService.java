@@ -27,7 +27,7 @@ public interface PeerService extends IMppService<PeerEva> {
 
     List<StuWork> selectTeaAllWork(Integer tid, Integer cid);
 
-    List<PeerEva> selectForTeacher(Integer evaSid, Integer wid);
+    List<PeerEva> selectForTeacher(Integer evaSid, Integer cid);
 
     List<PeerEva> selectForStudent(Integer sid, Integer cid, Integer wid);
 

@@ -75,9 +75,9 @@ public class PeerServiceImpl
     }
 
     @Override
-    public List<PeerEva> selectForTeacher(Integer evaSid, Integer wid) {
+    public List<PeerEva> selectForTeacher(Integer evaSid, Integer cid) {
         //返回该学生互评过的作业
-        List<PeerEva> list = mapper.selectForTeacher(evaSid, wid);
+        List<PeerEva> list = mapper.selectForTeacher(evaSid, cid);
         return list;
     }
 

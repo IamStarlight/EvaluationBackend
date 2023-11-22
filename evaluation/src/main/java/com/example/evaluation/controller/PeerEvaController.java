@@ -61,13 +61,13 @@ public class PeerEvaController {
     }
 
     //教师评分评语
-    @PutMapping("/teacherevaluation")
-    @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
-    public ResponseEntity<Result> teaEvaluation(@CurrentUser User user,
-                                                 @RequestBody @Valid EvaDto d){
-        service.teaEvaluation(user.getId(),d);
-        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
-    }
+//    @PutMapping("/teacherevaluation")
+//    @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
+//    public ResponseEntity<Result> teaEvaluation(@CurrentUser User user,
+//                                                 @RequestBody @Valid EvaDto d){
+//        service.teaEvaluation(user.getId(),d);
+//        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+//    }
 
 //--------GetMapping------------------------------------
     // TODO: 2023-11-20  //获取要评价的作业份数和作业们 （评分的学生）
@@ -88,7 +88,7 @@ public class PeerEvaController {
 
     // TODO: 2023-11-14 获取同学A的作业的互评分数们，评论们（被评的学生）
     @GetMapping("/evalistforonework")
-    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
+    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT','ROLE_TEACHER')")
     public ResponseEntity<Result> selectForStudent(@RequestBody @Valid @NotNull(message = "被评学生id不能为空")
                                                    Integer sid,
                                                    @RequestBody @Valid @NotNull(message = "课程id不能为空")
@@ -99,9 +99,20 @@ public class PeerEvaController {
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 
-    // TODO: 2023-11-16 获取其中的一份需要互评的作业
+    // TODO: 2023-11-14 获取同学A所评价的作业的互评分数们，评论们
+    @GetMapping("/evalist")
+    @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
+    public ResponseEntity<Result> selectForStudent(@RequestBody @Valid @NotNull(message = "评价学生id不能为空")
+                                                   Integer evaSid,
+                                                   @RequestBody @Valid @NotNull(message = "课程id不能为空")
+                                                   Integer cid){
+        service.selectForTeacher(evaSid, cid);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+    }
+
+    // TODO: 2023-11-16 获取其中的一份需要互评的作业（教师或互评的学生）
     @GetMapping("/onework")
-    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
+    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT','ROLE_TEACHER')")
     public ResponseEntity<Result> selectForOneWork(@RequestBody @Valid @NotNull(message = "被评学生id不能为空")
                                                    Integer sid,
                                                    @RequestBody @Valid @NotNull(message = "课程id不能为空")
@@ -113,17 +124,17 @@ public class PeerEvaController {
     }
 
     // TODO: 2023-11-18 教师获取其中的一份需要互评的作业
-    @GetMapping("/oneworkforteacher")
-    @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
-    public ResponseEntity<Result> selectForOneWorkTea(@RequestBody @Valid @NotNull(message = "被评学生id不能为空")
-                                                   Integer sid,
-                                                   @RequestBody @Valid @NotNull(message = "课程id不能为空")
-                                                   Integer cid,
-                                                   @RequestBody @Valid @NotNull(message = "作业id不能为空")
-                                                   Integer wid) {
-        service.selectOneWorkForTea(sid, cid, wid);
-        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
-    }
+//    @GetMapping("/oneworkforteacher")
+//    @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
+//    public ResponseEntity<Result> selectForOneWorkTea(@RequestBody @Valid @NotNull(message = "被评学生id不能为空")
+//                                                   Integer sid,
+//                                                   @RequestBody @Valid @NotNull(message = "课程id不能为空")
+//                                                   Integer cid,
+//                                                   @RequestBody @Valid @NotNull(message = "作业id不能为空")
+//                                                   Integer wid) {
+//        service.selectOneWorkForTea(sid, cid, wid);
+//        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+//    }
 
 //--------DeleteMapping------------------------------------
 

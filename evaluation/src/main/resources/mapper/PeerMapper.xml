@@ -58,7 +58,7 @@
     <select id="selectForTeacher" resultType="com.example.evaluation.entity.PeerEva">
         select * from peer_evaluation
         where evaSid=#{evaSid}
-        and wid=#{wid}
+        and cid=#{cid}
     </select>
 
     <select id="selectForStudent" resultType="com.example.evaluation.entity.PeerEva">
