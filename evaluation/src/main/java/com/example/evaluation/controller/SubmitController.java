@@ -110,7 +110,6 @@ public class SubmitController {
                                                              Integer wid,
                                                              @RequestParam @Valid @NotNull(message = "课程号不能为空")
                                                              Integer cid){
-        // TODO: 2023-11-20 删除提交但是查出的作业也没了
         service.deleteOneSubmitted(user.getId(),wid,cid);
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }

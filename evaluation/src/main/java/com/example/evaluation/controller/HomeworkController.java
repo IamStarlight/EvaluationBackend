@@ -84,7 +84,7 @@ public class HomeworkController {
     }
 
     ///查询学生选的所有课程中所有未完成的作业 ok
-    // TODO: 2023-11-22 修改完毕
+    // TODO: 2023-11-22 修改完毕,!!!
     @GetMapping("/todo")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> getStuWorkTodoInfo(@CurrentUser User user){
@@ -92,7 +92,7 @@ public class HomeworkController {
     }
 
     //查询学生选的某课程布置的全部作业 ok
-    // TODO: 2023-11-22 没懂这个接口,查出来的是已经写了的
+    // TODO: 2023-11-22 没懂这个接口,查出来的是已经写了的,!
     @GetMapping("/info")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> getStuWorkInfo(@CurrentUser User user,
@@ -142,6 +142,7 @@ public class HomeworkController {
 
 //--------DeleteMapping------------------------------------
     //管理员、教师删除作业 ok
+// TODO: 2023-11-22 !!!!!!! 
     @DeleteMapping("/delete")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<Result> deleteHomework(@RequestParam @Valid @NotNull(message = "作业号不能为空")
