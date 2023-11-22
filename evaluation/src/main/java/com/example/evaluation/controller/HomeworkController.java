@@ -30,7 +30,7 @@ public class HomeworkController {
     private SubmitServiceImpl submitService;
 
 //--------PostMapping------------------------------------
-// TODO: 2023-11-21 自动截止 ？截止了status也要改
+
     //管理员、教师创建新作业 ok
     @PostMapping("/create")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
@@ -92,7 +92,7 @@ public class HomeworkController {
     }
 
     //查询学生选的某课程布置的全部作业 ok
-    // TODO: 2023-11-22 没懂这个接口
+    // TODO: 2023-11-22 没懂这个接口,查出来的是已经写了的
     @GetMapping("/info")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> getStuWorkInfo(@CurrentUser User user,
@@ -119,7 +119,7 @@ public class HomeworkController {
         return new ResponseEntity<>(Result.success(workService.getAllWorkInfoByTid(user.getId(),cid)), HttpStatus.OK);
     }
 
-    //老师查询自己教的某课程的所有草稿箱里的作业
+    //老师查询自己教的某课程的所有草稿箱里的作业 ok
     @GetMapping("/draft")
     @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
     public ResponseEntity<Result> getAllDraftWorkInfoByTid(@CurrentUser User user,

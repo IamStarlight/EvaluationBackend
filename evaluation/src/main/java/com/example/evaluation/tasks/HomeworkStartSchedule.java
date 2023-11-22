@@ -12,9 +12,9 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 
-@Component
-@EnableScheduling
-@EnableAsync
+//@Component
+//@EnableScheduling
+//@EnableAsync
 public class HomeworkStartSchedule implements SchedulingConfigurer {
 
     private Integer wid;

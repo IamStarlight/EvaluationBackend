@@ -8,20 +8,18 @@ import com.example.evaluation.enums.StatusEnum;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.CronMapper;
 import com.example.evaluation.mapper.WorkMapper;
-import com.example.evaluation.tasks.HomeworkEndSchedule;
 import com.example.evaluation.utils.CronUtil;
 import com.github.jeffreyning.mybatisplus.service.MppServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.*;
 import org.springframework.stereotype.Service;
 import com.example.evaluation.service.WorkService;
 
 import java.util.*;
 
 @Service
-@EnableAsync //开启多线程
-@EnableScheduling //开启定时任务
+//@EnableAsync //开启多线程
+//@EnableScheduling //开启定时任务
 public class WorkServiceImpl
         extends MppServiceImpl<WorkMapper, Homework>
         implements WorkService {
@@ -119,7 +117,7 @@ public class WorkServiceImpl
         cronMapper.insertStartCron(w.getWid(),w.getCid(),startCron);
         cronMapper.insertEndCron(w.getWid(),w.getCid(),endCron);
         //作业定时截止,status=2
-        new HomeworkEndSchedule(w.getWid(),w.getCid());
+//        new HomeworkEndSchedule(w.getWid(),w.getCid());
     }
 
 

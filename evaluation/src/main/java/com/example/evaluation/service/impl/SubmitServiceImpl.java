@@ -78,9 +78,9 @@ public class SubmitServiceImpl
     @Override
     public List<Map<String,Object>> getSubmitListAll(Integer wid, Integer cid) {
         List<Map<String,Object>> list = mapper.getSubmitListAll(wid,cid);
-        if(list.isEmpty()) {
-            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
-        }
+//        if(list.isEmpty()) {
+//            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+//        }
         return list;
     }
 
@@ -114,9 +114,9 @@ public class SubmitServiceImpl
     @Override
     public List<Map<String,String>> getHomeworkToRead(Integer tid, Integer cid) {
         List<Map<String,String>> list = mapper.getHomeworkToRead(tid,cid);
-        if(list.isEmpty()) {
-            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
-        }
+//        if(list.isEmpty()) {
+//            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+//        }
         return list;
     }
 

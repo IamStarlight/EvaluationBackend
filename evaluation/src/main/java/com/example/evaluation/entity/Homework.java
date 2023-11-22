@@ -55,6 +55,9 @@ public class Homework implements Serializable {
     private Date endTime;
 
     @TableField
+    private Date evaDdl;
+
+    @TableField
     private Integer submitNumber;
 
     @TableField
@@ -64,11 +67,8 @@ public class Homework implements Serializable {
     private String status;
 
     @TableField
-    private boolean isOpenPeer;
+    private boolean isPeerOpen;
 
     @TableField
-    private Date evaDdl;
-
-    @TableField
-    private boolean isOverEvaDdl;
+    private boolean isEvaOver;
 }

@@ -45,7 +45,7 @@
     </select>
 
     <select id="getStuWorkInfo" resultType="com.example.evaluation.controller.dto.HomeworkInfo">
-        select homework.wid,cname,homework.title,homework.end_time,status,total_grade,is_read,is_eva,is_appeal,is_submit,is_eva_over
+        select homework.wid,cname,homework.title,homework.end_time,status,total_grade,is_read,is_eva,is_appeal,is_eva_over
         from homework,course,sc,stu_homework
         where homework.cid=#{cid}
         and sc.sid=#{sid}
