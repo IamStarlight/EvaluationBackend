@@ -3,20 +3,25 @@ package com.example.evaluation.service.impl;
 import com.example.evaluation.controller.dto.HomeworkInfo;
 import com.example.evaluation.controller.dto.NewHomeworkDto;
 import com.example.evaluation.controller.dto.OpenPeerDto;
-import com.example.evaluation.controller.dto.WorkDto;
 import com.example.evaluation.entity.Homework;
 import com.example.evaluation.enums.StatusEnum;
 import com.example.evaluation.exception.ServiceException;
+import com.example.evaluation.mapper.CronMapper;
 import com.example.evaluation.mapper.WorkMapper;
+import com.example.evaluation.tasks.HomeworkEndSchedule;
+import com.example.evaluation.utils.CronUtil;
 import com.github.jeffreyning.mybatisplus.service.MppServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.*;
 import org.springframework.stereotype.Service;
 import com.example.evaluation.service.WorkService;
 
 import java.util.*;
 
 @Service
+@EnableAsync //开启多线程
+@EnableScheduling //开启定时任务
 public class WorkServiceImpl
         extends MppServiceImpl<WorkMapper, Homework>
         implements WorkService {
@@ -25,7 +30,7 @@ public class WorkServiceImpl
     private WorkMapper mapper;
 
     @Autowired
-    private ScServiceImpl scService;
+    private CronMapper cronMapper;
 
     @Autowired
     private SubmitServiceImpl submitService;
@@ -50,7 +55,6 @@ public class WorkServiceImpl
         }
         return list;
     }
-
 
     @Override
     public List<HomeworkInfo> getWorkInfoById(Integer wid, Integer cid) {
@@ -83,34 +87,11 @@ public class WorkServiceImpl
         return submitTime.compareTo(one.getEndTime()) > 0;
     }
 
-    @Override
-    public void createNewWork(Homework h) {
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Integer wid = courseService.getHomeworkNumber(h.getCid())+1;
-        System.out.println("!!!!!!!!!!!!!!!wid="+wid);
-        h.setWid(wid);
-        System.out.println("!!!!!!!!!!!!h.wid="+h.getWid());
-
-        Date startTime = new Date();
-        h.setStartTime(startTime);
-
-        System.out.println("homework:"+h);
-        if(!save(h)) {
-            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "创建作业失败");
-        }
-        courseService.updateHomeworkNumber(h.getCid(),wid);
-        // is_submit: 创建一个作业后，stu_homework自动出现班级里所有人的记录，设置默认值为0
-        List<Integer> list = scService.getAllSCListSid(h.getCid());
-        for (Integer sid : list) {
-            submitService.generateSubmitList(sid,h.getWid(),h.getCid());
-        }
-    }
 
     @Override
     public void createNewWork(NewHomeworkDto h) {
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Integer wid = courseService.getHomeworkNumber(h.getCid())+1;
-        h.setWid(wid);
+        Integer newNumber = courseService.getHomeworkNumber(h.getCid())+1;
+        h.setWid(newNumber);
 
         Date startTime = new Date();
         h.setStartTime(startTime);
@@ -128,13 +109,20 @@ public class WorkServiceImpl
         if(!save(w)) {
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "创建作业失败");
         }
-        courseService.updateHomeworkNumber(h.getCid(),wid);
-        // is_submit: 创建一个作业后，stu_homework自动出现班级里所有人的记录，设置默认值为0
-        List<Integer> list = scService.getAllSCListSid(h.getCid());
-        for (Integer sid : list) {
-            submitService.generateSubmitList(sid,h.getWid(),h.getCid());
-        }
+        //创建作业后，作业数+1
+        courseService.updateHomeworkNumber(h.getCid(),newNumber);
+
+        //将时间范围转化为cron
+        String startCron = CronUtil.dateToCron(w.getStartTime());
+        String endCron = CronUtil.dateToCron(w.getEndTime());
+        //插入数据库
+        cronMapper.insertStartCron(w.getWid(),w.getCid(),startCron);
+        cronMapper.insertEndCron(w.getWid(),w.getCid(),endCron);
+        //作业定时截止,status=2
+        new HomeworkEndSchedule(w.getWid(),w.getCid());
     }
+
+
 
     @Override
     public void updateVisible(Integer wid, Integer cid, Integer s) {
@@ -173,6 +161,18 @@ public class WorkServiceImpl
         if(!deleteByMultiId(idEntity)) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
+        //删除作业的同时删除所有提交
+        List<Map<String,Object>> list = submitService.getSubmitListAll(wid,cid);
+        for (Map<String, Object> map : list) {
+            for (Map.Entry<String, Object> m : map.entrySet()) {
+                if("sid".equals(m.getKey())) {
+                    submitService.deleteOneSubmitted((Integer) m.getValue(),wid,cid);
+                }
+            }
+        }
+        //删除作业后，作业数-1
+        Integer newNumber = courseService.getHomeworkNumber(cid)-1;
+        courseService.updateHomeworkNumber(cid,newNumber);
     }
 
     @Override
@@ -186,10 +186,6 @@ public class WorkServiceImpl
 
     @Override
     public void updateOpenPeer(OpenPeerDto d) {
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-//        System.out.println("!!!!!!!!!date="+submitTime+" format date="+formatter.format(submitTime));
-
-//        String peer_ddl = formatter.format(ddl);
         if(!mapper.updateOpenPeer(d.getWid(),d.getCid(),d.getStatus(),d.getDdl())) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
@@ -213,5 +209,25 @@ public class WorkServiceImpl
             throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
         }
         return one;
+    }
+
+    @Override
+    public Integer getSubmitNumber(Integer wid, Integer cid) {
+        return mapper.getSubmitNumber(wid,cid);
+    }
+
+    @Override
+    public void updateSubmitNumber(Integer wid, Integer cid, Integer newNumber) {
+        mapper.updateSubmitNumber(wid,cid,newNumber);
+    }
+
+    @Override
+    public void statusToRelease(Integer wid, Integer cid) {
+        mapper.statusToRelease(wid,cid);
+    }
+
+    @Override
+    public void statusToEnd(Integer wid, Integer cid) {
+        mapper.statusToEnd(wid,cid);
     }
 }

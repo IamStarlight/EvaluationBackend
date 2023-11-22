@@ -105,6 +105,12 @@
 <!--            <artifactId>springfox-swagger2</artifactId>-->
 <!--            <version>2.7.0</version>-->
 <!--        </dependency>-->
+        <!--cron-->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.3.2</version>
+        </dependency>
     </dependencies>
 
     <repositories>

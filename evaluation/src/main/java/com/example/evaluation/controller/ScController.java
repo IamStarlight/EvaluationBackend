@@ -20,16 +20,18 @@ public class ScController {
     @Autowired
     private ScServiceImpl service;
 
-    // TODO: 2023-11-20  // 添加选课名单，一次加一个 ok
+    //添加选课名单，一次加一个 ok
     @PostMapping("/add")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
-    public ResponseEntity<Result> addScStu(@RequestParam @Valid Integer sid,
-                                           @RequestParam @Valid Integer cid){
+    public ResponseEntity<Result> addScStu(@RequestParam @Valid @NotNull(message = "学号不能为空")
+                                               Integer sid,
+                                           @RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                Integer cid){
         service.addScStu(sid,cid);
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 
-    // TODO: 2023-11-20  // 根据学号搜索选课名单中的一个学生 ok
+    //根据学号搜索选课名单中的一个学生 ok
     @GetMapping("/student")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<Result> getOneSCStudent(@RequestParam @Valid @NotNull(message = "学号不能为空")

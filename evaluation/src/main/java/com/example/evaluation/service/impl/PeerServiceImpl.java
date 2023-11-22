@@ -27,6 +27,7 @@ public class PeerServiceImpl
         if(!mapper.peerEvaluation(evaSid,d.getSid(),d.getWid(),d.getCid(),d.getGrade(),d.getComments())) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
         }
+        // TODO: 2023-11-14 评一个，已评价人数+1
     }
 
     @Override

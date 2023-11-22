@@ -20,6 +20,8 @@ public interface SubmitService extends IMppService<StuWork> {
 
     List<Map<String,String>> getSubmitList(Integer wid, Integer cid);
 
+    List<Map<String,Object>> getSubmitListAll(Integer wid, Integer cid);
+
     List<Map<String,String>> getMySubmit(Integer sid, Integer wid, Integer cid);
 
     List<Map<String,String>> getStuWorkTodoInfo(Integer id);
@@ -30,9 +32,11 @@ public interface SubmitService extends IMppService<StuWork> {
 
     void updateSubmitWork(StuWork stuWork);
 
-    void deleteOneSubmittedHomework(Integer id, Integer wid, Integer cid);
+    void deleteOneSubmitted(Integer id, Integer wid, Integer cid);
 
     List<Map<String,String>> checkAppealing(Integer cid);
 
     List<Map<String,String>> checkOneAppealing(Integer sid, Integer wid, Integer cid);
+
+    Object getNotSubmitList(Integer wid, Integer cid);
 }

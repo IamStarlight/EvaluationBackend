@@ -39,6 +39,13 @@ public class ScServiceImpl
         if(!mapper.deleteScStu(sid,cid)) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
+//        create trigger minus_sc_number
+//        after delete on sc for each row
+//        begin
+//        update course
+//        set class_number=class_number-1
+//        where cid=old.cid;
+//        end;
     }
 
     @Override
@@ -51,6 +58,13 @@ public class ScServiceImpl
         if(!mapper.addScStu(sid,cid)) {
             throw new ServiceException(HttpStatus.NOT_MODIFIED.value(),"添加学生失败");
         }
+//        create trigger sc_number
+//        after insert on sc for each row
+//        begin
+//        update course
+//        set class_number=class_number+1
+//        where cid=new.cid;
+//        end;
     }
 
     public List<Map<String,String>> getOneSCStudent(Integer sid, Integer cid) {

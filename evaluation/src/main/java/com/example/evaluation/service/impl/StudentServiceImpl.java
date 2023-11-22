@@ -32,6 +32,12 @@ public class StudentServiceImpl
         one.setPassword(passwordEncoder.encode(rdto.getPassword()));
         one.setEmail(rdto.getEmail());
         save(one);
+//        create trigger insert_stu
+//        after insert on student for each row
+//        begin
+//        insert into user ( id,name,password,email,permission)
+//        values( new.id,new.name,new.password,new.email, 'ROLE_STUDENT');
+//        end;
     }
 
     @Override
@@ -41,7 +47,16 @@ public class StudentServiceImpl
                 .set(Student::getName,ud.getName())
                 .set(Student::getEmail,ud.getEmail());
         int flag = mapper.update(null,wrapper);
-        if(flag < 1) throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
+        if(flag < 1) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
+        }
+//        create trigger update_stu
+//        after update on student for each row
+//        begin
+//        update user
+//        set name=new.name,password=new.password,email=new.email
+//        where id=old.id;
+//        end;
     }
 
     @Override
@@ -75,6 +90,13 @@ public class StudentServiceImpl
 
     @Override
     public void deleteUserById(Integer id) {
-        if(!removeById(id)) throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
+        if(!removeById(id)) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
+        }
+//        create trigger delete_stu
+//        after delete on student for each row
+//        begin
+//        delete from user where id=old.id;
+//        end;
     }
 }

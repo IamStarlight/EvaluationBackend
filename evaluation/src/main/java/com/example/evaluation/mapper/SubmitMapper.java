@@ -30,4 +30,8 @@ public interface SubmitMapper extends MppBaseMapper<StuWork> {
     List<Map<String, String>> checkAppealing(@Param("cid") Integer cid);
 
     List<Map<String, String>> checkOneAppealing(@Param("sid") Integer sid, @Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    List<Map<String, Object>> getSubmitListAll(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    List<Map<String, String>> getNotSubmitList(@Param("wid") Integer wid, @Param("cid") Integer cid);
 }

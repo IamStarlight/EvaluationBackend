@@ -33,7 +33,6 @@ public class SubmitServiceImpl
         w.setSid(sid);
         w.setWid(wid);
         w.setCid(cid);
-//        w.setSubmit(false);
 
         if(!save(w)) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
@@ -49,14 +48,15 @@ public class SubmitServiceImpl
 
         if(isOvertime){
             throw new ServiceException(HttpStatus.FORBIDDEN.value(), "作业已截止");
-        }else{
-            w.setSubmit(true);
         }
         w.setSubmitTime(submitTime);
 
         if(!save(w)) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
         }
+        //提交作业之后，增加提交人数
+        Integer newNumber = workService.getSubmitNumber(w.getWid(),w.getCid())+1;
+        workService.updateSubmitNumber(w.getWid(),w.getCid(),newNumber);
     }
 
     @Override
@@ -69,6 +69,15 @@ public class SubmitServiceImpl
     @Override
     public List<Map<String,String>> getSubmitList(Integer wid, Integer cid) {
         List<Map<String,String>> list = mapper.getSubmitList(wid,cid);
+        if(list.isEmpty()) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        }
+        return list;
+    }
+
+    @Override
+    public List<Map<String,Object>> getSubmitListAll(Integer wid, Integer cid) {
+        List<Map<String,Object>> list = mapper.getSubmitListAll(wid,cid);
         if(list.isEmpty()) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
@@ -118,13 +127,8 @@ public class SubmitServiceImpl
 
         boolean isOvertime = workService.checkOvertime(w.getWid(), w.getCid(), w.getSubmitTime());
 
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-//        System.out.println("!!!!!!!!!date="+submitTime+" format date="+formatter.format(submitTime));
-
         if(isOvertime){
             throw new ServiceException(HttpStatus.FORBIDDEN.value(), "作业已截止");
-        }else{
-            w.setSubmit(true);
         }
 
         if(!updateByMultiId(w)) {
@@ -133,15 +137,18 @@ public class SubmitServiceImpl
     }
 
     @Override
-    public void deleteOneSubmittedHomework(Integer id, Integer wid, Integer cid) {
+    public void deleteOneSubmitted(Integer id, Integer wid, Integer cid) {
         StuWork idEntity = new StuWork();
         idEntity.setSid(id);
         idEntity.setWid(wid);
         idEntity.setCid(cid);
-        // TODO: 2023-11-20 学生把提交的作业删了，issubmit也要改成0
+
         if(!deleteByMultiId(idEntity)) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
+        //删除提交之后，减少提交人数
+        Integer newNumber = workService.getSubmitNumber(wid,cid)-1;
+        workService.updateSubmitNumber(wid,cid,newNumber);
     }
 
     @Override
@@ -158,6 +165,15 @@ public class SubmitServiceImpl
         List<Map<String,String>> list = mapper.checkOneAppealing(sid,wid,cid);
         if(list.isEmpty()) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+        }
+        return list;
+    }
+
+    @Override
+    public Object getNotSubmitList(Integer wid, Integer cid) {
+        List<Map<String,String>> list = mapper.getNotSubmitList(wid,cid);
+        if(list.isEmpty()) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
         return list;
     }

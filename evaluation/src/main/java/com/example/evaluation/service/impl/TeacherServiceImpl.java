@@ -33,6 +33,12 @@ public class TeacherServiceImpl
         one.setPassword(passwordEncoder.encode(rdto.getPassword()));
         one.setEmail(rdto.getEmail());
         save(one);
+//        create trigger insert_tch
+//        after insert on teacher for each row
+//        begin
+//        insert into user ( id,name,password,email,permission)
+//        values( new.id,new.name,new.password,new.email, 'ROLE_TEACHER');
+//        end;
     }
 
     @Override
@@ -42,7 +48,16 @@ public class TeacherServiceImpl
                 .set(Teacher::getName,ud.getName())
                 .set(Teacher::getEmail,ud.getEmail());
         int flag = teacherMapper.update(null,wrapper);
-        if(flag < 1) throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
+        if(flag < 1) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
+        }
+//        create trigger update_tch
+//        after update on teacher for each row
+//        begin
+//        update user
+//        set name=new.name,password=new.password,email=new.email
+//        where id=old.id;
+//        end;
     }
 
     @Override
@@ -77,10 +92,13 @@ public class TeacherServiceImpl
 
     @Override
     public void deleteUserById(Integer id) {
-        if(!removeById(id))
+        if(!removeById(id)) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
+        }
+        //    create trigger delete_tch
+        //    after delete on teacher for each row
+        //    begin
+        //    delete from user where id=old.id;
+        //    end;
     }
-
-//    public Map<String, String> getOneByID(Integer ) {
-//    }
 }

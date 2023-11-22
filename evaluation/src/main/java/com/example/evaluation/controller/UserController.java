@@ -52,7 +52,7 @@ public class UserController {
 
 //--------PutMapping------------------------------------
 
-    //管理员更新用户数据
+    //管理员更新用户数据 ok
     @PutMapping("/update")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> updateUserInfo(@RequestBody @Valid UpdateDto d){
@@ -105,7 +105,8 @@ public class UserController {
     }
 
     //管理员根据id查询用户信息
-    @GetMapping("/oneinfo")
+    // TODO: 2023-11-21 user/oneinfo
+    @GetMapping("/id")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> getOneByID(@RequestParam @Valid @NotNull(message = "id不能为空")
                                              Integer id,

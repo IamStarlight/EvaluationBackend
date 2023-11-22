@@ -25,9 +25,6 @@ public class CourseController {
     @Autowired
     private CourseServiceImpl service;
 
-    @Autowired
-    private ScServiceImpl scService;
-
 //--------PostMapping------------------------------------
 
     //管理员增加课程 ok
@@ -68,7 +65,7 @@ public class CourseController {
         return new ResponseEntity<>(Result.success(service.getAllCourseInfo()), HttpStatus.OK);
     }
 
-    // TODO: 2023-11-20 cname查课程 模糊查询
+    // TODO: 2023-11-20 cname查课程 模糊查询 /course/name
 
     //根据课程号查询课程 ok
     @GetMapping("/info")
@@ -86,7 +83,7 @@ public class CourseController {
         return new ResponseEntity<>(Result.success(service.getCourseListByTid(tid)), HttpStatus.OK);
     }
 
-    // TODO: 2023-11-20  tname模糊查询
+    // TODO: 2023-11-20  tname模糊查询 /course/teacher/name
 
     //管理员查询学生所选课程 ok
     @GetMapping("/student/admin")
@@ -96,7 +93,7 @@ public class CourseController {
         return new ResponseEntity<>(Result.success(service.getCourseListBySid(sid)), HttpStatus.OK);
     }
 
-    // TODO: 2023-11-20  sname模糊查询
+    // TODO: 2023-11-20  sname模糊查询 /course/student/name
 
     //教师查询自己所授课程 ok
     @GetMapping("/teacher")

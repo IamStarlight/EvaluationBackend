@@ -36,8 +36,8 @@
     <select id="getCourseInfo" resultType="map">
         select cid,cname,tid,name as tname,content,class_number
         from course,teacher
-        where course.tid=teacher.id
         where cid=#{cid}
+        and course.tid=teacher.id
     </select>
 
     <select id="getHomeworkNumber" resultType="java.lang.Integer">

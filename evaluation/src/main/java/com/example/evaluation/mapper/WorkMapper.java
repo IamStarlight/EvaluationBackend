@@ -6,6 +6,7 @@ import com.example.evaluation.enums.StatusEnum;
 import com.github.jeffreyning.mybatisplus.base.MppBaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.Date;
 import java.util.List;
@@ -31,4 +32,12 @@ public interface WorkMapper extends MppBaseMapper<Homework> {
     List<HomeworkInfo> getOneWorkInfoBySid(@Param("id") Integer id, @Param("cid") Integer cid, @Param("wid") Integer wid);
 
     List<HomeworkInfo> getAllDraftWorkInfoByTid(@Param("id") Integer id, @Param("cid") Integer cid);
+
+    Integer getSubmitNumber(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    void updateSubmitNumber(@Param("wid") Integer wid, @Param("cid") Integer cid, @Param("newNumber") Integer newNumber);
+
+    void statusToRelease(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    void statusToEnd(@Param("wid") Integer wid, @Param("cid") Integer cid);
 }

@@ -57,9 +57,6 @@ public class StuWork implements Serializable {
     private Integer peerGrade;
 
     @TableField
-    private boolean isSubmit;
-
-    @TableField
     private boolean isRead;
 
     @TableField

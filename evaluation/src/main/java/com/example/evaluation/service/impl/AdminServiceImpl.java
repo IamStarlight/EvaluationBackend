@@ -33,6 +33,12 @@ public class AdminServiceImpl
         one.setPassword(passwordEncoder.encode(rdto.getPassword()));
         one.setEmail(rdto.getEmail());
         save(one);
+//        create trigger insert_admin
+//        after insert on admin for each row
+//        begin
+//        insert into user ( id,name,password,email,permission)
+//        values( new.id,new.name,new.password,new.email, 'ROLE_ADMIN');
+//        end;
     }
 
     @Override
@@ -42,7 +48,16 @@ public class AdminServiceImpl
                 .set(Admin::getName,ud.getName())
                 .set(Admin::getEmail,ud.getEmail());
         int flag = adminMapper.update(null,wrapper);
-        if(flag < 1) throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
+        if(flag < 1) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
+        }
+//        create trigger update_admin
+//        after update on admin for each row
+//        begin
+//        update user
+//        set name=new.name,password=new.password,email=new.email
+//        where id=old.id;
+//        end;
     }
 
     @Override
@@ -83,10 +98,17 @@ public class AdminServiceImpl
 
     public void deleteUserByIdNotMe(Integer myId,Integer id) {
         Admin one = getById(id);
-        if(one.getId().equals(myId))
+        if(one.getId().equals(myId)) {
             throw new ServiceException(HttpStatus.FORBIDDEN.value(),"不能删除自己的账号");
+        }
 
-        if(!removeById(id))
+        if(!removeById(id)) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"用户不存在");
+        }
+//        create trigger delete_admin
+//        after delete on admin for each row
+//        begin
+//        delete from user where id=old.id;
+//        end;
     }
 }

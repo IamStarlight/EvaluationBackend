@@ -3,16 +3,12 @@ package com.example.evaluation.service;
 import com.example.evaluation.controller.dto.HomeworkInfo;
 import com.example.evaluation.controller.dto.NewHomeworkDto;
 import com.example.evaluation.controller.dto.OpenPeerDto;
-import com.example.evaluation.controller.dto.WorkDto;
 import com.example.evaluation.entity.Homework;
 import com.github.jeffreyning.mybatisplus.service.IMppService;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public interface WorkService extends IMppService<Homework> {
@@ -26,8 +22,6 @@ public interface WorkService extends IMppService<Homework> {
     List<HomeworkInfo> getStuWorkInfo(Integer sid, Integer cid);
 
     boolean checkOvertime(Integer wid, Integer cid, Date submitTime);
-
-    void createNewWork(Homework h);
 
     void createNewWork(NewHomeworkDto homework);
 
@@ -44,4 +38,12 @@ public interface WorkService extends IMppService<Homework> {
     Object getOneWorkInfoBySid(Integer id, Integer wid, Integer cid);
 
     List<HomeworkInfo> getAllDraftWorkInfoByTid(Integer id, Integer cid);
+
+    Integer getSubmitNumber(Integer wid, Integer cid);
+
+    void updateSubmitNumber(Integer wid, Integer cid, Integer newNumber);
+
+    void statusToRelease(Integer wid, Integer cid);
+
+    void statusToEnd(Integer wid, Integer cid);
 }

@@ -3,11 +3,11 @@
 <mapper namespace="com.example.evaluation.mapper.SubmitMapper">
 
     <select id="getSubmitList" resultType="java.util.Map">
-        select id,name,details,url,submit_time,is_late,teacher_grade,total_grade
+        select id,name,details,url,submit_time,teacher_grade,total_grade
         from stu_homework,student
-        where stu_homework.sid=student.id
-        and wid=#{wid}
+        where wid=#{wid}
         and cid=#{cid}
+        and stu_homework.sid=student.id
     </select>
 
     <update id="teacherEvaluation">
@@ -29,12 +29,16 @@
 
     <select id="getStuWorkTodoInfo" resultType="java.util.Map">
         select homework.wid,cname,homework.title,homework.details,homework.url,end_time
-        from stu_homework,homework,course
-        where stu_homework.sid=#{id}
-        and submit_status=1
-        and stu_homework.wid=homework.wid
+        from homework,sc,course
+        where homework.cid=sc.cid
+        and sc.sid=21301000
+        and not exists
+        (select * from stu_homework
+        where wid=1
+        and cid=1
         and stu_homework.cid=homework.cid
-        and stu_homework.cid=course.cid
+        and stu_homework.wid=homework.wid)
+        and homework.cid=course.cid
     </select>
 
     <update id="studentAppealing">
@@ -50,8 +54,8 @@
         from stu_homework,course
         where course.tid=#{tid}
         and course.cid=#{cid}
-        and stu_homework.cid=course.cid
         and stu_homework.is_read=0
+        and stu_homework.cid=course.cid
     </select>
 
     <select id="checkAppealing" resultType="java.util.Map">
@@ -72,5 +76,25 @@
         and stu_homework.sid=#{sid}
         and stu_homework.cid=homework.cid
         and stu_homework.wid=homework.wid
+    </select>
+
+    <select id="getSubmitListAll" resultType="java.util.Map">
+        select id,name,details,url,submit_time,teacher_grade,total_grade
+        from stu_homework,student
+        where wid=#{wid}
+        and cid=#{cid}
+        and stu_homework.sid=student.id
+    </select>
+
+    <select id="getNotSubmitList" resultType="java.util.Map">
+        select sc.sid,name as sname
+        from sc,student
+        where sc.sid not in
+            (select sid
+            from stu_homework
+            where wid=#{wid}
+            and cid=#{cid}
+            and stu_homework.cid=sc.cid)
+        and sc.sid=student.id
     </select>
 </mapper>

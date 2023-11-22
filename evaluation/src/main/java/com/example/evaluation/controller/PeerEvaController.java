@@ -2,6 +2,8 @@ package com.example.evaluation.controller;
 
 import com.example.evaluation.annotation.CurrentUser;
 import com.example.evaluation.controller.dto.EvaDto;
+import com.example.evaluation.controller.dto.OpenPeerDto;
+import com.example.evaluation.service.impl.WorkServiceImpl;
 import com.example.evaluation.utils.Result;
 import com.example.evaluation.entity.User;
 import com.example.evaluation.service.impl.PeerServiceImpl;
@@ -23,6 +25,9 @@ public class PeerEvaController {
     @Autowired
     private PeerServiceImpl service;
 
+    @Autowired
+    private WorkServiceImpl workService;
+
 //--------PostMapping------------------------------------
 
     //添加一条作业互评评分记录
@@ -37,8 +42,16 @@ public class PeerEvaController {
 
 //--------PutMapping------------------------------------
 
+    // TODO: 2023-11-20  //老师开启互评 ok /homework/open
+    @PutMapping("/open")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
+    public ResponseEntity<Result> updateOpenPeer(@RequestBody @Valid OpenPeerDto d){
+        workService.updateOpenPeer(d);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+    }
+
     // TODO: 2023-11-20  //我评别人 现在没有生成名单！！！
-    // TODO: 2023-11-14 评一个，已评价人数+1
+
     @PutMapping("/evaluate")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> peerEvaluation(@CurrentUser User user,
@@ -48,7 +61,6 @@ public class PeerEvaController {
     }
 
     //教师评分评语
-    // TODO: 2023-11-17
     @PutMapping("/teacherEvaluation")
     @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
     public ResponseEntity<Result> teaEvaluation(@CurrentUser User user,
@@ -66,7 +78,7 @@ public class PeerEvaController {
     }
 
     // TODO: 2023-11-20  //获取同学A的作业的互评分数们，评论们（被评的学生）
-    @GetMapping("/beevaluated")
+    @GetMapping("/evaluated")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
     public ResponseEntity<Result> getBeEvaluatedStudentVision(@CurrentUser User user){
         return new ResponseEntity<>(Result.success(service.getBeEvaluatedStudentVision(user.getId())), HttpStatus.OK);
