@@ -37,10 +37,6 @@ public interface WorkService extends IMppService<Homework> {
 
     void updateOpenPeer(OpenPeerDto d);
 
-    @Async
-    @Scheduled(cron = "*/2  *  *  *  *  ?")//2秒执行一次
-    void evaStatusToEnd();
-
     Object getOneWorkInfoBySid(Integer id, Integer wid, Integer cid);
 
     List<HomeworkInfo> getAllDraftWorkInfoByTid(Integer id, Integer cid);
@@ -48,12 +44,6 @@ public interface WorkService extends IMppService<Homework> {
     Integer getSubmitNumber(Integer wid, Integer cid);
 
     void updateSubmitNumber(Integer wid, Integer cid, Integer newNumber);
-
-    @Scheduled(cron = "*/2  *  *  *  *  ?")//2秒执行一次
-    void statusToRelease();
-
-    @Scheduled(cron = "*/2  *  *  *  *  ?")//2秒执行一次
-    void statusToEnd();
 
     String getDeadline(Integer wid, Integer cid);
 

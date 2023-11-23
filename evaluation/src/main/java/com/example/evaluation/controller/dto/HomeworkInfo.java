@@ -50,6 +50,6 @@ public class HomeworkInfo {
 
     private boolean isSubmit;
 
-    private boolean isOverEvaDdl;
+
 
 }

@@ -73,3 +73,7 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+
+files:
+  upload:
+    path: C:\Users\84579\Desktop\shixun\BJTU-23Winter-MutualEvaluationSys\EvaluationBackend\evaluation\files\

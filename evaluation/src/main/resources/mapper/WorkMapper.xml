@@ -115,24 +115,6 @@
         and cid=#{cid}
     </select>
 
-    <select id="getAll" resultType="com.example.evaluation.controller.dto.HomeworkInfo">
-        select * from homework
-    </select>
-
-    <select id="getStatus" resultType="java.lang.String">
-        select status
-        from homework
-        where wid=#{wid}
-        and cid=#{cid}
-    </select>
-
-    <select id="getEvaDdl" resultType="java.util.Date">
-        select eva_ddl
-        from homework
-        where wid=#{wid}
-        and cid=#{cid}
-    </select>
-
     <update id="evaStatusToEnd">
         update homework
         set eva_status=3
@@ -146,4 +128,22 @@
         where wid=#{wid}
         and cid=#{cid}
     </update>
+
+    <select id="getHomeworkOpenEva" resultType="com.example.evaluation.entity.Homework">
+        select wid,cid,eva_ddl
+        from homework
+        where eva_status=2
+    </select>
+
+    <select id="getHomeWorkUsingTimer" resultType="com.example.evaluation.entity.Homework">
+        select wid,cid,start_time,end_time
+        from homework
+        where status=4
+    </select>
+
+    <select id="getHomeworkHasReleased" resultType="com.example.evaluation.controller.dto.HomeworkInfo">
+        select wid,cid,end_time
+        from homework
+        where status=2
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.example.evaluation.exception;
 
 import com.example.evaluation.utils.Result;
+import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -89,12 +90,11 @@ public class GlobalExceptionHandler {
      * @param e
      * @return
      */
-//    @ExceptionHandler({RedisConnectionFailureException.class})
-//    @ResponseBody
-//    public ResponseEntity<Result> handleConnectionException(RedisConnectionFailureException e){
-//        //500
-//        return ResponseEntity.internalServerError().body(Result.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage()));
-//    }
+    @ExceptionHandler({RedisConnectionFailureException.class})
+    @ResponseBody
+    public ResponseEntity<Result> handleConnectionException(RedisConnectionFailureException e){
+        return ResponseEntity.internalServerError().body(Result.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage()));
+    }
 
 //    /**
 //     * 权限不足 时抛出 AccessDeniedException 异常

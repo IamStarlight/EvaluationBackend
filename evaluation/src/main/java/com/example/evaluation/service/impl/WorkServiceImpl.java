@@ -203,22 +203,6 @@ public class WorkServiceImpl
     }
 
     @Override
-    @Async
-    @Scheduled(cron = "*/2  *  *  *  *  ?")//2秒执行一次
-    public void evaStatusToEnd() {
-        List<StuWork> list = submitService.getAll();
-        Date nowTime = new Date();
-        for (StuWork h: list){
-            Date endTime = mapper.getEvaDdl(h.getWid(),h.getCid());
-            if(nowTime.compareTo(endTime) >= 0
-                    && "已发布互评".equals(mapper.getStatus(h.getWid(),h.getCid()))) {
-                mapper.evaStatusToEnd(h.getWid(),h.getCid());
-            }
-        }
-    }
-
-
-    @Override
     public Object getOneWorkInfoBySid(Integer id, Integer wid, Integer cid) {
         List<HomeworkInfo> one = mapper.getOneWorkInfoBySid(id,cid,wid);
         if(one.isEmpty()) {
@@ -226,7 +210,6 @@ public class WorkServiceImpl
         }
         return one;
     }
-
 
     @Override
     public List<HomeworkInfo> getAllDraftWorkInfoByTid(Integer id, Integer cid) {
@@ -245,35 +228,6 @@ public class WorkServiceImpl
     @Override
     public void updateSubmitNumber(Integer wid, Integer cid, Integer newNumber) {
         mapper.updateSubmitNumber(wid,cid,newNumber);
-    }
-
-    @Override
-    @Async
-    @Scheduled(cron = "*/2  *  *  *  *  ?")//2秒执行一次
-    public void statusToRelease() {
-        List<HomeworkInfo> list = mapper.getAll();
-        Date nowTime = new Date();
-        for (HomeworkInfo h: list){
-            if(nowTime.compareTo(h.getStartTime()) >= 0
-                    && nowTime.compareTo(h.getEndTime()) < 0
-                    && "定时发布".equals(mapper.getStatus(h.getWid(),h.getCid()))) {
-                mapper.statusToRelease(h.getWid(),h.getCid());
-            }
-        }
-    }
-
-    @Override
-    @Async
-    @Scheduled(cron = "*/2  *  *  *  *  ?")//2秒执行一次
-    public void statusToEnd() {
-        List<HomeworkInfo> list = mapper.getAll();
-        Date nowTime = new Date();
-        for (HomeworkInfo h: list){
-            if(nowTime.compareTo(h.getEndTime()) >= 0
-                    && "已发布".equals(mapper.getStatus(h.getWid(),h.getCid()))) {
-                mapper.statusToEnd(h.getWid(),h.getCid());
-            }
-        }
     }
 
     @Override
