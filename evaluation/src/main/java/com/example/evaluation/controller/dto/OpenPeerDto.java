@@ -18,6 +18,6 @@ public class OpenPeerDto {
     @NotNull(message = "课程状态不能为空")
     Integer status;
 
-//    @NotNull(message = "互评截止时间不能为空")
+    @NotNull(message = "互评截止时间不能为空")
     Date ddl;
 }

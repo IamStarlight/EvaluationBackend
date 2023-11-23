@@ -67,8 +67,6 @@ public class Homework implements Serializable {
     private String status;
 
     @TableField
-    private boolean isPeerOpen;
+    private String evaStatus;
 
-    @TableField
-    private boolean isEvaOver;
 }

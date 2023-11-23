@@ -24,7 +24,6 @@ public class AppealController {
     // TODO: 2023-11-21 重发互评
 
     //学生申诉 ok
-    // TODO: 2023-11-21 /homework/appeal
     @PutMapping("/homework")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> studentAppealing(@RequestBody @Valid AppealDto d){
@@ -32,19 +31,39 @@ public class AppealController {
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 
-    //老师查看申诉 ok
-    // TODO: 2023-11-21 /homework/check
-    @GetMapping("/all")
+    //教师反馈
+    @PutMapping("/reply")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
+    public ResponseEntity<Result> teacherReply(@RequestBody @Valid AppealDto d){
+        submitService.teacherReply(d);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+    }
+
+    //撤销申诉
+    @PutMapping("/cancel")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
+    public ResponseEntity<Result> cancelAppealing(@RequestParam @Valid @NotNull(message = "学号不能为空")
+                                                      Integer sid,
+                                                  @RequestParam @Valid @NotNull(message = "作业号不能为空")
+                                                      Integer wid,
+                                                  @RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                                      Integer cid){
+        submitService.cancelAppealing(sid,wid,cid);
+        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+    }
+
+
+    //查看申诉 ok
+    @GetMapping("/all")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
     public ResponseEntity<Result> checkAppealing(@RequestParam @Valid @NotNull(message = "课程号不能为空")
                                                  Integer cid){
         return new ResponseEntity<>(Result.success(submitService.checkAppealing(cid)), HttpStatus.OK);
     }
 
-    //老师查看一个申诉 ok
-    // TODO: 2023-11-21 /homework/checkone
+    //查看一个申诉 ok
     @GetMapping("/one")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
     public ResponseEntity<Result> checkOneAppealing(@RequestParam @Valid @NotNull(message = "学号不能为空")
                                                     Integer sid,
                                                     @RequestParam @Valid @NotNull(message = "作业号不能为空")

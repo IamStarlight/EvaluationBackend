@@ -26,7 +26,6 @@ public class SubmitServiceImpl
     @Autowired
     private WorkServiceImpl workService;
 
-
     @Override
     public void generateSubmitList(Integer sid, Integer wid, Integer cid) {
         StuWork w = new StuWork();
@@ -41,7 +40,9 @@ public class SubmitServiceImpl
 
     @Override
     public void submitWork(StuWork w) {
-
+        if(getMySubmit(w.getSid(),w.getWid(),w.getCid())!=null){
+            throw new ServiceException(HttpStatus.FORBIDDEN.value(), "作业已提交");
+        }
         Date submitTime = new Date();
         w.setSubmitTime(submitTime);
         boolean isOvertime = workService.checkOvertime(w.getWid(), w.getCid(), w.getSubmitTime());
@@ -57,6 +58,8 @@ public class SubmitServiceImpl
         //提交作业之后，增加提交人数
         Integer newNumber = workService.getSubmitNumber(w.getWid(),w.getCid())+1;
         workService.updateSubmitNumber(w.getWid(),w.getCid(),newNumber);
+        //更改提交状态
+        mapper.setSubmitted(w.getSid(),w.getWid(),w.getCid());
     }
 
     @Override
@@ -134,21 +137,31 @@ public class SubmitServiceImpl
         if(!updateByMultiId(w)) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(), "用户不存在");
         }
+
+        if(mapper.getSubmit(w.getSid(),w.getWid(),w.getCid())==0){
+            //提交作业之后，增加提交人数
+            Integer newNumber = workService.getSubmitNumber(w.getWid(),w.getCid())+1;
+            workService.updateSubmitNumber(w.getWid(),w.getCid(),newNumber);
+            //更改提交状态
+            mapper.setSubmitted(w.getSid(),w.getWid(),w.getCid());
+        }
     }
 
     @Override
     public void deleteOneSubmitted(Integer id, Integer wid, Integer cid) {
-        StuWork idEntity = new StuWork();
-        idEntity.setSid(id);
-        idEntity.setWid(wid);
-        idEntity.setCid(cid);
-
-        if(!deleteByMultiId(idEntity)) {
-            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
-        }
+//        StuWork idEntity = new StuWork();
+//        idEntity.setSid(id);
+//        idEntity.setWid(wid);
+//        idEntity.setCid(cid);
+//
+//        if(!deleteByMultiId(idEntity)) {
+//            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+//        }
         //删除提交之后，减少提交人数
         Integer newNumber = workService.getSubmitNumber(wid,cid)-1;
         workService.updateSubmitNumber(wid,cid,newNumber);
+        //更改提交状态
+        mapper.setNotSubmitted(id,wid,cid);
     }
 
     @Override
@@ -176,5 +189,24 @@ public class SubmitServiceImpl
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
         return list;
+    }
+
+    @Override
+    public void cancelAppealing(Integer sid, Integer wid, Integer cid) {
+        if(!mapper.cancelAppealing(sid,wid,cid)) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+        }
+    }
+
+    @Override
+    public void teacherReply(AppealDto d) {
+        if(!mapper.teacherReply(d.getSid(),d.getWid(), d.getCid(),d.getReply())) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+        }
+    }
+
+    @Override
+    public List<StuWork> getAll() {
+        return mapper.getAll();
     }
 }

@@ -18,11 +18,12 @@ public class EvaDto {
     @NotNull(message = "课程id不能为空")
     private Integer cid;
 
+
     @NotNull(message = "评分不能为空")
     @Max(value = 100, message = "评分必须小于等于100")
     @Min(value = 0, message = "评分必须大于等于0")
     private Integer grade;
 
-//    @NotBlank(message = "教师评论不能为空")
+//    @NotBlank(message = "评论不能为空")
     private String comments;
 }

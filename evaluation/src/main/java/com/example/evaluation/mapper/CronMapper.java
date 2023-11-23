@@ -11,11 +11,11 @@ import java.util.Map;
 @Mapper
 public interface CronMapper {
 
-    @Select("select cron from cron where wid=#{wid} and cid=#{cid} and function=1")
-    public String getStartCron(Integer wid, Integer cid);
+    @Select("select cron from cron where function=1")
+    public List<String> getStartCron();
 
-    @Select("select cron from cron where wid=#{wid} and cid=#{cid} and function=2")
-    public String getEndCron(Integer wid, Integer cid);
+    @Select("select cron from cron where function=2")
+    public List<String> getEndCron();
 
     @Insert("insert into cron(wid,cid,function,cron) values(#{wid},#{cid},1,#{cron})")
     public void insertStartCron(Integer wid,Integer cid,String cron);

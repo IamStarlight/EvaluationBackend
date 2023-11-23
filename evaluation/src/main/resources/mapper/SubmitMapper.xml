@@ -19,7 +19,7 @@
     </update>
 
     <select id="getMySubmit" resultType="java.util.Map">
-        select id,name,details,url,submit_time,teacher_grade,total_grade
+        select id,name,details,url,submit_time,teacher_grade,total_grade,teacher_comments
         from stu_homework,student
         where stu_homework.sid=student.id
         and wid=#{wid}
@@ -28,17 +28,27 @@
     </select>
 
     <select id="getStuWorkTodoInfo" resultType="java.util.Map">
+<!--        select homework.wid,cname,homework.title,homework.details,homework.url,end_time-->
+<!--        from homework,sc,course-->
+<!--        where homework.cid=sc.cid-->
+<!--        and sc.sid=21301000-->
+<!--        and not exists-->
+<!--        (select * from stu_homework-->
+<!--        where wid=1-->
+<!--        and cid=1-->
+<!--        and stu_homework.cid=homework.cid-->
+<!--        and stu_homework.wid=homework.wid)-->
+<!--        and homework.cid=course.cid-->
         select homework.wid,cname,homework.title,homework.details,homework.url,end_time
-        from homework,sc,course
-        where homework.cid=sc.cid
-        and sc.sid=21301000
-        and not exists
-        (select * from stu_homework
-        where wid=1
-        and cid=1
-        and stu_homework.cid=homework.cid
-        and stu_homework.wid=homework.wid)
-        and homework.cid=course.cid
+        from sc,course,homework,stu_homework
+        where homework.wid=6
+        and homework.cid=1
+        and homework.wid=stu_homework.wid
+        and homework.cid=stu_homework.cid
+        and stu_homework.cid=sc.cid
+        and stu_homework.sid=sc.sid
+        and sc.cid=course.cid
+        and is_submit=0
     </select>
 
     <update id="studentAppealing">
@@ -59,7 +69,7 @@
     </select>
 
     <select id="checkAppealing" resultType="java.util.Map">
-        select id as sid,stu_homework.wid,name as sname,title,appeal_reason,appeal_time
+        select id as sid,stu_homework.wid,name as sname,title,appeal_reason,appeal_time,appeal_reply
         from student,stu_homework,homework
         where stu_homework.cid=#{cid}
         and is_appeal=1
@@ -69,7 +79,7 @@
     </select>
 
     <select id="checkOneAppealing" resultType="java.util.Map">
-        select title,stu_homework.details,stu_homework.url,total_grade,teacher_grade,peer_grade,appeal_reason,appeal_time
+        select title,stu_homework.details,stu_homework.url,total_grade,teacher_grade,peer_grade,appeal_reason,appeal_time,appeal_reply
         from stu_homework,homework
         where stu_homework.cid=#{cid}
         and stu_homework.wid=#{wid}
@@ -87,14 +97,67 @@
     </select>
 
     <select id="getNotSubmitList" resultType="java.util.Map">
+<!--        select sc.sid,name as sname-->
+<!--        from sc,student-->
+<!--        where sc.sid not in-->
+<!--            (select sid-->
+<!--            from stu_homework-->
+<!--            where wid=#{wid}-->
+<!--            and cid=#{cid}-->
+<!--            and stu_homework.cid=sc.cid)-->
+<!--        and sc.sid=student.id-->
         select sc.sid,name as sname
-        from sc,student
-        where sc.sid not in
-            (select sid
-            from stu_homework
-            where wid=#{wid}
-            and cid=#{cid}
-            and stu_homework.cid=sc.cid)
+        from stu_homework,sc,student
+        where stu_homework.wid=#{wid}
+        and stu_homework.cid=#{cid}
+        and is_submit=0
+        and stu_homework.cid=sc.cid
+        and stu_homework.sid=sc.sid
         and sc.sid=student.id
+    </select>
+
+    <update id="teacherReply">
+        update stu_homework
+        set appeal_reply=#{reply}
+        where sid=#{sid}
+        and wid=#{wid}
+        and cid=#{cid}
+    </update>
+
+    <update id="cancelAppealing">
+        update stu_homework
+        set is_appeal=0,appeal_time=null,appeal_reason=null,appeal_reply=null
+        where sid=#{sid}
+        and wid=#{wid}
+        and cid=#{cid}
+    </update>
+
+    <update id="setSubmitted">
+        update stu_homework
+        set is_submit=1
+        where sid=#{sid}
+        and wid=#{wid}
+        and cid=#{cid}
+    </update>
+
+    <update id="setNotSubmitted">
+        update stu_homework
+        set is_submit=0
+        where sid=#{sid}
+        and wid=#{wid}
+        and cid=#{cid}
+    </update>
+
+    <select id="getSubmit" resultType="int">
+        select is_submit
+        from stu_homework
+        where sid=#{sid}
+        and wid=#{wid}
+        and cid=#{cid}
+    </select>
+
+    <select id="getAll" resultType="com.example.evaluation.entity.StuWork">
+        select *
+        from stu_homework
     </select>
 </mapper>

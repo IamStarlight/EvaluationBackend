@@ -5,6 +5,8 @@ import com.example.evaluation.controller.dto.NewHomeworkDto;
 import com.example.evaluation.controller.dto.OpenPeerDto;
 import com.example.evaluation.entity.Homework;
 import com.github.jeffreyning.mybatisplus.service.IMppService;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -35,6 +37,10 @@ public interface WorkService extends IMppService<Homework> {
 
     void updateOpenPeer(OpenPeerDto d);
 
+    @Async
+    @Scheduled(cron = "*/2  *  *  *  *  ?")//2秒执行一次
+    void evaStatusToEnd();
+
     Object getOneWorkInfoBySid(Integer id, Integer wid, Integer cid);
 
     List<HomeworkInfo> getAllDraftWorkInfoByTid(Integer id, Integer cid);
@@ -43,7 +49,13 @@ public interface WorkService extends IMppService<Homework> {
 
     void updateSubmitNumber(Integer wid, Integer cid, Integer newNumber);
 
-    void statusToRelease(Integer wid, Integer cid);
+    @Scheduled(cron = "*/2  *  *  *  *  ?")//2秒执行一次
+    void statusToRelease();
 
-    void statusToEnd(Integer wid, Integer cid);
+    @Scheduled(cron = "*/2  *  *  *  *  ?")//2秒执行一次
+    void statusToEnd();
+
+    String getDeadline(Integer wid, Integer cid);
+
+    void addEvaNumber(Integer wid, Integer cid);
 }

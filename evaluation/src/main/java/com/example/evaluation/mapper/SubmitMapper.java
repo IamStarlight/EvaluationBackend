@@ -34,4 +34,16 @@ public interface SubmitMapper extends MppBaseMapper<StuWork> {
     List<Map<String, Object>> getSubmitListAll(@Param("wid") Integer wid, @Param("cid") Integer cid);
 
     List<Map<String, String>> getNotSubmitList(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    boolean teacherReply(@Param("sid") Integer sid, @Param("wid") Integer wid, @Param("cid") Integer cid,@Param("reply") String reply);
+
+    boolean cancelAppealing(@Param("sid") Integer sid, @Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    void setSubmitted(@Param("sid") Integer sid, @Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    void setNotSubmitted(@Param("sid") Integer sid, @Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    int getSubmit(@Param("sid") Integer sid, @Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    List<StuWork> getAll();
 }

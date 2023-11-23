@@ -36,11 +36,9 @@ public class NewHomeworkDto {
 
     private Integer evaNumber;
 
-    private String status;
+    private Integer status;
 
-    private boolean isOpenPeer;
+    private Integer evaStatus;
 
     private Date evaDdl;
-
-    private boolean isOverEvaDdl;
 }

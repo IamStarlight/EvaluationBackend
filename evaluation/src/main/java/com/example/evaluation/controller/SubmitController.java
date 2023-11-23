@@ -32,23 +32,23 @@ public class SubmitController {
     //--------PostMapping------------------------------------
 
     //学生交作业 ok
-    // TODO: 2023-11-20 /homework/submit,no need sid
-    @PostMapping("/my")
-    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
-    public ResponseEntity<Result> submitWork(@CurrentUser User user,
-                                             @RequestBody @Valid StuWork stuWork){
-        stuWork.setSid(user.getId());
-        service.submitWork(stuWork);
-        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
-    }
+//    @PostMapping("/my")
+//    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
+//    public ResponseEntity<Result> submitWork(@CurrentUser User user,
+//                                             @RequestBody @Valid StuWork stuWork){
+//        stuWork.setSid(user.getId());
+//        service.submitWork(stuWork);
+//        return new ResponseEntity<>(Result.success(), HttpStatus.OK);
+//    }
 
 //--------PutMapping------------------------------------
 
     // 学生更新提交作业 ok
-    // TODO: 2023-11-22  /homework/submit/update
     @PutMapping("/update")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
-    public ResponseEntity<Result> updateSubmitWork(@RequestBody @Valid StuWork stuWork){
+    public ResponseEntity<Result> updateSubmitWork(@CurrentUser User user,
+                                                   @RequestBody @Valid StuWork stuWork){
+        stuWork.setSid(user.getId());
         service.updateSubmitWork(stuWork);
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
@@ -56,7 +56,6 @@ public class SubmitController {
 //--------GetMapping------------------------------------
 
     //管理员、教师查询作业提交名单 ok
-    // TODO: 2023-11-21 /homework/submitlist
     @GetMapping("/list")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
     public ResponseEntity<Result> getSubmitList(@RequestParam @Valid @NotNull(message = "作业号不能为空")
@@ -77,7 +76,6 @@ public class SubmitController {
     }
 
     //一个学生一次作业的具体内容 ok
-    // TODO: 2023-11-21  /homework/details
     @GetMapping("/details")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
     public ResponseEntity<Result> getMySubmit(@RequestParam @Valid @NotNull(message = "学号不能为空")
@@ -90,7 +88,6 @@ public class SubmitController {
     }
 
     //老师查询自己某课程还没批改的作业 ok
-    // TODO: 2023-11-21  /homework/toread
     @GetMapping("/read")
     @PreAuthorize("hasAnyAuthority('ROLE_TEACHER')")
     public ResponseEntity<Result> getHomeworkToRead(@CurrentUser User user,
@@ -102,7 +99,6 @@ public class SubmitController {
     //--------DeleteMapping------------------------------------
 
     //删除提交的作业
-    // TODO: 2023-11-21 /homework/delete/one
     @DeleteMapping("/delete")
     @PreAuthorize("hasAnyAuthority('ROLE_STUDENT')")
     public ResponseEntity<Result> deleteOneSubmitted(@CurrentUser User user,

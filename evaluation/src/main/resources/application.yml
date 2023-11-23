@@ -33,6 +33,15 @@ spring:
     url: jdbc:mysql://123.56.255.156:3306/evaluation?serverTimezone=Asia/Shanghai
     username: 'root'
     password: 'BJTU2023shixun@'
+    hikari:
+      connection-timeout: 10000
+      validation-timeout: 3000
+      idle-timeout: 60000
+      login-timeout: 5
+      max-lifetime: 60000
+      maximum-pool-size: 10
+      minimum-idle: 5
+      read-only: false
 
   jackson:
     date-format: yyyy-MM-dd HH:mm

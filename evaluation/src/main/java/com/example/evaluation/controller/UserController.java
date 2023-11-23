@@ -105,7 +105,6 @@ public class UserController {
     }
 
     //管理员根据id查询用户信息
-    // TODO: 2023-11-21 user/oneinfo
     @GetMapping("/id")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Result> getOneByID(@RequestParam @Valid @NotNull(message = "id不能为空")

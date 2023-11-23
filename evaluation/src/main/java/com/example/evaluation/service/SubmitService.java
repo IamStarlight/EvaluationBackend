@@ -39,4 +39,10 @@ public interface SubmitService extends IMppService<StuWork> {
     List<Map<String,String>> checkOneAppealing(Integer sid, Integer wid, Integer cid);
 
     Object getNotSubmitList(Integer wid, Integer cid);
+
+    void cancelAppealing(Integer sid, Integer wid, Integer cid);
+
+    void teacherReply(AppealDto d);
+
+    List<StuWork> getAll();
 }

@@ -18,6 +18,8 @@ public class AppealDto {
     @NotNull(message = "课程号不能为空")
     Integer cid;
 
-    @NotNull(message = "申诉理由不能为空")
+//    @NotNull(message = "申诉理由不能为空")
     String reason;
+
+    String reply;
 }

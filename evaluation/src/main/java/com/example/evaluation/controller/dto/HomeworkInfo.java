@@ -17,6 +17,8 @@ public class HomeworkInfo {
 
     private Integer wid;
 
+    private Integer cid;
+
     private String cname;
 
     private String title;

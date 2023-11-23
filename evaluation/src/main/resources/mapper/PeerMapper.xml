@@ -6,79 +6,43 @@
         update peer_evaluation
         set grade=#{grade},comments=#{comments}
         where eva_sid=#{evaSid}
-        and be_eva_sid=#{sid}
+        and be_eva_sid=#{beEvaSid}
         and wid=#{wid}
         and cid=#{cid}
     </update>
 
     <select id="getEvaluatingStudentVision" resultType="java.util.Map">
-        select id as sid,name as sname,details,url,grade as eva_grade,comments as eva_comments
+        //逻辑
+        select id as be_eva_sid,name as sname,details,url,grade as eva_grade,comments as eva_comments
         from peer_evaluation,student,stu_homework
-        where peer_evaluation.eva_sid=student.id
+        where peer_evaluation.eva_sid=#{evaSid}
+        and peer_evaluation.wid=#{wid}
+        and peer_evaluation.cid=#{cid}
+        and peer_evaluation.eva_sid=student.id
         and peer_evaluation.wid=stu_homework.wid
         and peer_evaluation.cid=stu_homework.cid
-        and eva_sid=#{id}
     </select>
 
     <select id="getBeEvaluatedStudentVision" resultType="java.util.Map">
-        select id as sid,name as sname,details,url,grade as eva_grade,comments as eva_comments
+        select id as eva_sid,name as sname,details,url,grade as eva_grade,comments as eva_comments
         from peer_evaluation,student,stu_homework
-        where peer_evaluation.eva_sid=student.id
+        where peer_evaluation.be_eva_sid=#{beEvaSid}
+        and peer_evaluation.wid=#{wid}
+        and peer_evaluation.cid=#{cid}
+        and peer_evaluation.eva_sid=student.id
         and peer_evaluation.wid=stu_homework.wid
         and peer_evaluation.cid=stu_homework.cid
-        and be_eva_sid=#{id}
     </select>
 
-    <update id="teaEvaluation">
-        update stu_homework
-        set teacherGrade=#{teacherGrade},teacherComments=#{teacherComments}
-        where sid=#{sid}
-        and wid=#{wid}
-        and cid=#{cid}
-    </update>
-
-    <insert id="addEvaluation">
-        insert into peer_evaluation
-        values (#{evaSid},#{sid},#{wid},#{cid},#{grade},#{comments})
-    </insert>
-
-    <select id="selectAllWork" resultType="com.example.evaluation.entity.StuWork">
-        select * from stu_homework
-        where sid in(
-        select sid from peer_evaluation
-        where evaSId=#{evaSid}
-        and cid=#{cid})
-    </select>
-
-    <select id="selectTeaAllWork" resultType="com.example.evaluation.entity.StuWork">
-        select * from stu_homework
-        where wid=#{wid}
-    </select>
-
-    <select id="selectForTeacher" resultType="com.example.evaluation.entity.PeerEva">
-        select * from peer_evaluation
-        where evaSid=#{evaSid}
-        and wid=#{wid}
-    </select>
-
-    <select id="selectForStudent" resultType="com.example.evaluation.entity.PeerEva">
-        select * from peer_evaluation
-        where sid=#{sid}
-        and cid=#{cid}
-        and wid=#{wid}
-    </select>
-
-    <select id="selectOneWork" resultType="com.example.evaluation.entity.StuWork">
-        select * from stu_homework
-        where sid=#{sid}
-        and cid=#{cid}
-        and wid=#{wid}
-    </select>
-
-    <select id="selectOneWorkForTea" resultType="com.example.evaluation.entity.StuWork">
-        select * from stu_homework
-        where sid=#{sid}
-        and cid=#{cid}
-        and wid=#{wid}
+    <select id="getOneInfo" resultType="java.util.Map">
+        select id as sid,name as sname,details,url,grade as eva_grade,comments as eva_comments
+        from peer_evaluation,student,stu_homework
+        where peer_evaluation.eva_sid=#{evaSid}
+        and peer_evaluation.be_eva_sid=#{beEvaSid}
+        and peer_evaluation.wid=#{wid}
+        and peer_evaluation.cid=#{cid}
+        and peer_evaluation.eva_sid=student.id
+        and peer_evaluation.wid=stu_homework.wid
+        and peer_evaluation.cid=stu_homework.cid
     </select>
 </mapper>

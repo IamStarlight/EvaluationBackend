@@ -40,4 +40,16 @@ public interface WorkMapper extends MppBaseMapper<Homework> {
     void statusToRelease(@Param("wid") Integer wid, @Param("cid") Integer cid);
 
     void statusToEnd(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    String getDeadline(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    List<HomeworkInfo> getAll();
+
+    String getStatus(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    Date getEvaDdl(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    void evaStatusToEnd(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    void addEvaNumber(@Param("wid") Integer wid, @Param("cid") Integer cid);
 }

@@ -8,6 +8,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import java.util.List;
 
+/**
+ * 自定义注解
+ */
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
