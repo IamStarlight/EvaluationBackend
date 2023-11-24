@@ -33,6 +33,8 @@ public class HomeworkInfo {
 
     private String status;
 
+    private String evaStatus;
+
     private Integer submitNumber;
 
     private String url;

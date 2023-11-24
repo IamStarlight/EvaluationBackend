@@ -4,7 +4,6 @@ import com.example.evaluation.controller.dto.HomeworkInfo;
 import com.example.evaluation.controller.dto.NewHomeworkDto;
 import com.example.evaluation.controller.dto.OpenPeerDto;
 import com.example.evaluation.entity.Homework;
-import com.example.evaluation.entity.StuWork;
 import com.example.evaluation.enums.StatusEnum;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.CronMapper;
@@ -13,12 +12,16 @@ import com.example.evaluation.utils.CronUtil;
 import com.github.jeffreyning.mybatisplus.service.MppServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import com.example.evaluation.service.WorkService;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import java.util.*;
 
@@ -200,6 +203,69 @@ public class WorkServiceImpl
         if(!mapper.updateOpenPeer(d.getWid(),d.getCid(),d.getStatus(),d.getDdl())) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
+        // TODO: 2023-11-23 分配互评
+        WriteIntoCsv(d.getCid());
+    }
+
+    @Override
+    public void WriteIntoCsv(Integer cid) {
+        try {
+            File csv = new File("C:\\Users\\84579\\Desktop\\shixun\\BJTU-23Winter-MutualEvaluationSys\\EvaluationBackend\\evaluation\\source\\new.csv"); // CSV数据文件
+
+            BufferedWriter bw = new BufferedWriter(new FileWriter(csv, false)); // 附加
+            // 添加新的数据行
+//            String a = String.valueOf(20000);
+            bw.write( "\"id\"" + "," + "\"score\"" + "," + "\"willingness\"" + "," + "\"ability\"" +"," + "\"evaed\"");
+            bw.newLine();
+
+            List<Map<String,Object>> list = getPeerDistribution(cid);
+            int cnt=0;
+            String writeStr="";
+
+            for (Map<String,Object> map : list) {
+                for (Map.Entry<String, Object> m : map.entrySet()){
+                    if ("id".equals(m.getKey())) {
+                        writeStr = writeStr.concat(m.getValue().toString()).concat(",");
+                    }
+                }for (Map.Entry<String, Object> m : map.entrySet()){
+                    if ("score".equals(m.getKey())) {
+                        writeStr = writeStr.concat(m.getValue().toString()).concat(",");
+                    }
+                }for (Map.Entry<String, Object> m : map.entrySet()){
+                    if ("willingness".equals(m.getKey())) {
+                        writeStr = writeStr.concat(m.getValue().toString()).concat(",");
+                    }
+                }for (Map.Entry<String, Object> m : map.entrySet()){
+                    if ("ability".equals(m.getKey())) {
+                        writeStr = writeStr.concat(m.getValue().toString()).concat(",");
+                    }
+                }for (Map.Entry<String, Object> m : map.entrySet()){
+                    if ("evaed".equals(m.getKey())) {
+                        writeStr = writeStr.concat(m.getValue().toString());
+                    }
+                }
+                bw.write(writeStr);
+                writeStr="";
+                bw.newLine();
+            }
+            bw.close();
+        } catch (FileNotFoundException e) {
+            // File对象的创建过程中的异常捕获
+            e.printStackTrace();
+        } catch (IOException e) {
+            // BufferedWriter在关闭对象捕捉异常
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Map<String,Object>> getPeerDistribution(Integer cid) {
+        List<Map<String,Object>> list = mapper.getPeerDistribution(cid);
+        if(list.isEmpty()) {
+            throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
+        }else {
+            return list;
+        }
     }
 
     @Override
@@ -241,5 +307,10 @@ public class WorkServiceImpl
     @Override
     public void addEvaNumber(Integer wid, Integer cid) {
         mapper.addEvaNumber(wid,cid);
+    }
+
+    @Override
+    public void updateUrl(Integer wid, Integer cid, String url) {
+        mapper.updateUrl(wid,cid,url);
     }
 }

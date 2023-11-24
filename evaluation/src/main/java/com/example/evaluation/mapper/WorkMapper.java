@@ -1,6 +1,7 @@
 package com.example.evaluation.mapper;
 
 import com.example.evaluation.controller.dto.HomeworkInfo;
+import com.example.evaluation.controller.dto.PeerDataDto;
 import com.example.evaluation.entity.Homework;
 import com.example.evaluation.enums.StatusEnum;
 import com.github.jeffreyning.mybatisplus.base.MppBaseMapper;
@@ -10,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface WorkMapper extends MppBaseMapper<Homework> {
@@ -52,4 +54,8 @@ public interface WorkMapper extends MppBaseMapper<Homework> {
     List<Homework> getHomeWorkUsingTimer();
 
     List<HomeworkInfo> getHomeworkHasReleased();
+
+    List<Map<String,Object>> getPeerDistribution(@Param("cid") Integer cid);
+
+    void updateUrl(@Param("wid") Integer wid, @Param("cid") Integer cid, @Param("url") String url);
 }

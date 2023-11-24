@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.evaluation.entity.MyFile;
 import com.example.evaluation.mapper.FileMapper;
 import com.example.evaluation.service.FileService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +28,12 @@ public class FileServiceImpl
     @Value("${files.upload.path}")
     private String fileUploadPath;
 
+    @Autowired
+    private WorkServiceImpl workService;
+
+    @Autowired
+    private SubmitServiceImpl submitService;
+
     @Override
     public MyFile getFileByMd5(String md5) {
         LambdaQueryWrapper<MyFile> queryWrapper = new LambdaQueryWrapper<>();
@@ -36,7 +43,7 @@ public class FileServiceImpl
     }
 
     @Override
-    public String upload(MultipartFile file) {
+    public void upload(Integer sid,Integer wid, Integer cid, MultipartFile file) {
         //获取文件原始名称
         String originalFilename = file.getOriginalFilename();
         //获取文件的类型
@@ -73,7 +80,7 @@ public class FileServiceImpl
                 // 上传文件到磁盘
                 file.transferTo(uploadFile);
                 // 数据库若不存在重复文件，则不删除刚才上传的文件
-                url = "http://localhost:3309/file/download?url=" + fileUUID;
+                url = "http://192.168.43.128:3309/file/download?url=" + fileUUID;
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -87,7 +94,63 @@ public class FileServiceImpl
         saveFile.setMd5(md5);
         save(saveFile);
 
-        return url;
+//        workService.updateUrl(wid,cid,url);
+        submitService.updateUrl(sid,wid,cid,url);
+    }
+
+    @Override
+    public void upload(Integer wid, Integer cid, MultipartFile file) {
+        //获取文件原始名称
+        String originalFilename = file.getOriginalFilename();
+        //获取文件的类型
+        String type = FileUtil.extName(originalFilename);
+//        log.info("文件类型是：" + type);
+        //获取文件大小
+        long size = file.getSize();
+//        log.info("文件大小是：" + size);
+
+        //文件存储的磁盘
+        File uploadParentFile = new File(fileUploadPath);
+        //判断文件目录是否存在
+        if(!uploadParentFile.exists()) {
+            //如果不存在就创建文件夹
+            uploadParentFile.mkdirs();
+        }
+
+        //定义一个文件唯一标识码（UUID）
+        String uuid = UUID.randomUUID().toString();
+        String fileUUID = uuid + StrUtil.DOT + type;
+        File uploadFile = new File(fileUploadPath + fileUUID);
+
+        String url;
+        String md5;
+
+        try(InputStream inputStream = file.getInputStream()){
+            // 获取文件的md5
+            md5 = SecureUtil.md5(inputStream);
+            // 从数据库查询是否存在相同的记录
+            MyFile dbFiles = getFileByMd5(md5);
+            if (dbFiles != null) { // 文件已存在
+                url = dbFiles.getUrl();
+            } else {
+                // 上传文件到磁盘
+                file.transferTo(uploadFile);
+                // 数据库若不存在重复文件，则不删除刚才上传的文件
+                url = "http://192.168.43.128:3309/file/download?url=" + fileUUID;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //存储至数据库
+        MyFile saveFile = new MyFile();
+        saveFile.setFname(originalFilename);
+        saveFile.setType(type);
+        saveFile.setSize(size/1024);//转成kb
+        saveFile.setUrl(url);
+        saveFile.setMd5(md5);
+        save(saveFile);
+
+        workService.updateUrl(wid,cid,url);
     }
 
     @Override
@@ -123,6 +186,7 @@ public class FileServiceImpl
         }
     }
 
+
     @Override
     public MyFile getFileByUrl(String url) {
         LambdaQueryWrapper<MyFile> queryWrapper = new LambdaQueryWrapper<>();
@@ -130,4 +194,6 @@ public class FileServiceImpl
         List<MyFile> list = this.list(queryWrapper);
         return list.isEmpty() ? null : list.get(0);
     }
+
+
 }

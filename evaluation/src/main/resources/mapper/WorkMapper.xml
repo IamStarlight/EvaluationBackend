@@ -58,7 +58,7 @@
 
     <update id="updateOpenPeer">
         update homework
-        set eva_status=#{status},peer_ddl=#{ddl}
+        set eva_status=#{status},eva_ddl=#{ddl}
         where wid=#{wid}
         and cid=#{cid}
     </update>
@@ -146,4 +146,21 @@
         from homework
         where status=2
     </select>
+
+    <select id="getPeerDistribution" resultType="map">
+        select *
+        from history
+        where id in
+            (select sid as id
+            from sc
+            where sc.sid=history.id
+            and cid=#{cid})
+    </select>
+
+    <update id="updateUrl">
+        update homework
+        set url=#{url}
+        where wid=#{wid}
+        and cid=#{cid}
+    </update>
 </mapper>

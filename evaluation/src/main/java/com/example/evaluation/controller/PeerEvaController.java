@@ -40,7 +40,7 @@ public class PeerEvaController {
 //    }
 
 //--------PutMapping------------------------------------
-
+// TODO: 2023-11-23 submit_number -1 
     //老师开启互评 ok
     @PutMapping("/open")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
@@ -55,6 +55,7 @@ public class PeerEvaController {
     public ResponseEntity<Result> peerEvaluation(@CurrentUser User user,
                                                  @RequestBody @Valid EvaDto d){
         service.peerEvaluation(user.getId(),d);
+        // TODO: 2023-11-24 is_eva=false 
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 
@@ -81,16 +82,28 @@ public class PeerEvaController {
         return new ResponseEntity<>(Result.success(service.getBeEvaluatedStudentVision(user.getId(),wid,cid)), HttpStatus.OK);
     }
 
-    @GetMapping("/one")
+    @GetMapping("/evaluating/one")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
-    public ResponseEntity<Result> getOneInfo(@CurrentUser User user,
+    public ResponseEntity<Result> getEvaluatingOne(@CurrentUser User user,
                                              @RequestParam @Valid @NotNull(message = "被评学生id不能为空")
                                              Integer beEvaSid,
                                              @RequestParam @Valid @NotNull(message = "作业id不能为空")
                                              Integer wid,
                                              @RequestParam @Valid @NotNull(message = "课程id不能为空")
                                              Integer cid){
-        return new ResponseEntity<>(Result.success(service.getOneInfo(user.getId(),beEvaSid,wid,cid)), HttpStatus.OK);
+        return new ResponseEntity<>(Result.success(service.getEvaluatingOne(user.getId(),beEvaSid,wid,cid)), HttpStatus.OK);
+    }
+
+    @GetMapping("/evaluated/one")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
+    public ResponseEntity<Result> getEvaluatedOne(@CurrentUser User user,
+                                             @RequestParam @Valid @NotNull(message = "被评学生id不能为空")
+                                             Integer beEvaSid,
+                                             @RequestParam @Valid @NotNull(message = "作业id不能为空")
+                                             Integer wid,
+                                             @RequestParam @Valid @NotNull(message = "课程id不能为空")
+                                             Integer cid){
+        return new ResponseEntity<>(Result.success(service.getEvaluatedOne(user.getId(),beEvaSid,wid,cid)), HttpStatus.OK);
     }
 
     //获取互评截止日期

@@ -45,4 +45,8 @@ public interface SubmitService extends IMppService<StuWork> {
     void teacherReply(AppealDto d);
 
     List<StuWork> getAll();
+
+    void updateUrl(Integer sid,Integer wid, Integer cid, String url);
+
+    void updatePeerEvaluation(Integer sid, Integer wid, Integer cid);
 }

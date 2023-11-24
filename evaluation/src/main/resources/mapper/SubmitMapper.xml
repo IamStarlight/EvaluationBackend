@@ -56,7 +56,7 @@
         set is_appeal=1,appeal_reason=#{reason},appeal_time=#{appealTime}
         where sid=#{sid}
         and wid=#{wid}
-        and cid=#{wid}
+        and cid=#{cid}
     </update>
 
     <select id="getHomeworkToRead" resultType="java.util.Map">
@@ -160,4 +160,20 @@
         select *
         from stu_homework
     </select>
+
+    <update id="updateUrl">
+        update stu_homework
+        set url=#{url}
+        where sid=#{sid}
+        and wid=#{wid}
+        and cid=#{cid}
+    </update>
+
+    <update id="updatePeerEvaluation">
+        update stu_homework
+        set is_eva=1
+        where sid=#{sid}
+        and wid=#{wid}
+        and cid=#{cid}
+    </update>
 </mapper>

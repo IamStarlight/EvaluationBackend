@@ -3,6 +3,7 @@ package com.example.evaluation.service;
 import com.example.evaluation.controller.dto.HomeworkInfo;
 import com.example.evaluation.controller.dto.NewHomeworkDto;
 import com.example.evaluation.controller.dto.OpenPeerDto;
+import com.example.evaluation.controller.dto.PeerDataDto;
 import com.example.evaluation.entity.Homework;
 import com.github.jeffreyning.mybatisplus.service.IMppService;
 import org.springframework.scheduling.annotation.Async;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface WorkService extends IMppService<Homework> {
@@ -37,6 +39,10 @@ public interface WorkService extends IMppService<Homework> {
 
     void updateOpenPeer(OpenPeerDto d);
 
+    void WriteIntoCsv(Integer cid);
+
+    List<Map<String,Object>> getPeerDistribution(Integer cid);
+
     Object getOneWorkInfoBySid(Integer id, Integer wid, Integer cid);
 
     List<HomeworkInfo> getAllDraftWorkInfoByTid(Integer id, Integer cid);
@@ -48,4 +54,6 @@ public interface WorkService extends IMppService<Homework> {
     String getDeadline(Integer wid, Integer cid);
 
     void addEvaNumber(Integer wid, Integer cid);
+
+    void updateUrl(Integer wid, Integer cid, String url);
 }

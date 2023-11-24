@@ -13,9 +13,12 @@ import java.util.Map;
 public interface PeerService extends IMppService<PeerEva> {
     void peerEvaluation(Integer evaSid,EvaDto d);
 
+    // TODO: 2023-11-24 互评两个表都有 
     List<Map<String,String>> getEvaluatingStudentVision(Integer evaSid, Integer wid, Integer cid);
 
     List<Map<String,String>> getBeEvaluatedStudentVision(Integer beEvaSid, Integer wid, Integer cid);
 
-    List<Map<String,String>> getOneInfo(Integer evaSid, Integer beEvaSid, Integer wid, Integer cid);
+    List<Map<String,String>> getEvaluatingOne(Integer evaSid, Integer beEvaSid, Integer wid, Integer cid);
+
+    List<Map<String,String>> getEvaluatedOne(Integer evaSid, Integer beEvaSid, Integer wid, Integer cid);
 }

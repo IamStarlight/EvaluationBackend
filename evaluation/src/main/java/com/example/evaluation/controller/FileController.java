@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,10 +33,28 @@ public class FileController {
     @Autowired
     private FileServiceImpl fileService;
 
-    @PostMapping("/upload")
+    @PostMapping("/upload/student")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
-    public ResponseEntity<Result> upload(@RequestParam MultipartFile file) {
-        return new ResponseEntity<>(Result.success(fileService.upload(file)),HttpStatus.OK);
+    public ResponseEntity<Result> upload(@RequestParam @Valid @NotNull(message = "学号不能为空")
+                                             Integer sid,
+                                         @RequestParam @Valid @NotNull(message = "作业号不能为空")
+                                             Integer wid,
+                                         @RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                             Integer cid,
+                                         @RequestParam MultipartFile file) {
+        fileService.upload(sid,wid,cid,file);
+        return new ResponseEntity<>(Result.success(),HttpStatus.OK);
+    }
+
+    @PostMapping("/upload/teacher")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER','ROLE_STUDENT')")
+    public ResponseEntity<Result> upload(@RequestParam @Valid @NotNull(message = "作业号不能为空")
+                                         Integer wid,
+                                         @RequestParam @Valid @NotNull(message = "课程号不能为空")
+                                         Integer cid,
+                                         @RequestParam MultipartFile file) {
+        fileService.upload(wid,cid,file);
+        return new ResponseEntity<>(Result.success(),HttpStatus.OK);
     }
 
     @GetMapping("/download")

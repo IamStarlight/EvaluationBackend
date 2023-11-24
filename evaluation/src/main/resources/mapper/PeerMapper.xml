@@ -12,19 +12,19 @@
     </update>
 
     <select id="getEvaluatingStudentVision" resultType="java.util.Map">
-        //逻辑
-        select id as be_eva_sid,name as sname,details,url,grade as eva_grade,comments as eva_comments
+        select id as be_eva_sid,name as sname,details,url,grade as eva_grade,comments as eva_comments,is_eva
         from peer_evaluation,student,stu_homework
         where peer_evaluation.eva_sid=#{evaSid}
         and peer_evaluation.wid=#{wid}
         and peer_evaluation.cid=#{cid}
-        and peer_evaluation.eva_sid=student.id
+        and peer_evaluation.be_eva_sid=student.id
         and peer_evaluation.wid=stu_homework.wid
         and peer_evaluation.cid=stu_homework.cid
+        and peer_evaluation.eva_sid=stu_homework.sid
     </select>
 
     <select id="getBeEvaluatedStudentVision" resultType="java.util.Map">
-        select id as eva_sid,name as sname,details,url,grade as eva_grade,comments as eva_comments
+        select id as eva_sid,name as sname,details,url,grade as eva_grade,comments as eva_comments,is_eva
         from peer_evaluation,student,stu_homework
         where peer_evaluation.be_eva_sid=#{beEvaSid}
         and peer_evaluation.wid=#{wid}
@@ -32,10 +32,24 @@
         and peer_evaluation.eva_sid=student.id
         and peer_evaluation.wid=stu_homework.wid
         and peer_evaluation.cid=stu_homework.cid
+        and peer_evaluation.eva_sid=stu_homework.sid
     </select>
 
-    <select id="getOneInfo" resultType="java.util.Map">
-        select id as sid,name as sname,details,url,grade as eva_grade,comments as eva_comments
+    <select id="getEvaluatingOne" resultType="java.util.Map">
+        select id as sid,name as sname,details,url,grade as eva_grade,comments as eva_comments,is_eva
+        from peer_evaluation,student,stu_homework
+        where peer_evaluation.eva_sid=#{evaSid}
+        and peer_evaluation.be_eva_sid=#{beEvaSid}
+        and peer_evaluation.wid=#{wid}
+        and peer_evaluation.cid=#{cid}
+        and peer_evaluation.be_eva_sid=student.id
+        and peer_evaluation.wid=stu_homework.wid
+        and peer_evaluation.cid=stu_homework.cid
+        and peer_evaluation.eva_sid=stu_homework.sid
+    </select>
+
+    <select id="getEvaluatedOne" resultType="java.util.Map">
+        select id as sid,name as sname,details,url,grade as eva_grade,comments as eva_comments,is_eva
         from peer_evaluation,student,stu_homework
         where peer_evaluation.eva_sid=#{evaSid}
         and peer_evaluation.be_eva_sid=#{beEvaSid}
@@ -44,5 +58,6 @@
         and peer_evaluation.eva_sid=student.id
         and peer_evaluation.wid=stu_homework.wid
         and peer_evaluation.cid=stu_homework.cid
+        and peer_evaluation.eva_sid=stu_homework.sid
     </select>
 </mapper>

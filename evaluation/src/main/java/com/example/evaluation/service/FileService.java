@@ -5,13 +5,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 
 @Service
 public interface FileService {
     MyFile getFileByMd5(String md5);
 
-    String upload(MultipartFile file);
+    void upload(Integer sid,Integer wid, Integer cid, MultipartFile file);
+
+    void upload(Integer wid, Integer cid, MultipartFile file);
 
     void download(String url, HttpServletResponse response);
 

@@ -167,9 +167,9 @@ public class SubmitServiceImpl
     @Override
     public List<Map<String,String>> checkAppealing(Integer cid) {
         List<Map<String,String>> list = mapper.checkAppealing(cid);
-        if(list.isEmpty()) {
-            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
-        }
+//        if(list.isEmpty()) {
+//            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+//        }
         return list;
     }
 
@@ -208,5 +208,15 @@ public class SubmitServiceImpl
     @Override
     public List<StuWork> getAll() {
         return mapper.getAll();
+    }
+
+    @Override
+    public void updateUrl(Integer sid,Integer wid, Integer cid, String url) {
+        mapper.updateUrl(sid,wid,cid,url);
+    }
+
+    @Override
+    public void updatePeerEvaluation(Integer sid, Integer wid, Integer cid) {
+        mapper.updatePeerEvaluation(sid,wid,cid);
     }
 }

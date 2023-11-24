@@ -20,5 +20,7 @@ public interface PeerMapper extends MppBaseMapper<PeerEva> {
 
     List<Map<String, String>> getBeEvaluatedStudentVision(@Param("beEvaSid") Integer beEvaSid, @Param("wid") Integer wid, @Param("cid") Integer cid);
 
-    List<Map<String, String>> getOneInfo(@Param("evaSid") Integer evaSid, @Param("beEvaSid") Integer beEvaSid, @Param("wid") Integer wid, @Param("cid") Integer cid);
+    List<Map<String, String>> getEvaluatingOne(@Param("evaSid") Integer evaSid, @Param("beEvaSid") Integer beEvaSid, @Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    List<Map<String, String>> getEvaluatedOne(@Param("evaSid") Integer evaSid, @Param("beEvaSid") Integer beEvaSid, @Param("wid") Integer wid, @Param("cid") Integer cid);
 }

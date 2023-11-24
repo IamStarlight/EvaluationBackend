@@ -24,6 +24,9 @@ public class PeerServiceImpl
     @Autowired
     private WorkServiceImpl workService;
 
+    @Autowired
+    private  SubmitServiceImpl submitService;
+
     @Override
     public void peerEvaluation(Integer evaSid,EvaDto d) {
         if(!mapper.peerEvaluation(evaSid,d.getSid(),d.getWid(),d.getCid(),d.getGrade(),d.getComments())) {
@@ -31,29 +34,43 @@ public class PeerServiceImpl
         }
         //评一个，已评价人数+1
         workService.addEvaNumber(d.getWid(),d.getCid());
+        //is_eva改为1,分数评论改
+        submitService.updatePeerEvaluation(d.getSid(),d.getWid(),d.getCid());
     }
 
     @Override
     public List<Map<String,String>> getEvaluatingStudentVision(Integer evaSid, Integer wid, Integer cid) {
         List<Map<String,String>> list = mapper.getEvaluatingStudentVision(evaSid,wid,cid);
-        if(list.isEmpty()) {
-            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
-        }return list;
+//        if(list.isEmpty()) {
+//            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+//        }
+        return list;
     }
 
     @Override
     public List<Map<String,String>> getBeEvaluatedStudentVision(Integer beEvaSid, Integer wid, Integer cid) {
         List<Map<String,String>> list = mapper.getBeEvaluatedStudentVision(beEvaSid,wid,cid);
-        if(list.isEmpty()) {
-            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
-        }return list;
+//        if(list.isEmpty()) {
+//            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+//        }
+        return list;
     }
 
     @Override
-    public List<Map<String,String>> getOneInfo(Integer evaSid, Integer beEvaSid, Integer wid, Integer cid) {
-        List<Map<String,String>> list = mapper.getOneInfo(evaSid,beEvaSid,wid,cid);
-        if(list.isEmpty()) {
-            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
-        }return list;
+    public List<Map<String,String>> getEvaluatingOne(Integer evaSid, Integer beEvaSid, Integer wid, Integer cid) {
+        List<Map<String,String>> list = mapper.getEvaluatingOne(evaSid,beEvaSid,wid,cid);
+//        if(list.isEmpty()) {
+//            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+//        }
+        return list;
+    }
+
+    @Override
+    public List<Map<String,String>> getEvaluatedOne(Integer evaSid, Integer beEvaSid, Integer wid, Integer cid) {
+        List<Map<String,String>> list = mapper.getEvaluatedOne(evaSid,beEvaSid,wid,cid);
+//        if(list.isEmpty()) {
+//            throw new ServiceException(HttpStatus.NOT_FOUND.value(), "记录不存在");
+//        }
+        return list;
     }
 }
