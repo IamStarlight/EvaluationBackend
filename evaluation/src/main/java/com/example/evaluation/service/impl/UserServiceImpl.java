@@ -9,6 +9,7 @@ import com.example.evaluation.controller.dto.UpdateDto;
 import com.example.evaluation.entity.User;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.UserMapper;
+import com.example.evaluation.server.SseEmitterServer;
 import com.example.evaluation.service.UserService;
 import com.example.evaluation.utils.JwtUtil;
 import com.example.evaluation.utils.LoginUser;
@@ -79,6 +80,9 @@ public class UserServiceImpl
         HashMap<String,String> map = new HashMap<>();
         map.put("token",jwt);
         map.put("permission",loginUser.getUser().getPermission());
+
+//        SseEmitterServer.connect(userId +loginUser.getUser().getName());
+
         return map;
     }
 

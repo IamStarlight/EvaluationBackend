@@ -16,13 +16,13 @@ class EvaluationApplicationTests {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encode1 = passwordEncoder.encode("123");
 
-        System.out.println(encode1);
+//        System.out.println(encode1);
 
 //        System.out.println(passwordEncoder.matches("cjx",
 //                        "$2a$10$sH3aAZuW88DHCIPle7ebhuDDPxYZJBira9.3YxnACbLUIQFwmbjMm"));
 //
-//        System.out.println(passwordEncoder.matches("ly",
-//                "$2a$10$sH3aAZuW88DHCIPle7ebhuDDPxYZJBira9.3YxnACbLUIQFwmbjMm"));
+        System.out.println(passwordEncoder.matches("123",
+                "$2a$10$8DJNjFEvld1GC52h6Qy1e.kCu5fcmcL1xHd4GJKWI/WgMhJPcsYNS"));
     }
     /*
     admin

@@ -34,8 +34,9 @@ public class HomeworkController {
     //管理员、教师创建新作业 ok
     @PostMapping("/create")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_TEACHER')")
-    public ResponseEntity<Result> createNewWork(@RequestBody @Valid NewHomeworkDto homework){
-        workService.createNewWork(homework);
+    public ResponseEntity<Result> createNewWork(@CurrentUser User user,
+                                                @RequestBody @Valid NewHomeworkDto homework){
+        workService.createNewWork(homework,user);
         return new ResponseEntity<>(Result.success(), HttpStatus.OK);
     }
 

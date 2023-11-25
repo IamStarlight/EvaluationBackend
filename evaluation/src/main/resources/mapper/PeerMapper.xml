@@ -20,7 +20,7 @@
         and peer_evaluation.be_eva_sid=student.id
         and peer_evaluation.wid=stu_homework.wid
         and peer_evaluation.cid=stu_homework.cid
-        and peer_evaluation.eva_sid=stu_homework.sid
+        and peer_evaluation.be_eva_sid=stu_homework.sid
     </select>
 
     <select id="getBeEvaluatedStudentVision" resultType="java.util.Map">
@@ -45,7 +45,7 @@
         and peer_evaluation.be_eva_sid=student.id
         and peer_evaluation.wid=stu_homework.wid
         and peer_evaluation.cid=stu_homework.cid
-        and peer_evaluation.eva_sid=stu_homework.sid
+        and peer_evaluation.be_eva_sid=stu_homework.sid
     </select>
 
     <select id="getEvaluatedOne" resultType="java.util.Map">

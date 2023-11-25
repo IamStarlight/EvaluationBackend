@@ -54,7 +54,7 @@ public class FileController {
                                          Integer cid,
                                          @RequestParam MultipartFile file) {
         fileService.upload(wid,cid,file);
-        return new ResponseEntity<>(Result.success(),HttpStatus.OK);
+        return ResponseEntity.ok(Result.success());
     }
 
     @GetMapping("/download")

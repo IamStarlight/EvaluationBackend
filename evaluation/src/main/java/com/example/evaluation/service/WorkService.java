@@ -5,6 +5,7 @@ import com.example.evaluation.controller.dto.NewHomeworkDto;
 import com.example.evaluation.controller.dto.OpenPeerDto;
 import com.example.evaluation.controller.dto.PeerDataDto;
 import com.example.evaluation.entity.Homework;
+import com.example.evaluation.entity.User;
 import com.github.jeffreyning.mybatisplus.service.IMppService;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -27,7 +28,7 @@ public interface WorkService extends IMppService<Homework> {
 
     boolean checkOvertime(Integer wid, Integer cid, Date submitTime);
 
-    void createNewWork(NewHomeworkDto homework);
+    void createNewWork(NewHomeworkDto h, User user);
 
     void updateVisible(Integer wid, Integer cid, Integer status);
 

@@ -4,11 +4,12 @@ import com.example.evaluation.controller.dto.HomeworkInfo;
 import com.example.evaluation.controller.dto.NewHomeworkDto;
 import com.example.evaluation.controller.dto.OpenPeerDto;
 import com.example.evaluation.entity.Homework;
+import com.example.evaluation.entity.User;
 import com.example.evaluation.enums.StatusEnum;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.CronMapper;
 import com.example.evaluation.mapper.WorkMapper;
-import com.example.evaluation.utils.CronUtil;
+import com.example.evaluation.server.SseEmitterServer;
 import com.github.jeffreyning.mybatisplus.service.MppServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -98,7 +99,7 @@ public class WorkServiceImpl
 
 
     @Override
-    public void createNewWork(NewHomeworkDto h) {
+    public void createNewWork(NewHomeworkDto h, User user) {
         Integer newNumber = courseService.getHomeworkNumber(h.getCid())+1;
         h.setWid(newNumber);
 
@@ -127,14 +128,16 @@ public class WorkServiceImpl
             submitService.generateSubmitList(sid,w.getWid(),w.getCid());
         }
 
-        //将时间范围转化为cron
-        String startCron = CronUtil.dateToCron(w.getStartTime());
-        String endCron = CronUtil.dateToCron(w.getEndTime());
+//        //将时间范围转化为cron
+//        String startCron = CronUtil.dateToCron(w.getStartTime());
+//        String endCron = CronUtil.dateToCron(w.getEndTime());
+//
+//        //插入数据库
+//        cronMapper.insertStartCron(w.getWid(),w.getCid(),startCron);
+//        cronMapper.insertEndCron(w.getWid(),w.getCid(),endCron);
 
-        //插入数据库
-        cronMapper.insertStartCron(w.getWid(),w.getCid(),startCron);
-        cronMapper.insertEndCron(w.getWid(),w.getCid(),endCron);
-
+        //推送作业发布消息
+//        SseEmitterServer.batchSendMessage(user.getName()+"发布了作业"+h.getTitle());
     }
 
     @Override
