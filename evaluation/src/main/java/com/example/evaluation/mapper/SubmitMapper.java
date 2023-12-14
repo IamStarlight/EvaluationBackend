@@ -50,4 +50,6 @@ public interface SubmitMapper extends MppBaseMapper<StuWork> {
     void updateUrl(@Param("sid") Integer sid,@Param("wid") Integer wid, @Param("cid") Integer cid, @Param("url") String url);
 
     void updatePeerEvaluation(@Param("sid") Integer sid, @Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    List<Map<String, Object>> getSubmitList_for_statistics(@Param("cid") Integer cid);
 }

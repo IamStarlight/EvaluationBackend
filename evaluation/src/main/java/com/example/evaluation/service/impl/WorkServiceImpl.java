@@ -9,7 +9,6 @@ import com.example.evaluation.enums.StatusEnum;
 import com.example.evaluation.exception.ServiceException;
 import com.example.evaluation.mapper.CronMapper;
 import com.example.evaluation.mapper.WorkMapper;
-import com.example.evaluation.server.SseEmitterServer;
 import com.github.jeffreyning.mybatisplus.service.MppServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,11 +17,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 import com.example.evaluation.service.WorkService;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 import java.util.*;
 
@@ -206,11 +201,16 @@ public class WorkServiceImpl
         if(!mapper.updateOpenPeer(d.getWid(),d.getCid(),d.getStatus(),d.getDdl())) {
             throw new ServiceException(HttpStatus.NOT_FOUND.value(),"记录不存在");
         }
+        System.out.println("！！！！！！！！！！！互评状态已更新");
         // TODO: 2023-11-23 分配互评
         WriteIntoCsv(d.getCid());
+        System.out.println("!!!!!!!!!!!!!!!!已写入csv");
+        execute();
+        System.out.println("!!!!!!!!!!!!!!!!已执行exe");
+        csvSaveIntoDatabase(d.getCid(),d.getWid());
+        System.out.println("!!!!!!!!!!!!!!!!已写入数据库");
     }
 
-    @Override
     public void WriteIntoCsv(Integer cid) {
         try {
             File csv = new File("C:\\Users\\84579\\Desktop\\shixun\\BJTU-23Winter-MutualEvaluationSys\\EvaluationBackend\\evaluation\\source\\new.csv"); // CSV数据文件
@@ -257,6 +257,62 @@ public class WorkServiceImpl
             e.printStackTrace();
         } catch (IOException e) {
             // BufferedWriter在关闭对象捕捉异常
+            e.printStackTrace();
+        }
+    }
+
+    public void execute(){
+        String arguments = "C:\\Users\\84579\\Desktop\\shixun\\BJTU-23Winter-MutualEvaluationSys\\EvaluationBackend\\evaluation\\source\\main.exe";
+
+        ProcessBuilder processBuilder = new ProcessBuilder(arguments);
+        StringBuilder stringBuilder = new StringBuilder();
+        processBuilder.redirectErrorStream(true);
+        Process process =null;
+        try {
+            // 获取程序执行后返回的结果
+            //执行这个.exe程序
+            process = processBuilder.start();
+//            process = Runtime.getRuntime().exec("cmd /c start " + arguments);
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"GBK"));
+            String line = null;
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+            }
+            in.close();
+            //java代码中的process.waitFor()返回值为0表示我们执行.exe文件成功，
+            //返回值为1表示执行.exe文件失败，这和我们通常意义上见到的0与1定义正好相反
+            int re = process.waitFor();
+            System.out.println(re);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if (process != null) {
+                process.destroy();
+            }
+        }
+    }
+
+    public void csvSaveIntoDatabase(Integer cid, Integer wid){
+        //从生成的csv中向数据库写名单
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\84579\\Desktop\\shixun\\BJTU-23Winter-MutualEvaluationSys\\EvaluationBackend\\evaluation\\source\\new2.csv"));
+            reader.readLine();//第一行信息，为标题信息，不用,如果需要，注释掉
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                String item[] = line.split(",");//CSV格式文件为逗号分隔符文件，这里根据逗号切分
+
+                //String last = item[item.length - 2];//这就是你要的数据了
+
+                int first = Integer.parseInt(item[item.length - 1]) + 21301000;//如果是数值，可以转化为数值
+                int last = Integer.parseInt(item[item.length - 2]) + 21301000;
+                //System.out.println(last);
+                String first2 = String.valueOf(first);
+                String last2 = String.valueOf(last);
+                //写入数据库
+                mapper.addPeerEva(first2, last2, cid, wid);
+
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -315,5 +371,63 @@ public class WorkServiceImpl
     @Override
     public void updateUrl(Integer wid, Integer cid, String url) {
         mapper.updateUrl(wid,cid,url);
+    }
+
+    @Override
+    public Integer get90_100(Integer wid, Integer cid) {
+        return mapper.get90_100(wid,cid);
+    }
+
+    @Override
+    public Integer get80_90(Integer wid, Integer cid) {
+        return mapper.get80_90(wid,cid);
+    }
+
+    @Override
+    public Integer get70_80(Integer wid, Integer cid) {
+        return mapper.get70_80(wid,cid);
+    }
+
+    @Override
+    public Integer get60_70(Integer wid, Integer cid) {
+        return mapper.get60_70(wid,cid);
+    }
+
+    @Override
+    public Integer get_under_60(Integer wid, Integer cid) {
+        return mapper.get_under_60(wid,cid);
+    }
+
+    @Override
+    public List<Map<String,String>> get_homework_avg(Integer cid) {
+        return mapper.get_homework_avg(cid);
+    }
+
+    @Override
+    public List<Map<String,String>> get_missed_homework(Integer sid) {
+        return mapper.get_missed_homework(sid);
+    }
+
+    @Override
+    public List<Map<String,String>> get_missed_homework_by_course(Integer sid, Integer cid) {
+        return mapper.get_missed_homework_by_course(sid,cid);
+    }
+
+    @Override
+    public List<Map<String,Integer>> get_score_layers(Integer wid, Integer cid) {
+        return mapper.get_score_layers(wid,cid);
+    }
+
+    @Override
+    public List<List<Map<String,Integer>>> get_all_score_layers(Integer cid) {
+        List<Map<String,Object>> list = submitService.getSubmitList_for_statistics(cid);
+        List<List<Map<String,Integer>>> result = new ArrayList<>();
+        for (Map<String, Object> map : list) {
+            for (Map.Entry<String, Object> m : map.entrySet()) {
+                if("wid".equals(m.getKey())) {
+                    result.add(get_score_layers((Integer) m.getValue(),cid));
+                }
+            }
+        }return result;
     }
 }

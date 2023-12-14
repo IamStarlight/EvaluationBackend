@@ -40,8 +40,6 @@ public interface WorkService extends IMppService<Homework> {
 
     void updateOpenPeer(OpenPeerDto d);
 
-    void WriteIntoCsv(Integer cid);
-
     List<Map<String,Object>> getPeerDistribution(Integer cid);
 
     Object getOneWorkInfoBySid(Integer id, Integer wid, Integer cid);
@@ -57,4 +55,24 @@ public interface WorkService extends IMppService<Homework> {
     void addEvaNumber(Integer wid, Integer cid);
 
     void updateUrl(Integer wid, Integer cid, String url);
+
+    Integer get90_100(Integer wid, Integer cid);
+
+    Integer get80_90(Integer wid, Integer cid);
+
+    Integer get70_80(Integer wid, Integer cid);
+
+    Integer get60_70(Integer wid, Integer cid);
+
+    Integer get_under_60(Integer wid, Integer cid);
+
+    List<Map<String,String>> get_homework_avg(Integer cid);
+
+    List<Map<String,String>> get_missed_homework(Integer sid);
+
+    List<Map<String,String>> get_missed_homework_by_course(Integer sid, Integer cid);
+
+    List<Map<String,Integer>> get_score_layers(Integer wid, Integer cid);
+
+    List<List<Map<String,Integer>>> get_all_score_layers(Integer cid);
 }

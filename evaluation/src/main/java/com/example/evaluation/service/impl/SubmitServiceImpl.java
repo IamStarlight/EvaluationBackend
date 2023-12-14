@@ -219,4 +219,9 @@ public class SubmitServiceImpl
     public void updatePeerEvaluation(Integer sid, Integer wid, Integer cid) {
         mapper.updatePeerEvaluation(sid,wid,cid);
     }
+
+    @Override
+    public List<Map<String, Object>> getSubmitList_for_statistics(Integer cid) {
+        return mapper.getSubmitList_for_statistics(cid);
+    }
 }

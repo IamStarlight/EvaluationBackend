@@ -58,4 +58,24 @@ public interface WorkMapper extends MppBaseMapper<Homework> {
     List<Map<String,Object>> getPeerDistribution(@Param("cid") Integer cid);
 
     void updateUrl(@Param("wid") Integer wid, @Param("cid") Integer cid, @Param("url") String url);
+
+    Integer get90_100(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    Integer get80_90(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    Integer get70_80(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    Integer get60_70(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    Integer get_under_60(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    List<Map<String, String>> get_homework_avg(@Param("cid") Integer cid);
+
+    List<Map<String, String>> get_missed_homework(@Param("sid") Integer sid);
+
+    List<Map<String, String>> get_missed_homework_by_course(@Param("sid") Integer sid, @Param("cid") Integer cid);
+
+    List<Map<String, Integer>> get_score_layers(@Param("wid") Integer wid, @Param("cid") Integer cid);
+
+    void addPeerEva(@Param("first") String first, @Param("last") String last, @Param("cid") Integer cid, @Param("wid") Integer wid);
 }

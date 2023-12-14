@@ -28,17 +28,6 @@
     </select>
 
     <select id="getStuWorkTodoInfo" resultType="java.util.Map">
-<!--        select homework.wid,cname,homework.title,homework.details,homework.url,end_time-->
-<!--        from homework,sc,course-->
-<!--        where homework.cid=sc.cid-->
-<!--        and sc.sid=21301000-->
-<!--        and not exists-->
-<!--        (select * from stu_homework-->
-<!--        where wid=1-->
-<!--        and cid=1-->
-<!--        and stu_homework.cid=homework.cid-->
-<!--        and stu_homework.wid=homework.wid)-->
-<!--        and homework.cid=course.cid-->
         select homework.wid,cname,homework.title,homework.details,homework.url,end_time
         from sc,course,homework,stu_homework
         where homework.wid=6
@@ -97,15 +86,6 @@
     </select>
 
     <select id="getNotSubmitList" resultType="java.util.Map">
-<!--        select sc.sid,name as sname-->
-<!--        from sc,student-->
-<!--        where sc.sid not in-->
-<!--            (select sid-->
-<!--            from stu_homework-->
-<!--            where wid=#{wid}-->
-<!--            and cid=#{cid}-->
-<!--            and stu_homework.cid=sc.cid)-->
-<!--        and sc.sid=student.id-->
         select sc.sid,name as sname
         from stu_homework,sc,student
         where stu_homework.wid=#{wid}
@@ -176,4 +156,12 @@
         and wid=#{wid}
         and cid=#{cid}
     </update>
+
+    <select id="getSubmitList_for_statistics" resultType="java.util.Map">
+        select b.wid,title
+        from stu_homework as b,homework as c
+        where b.cid=#{cid}
+        and b.wid=c.wid
+        and b.cid=c.cid
+    </select>
 </mapper>

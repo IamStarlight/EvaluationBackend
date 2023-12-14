@@ -163,4 +163,94 @@
         where wid=#{wid}
         and cid=#{cid}
     </update>
+
+    <select id="get90_100" resultType="java.lang.Integer">
+        select count(*) as cnt
+        from stu_homework
+        where total_grade &gt; 90
+        and total_grade &lt;= 100
+        and wid=#{wid}
+        and cid=#{cid}
+    </select>
+
+    <select id="get80_90" resultType="java.lang.Integer">
+        select count(*) as cnt
+        from stu_homework
+        where total_grade &gt; 80
+        and total_grade &lt;= 90
+        and wid=#{wid}
+        and cid=#{cid}
+    </select>
+
+    <select id="get70_80" resultType="java.lang.Integer">
+        select count(*) as cnt
+        from stu_homework
+        where total_grade &gt; 70
+        and total_grade &lt;= 80
+        and wid=#{wid}
+        and cid=#{cid}
+    </select>
+
+    <select id="get60_70" resultType="java.lang.Integer">
+        select count(*) as cnt
+        from stu_homework
+        where total_grade &gt;= 60
+        and total_grade &lt;= 70
+        and wid=#{wid}
+        and cid=#{cid}
+    </select>
+
+    <select id="get_under_60" resultType="java.lang.Integer">
+        select count(*) as cnt
+        from stu_homework
+        where total_grade &gt;= 0
+        and total_grade &lt; 60
+        and wid=#{wid}
+        and cid=#{cid}
+    </select>
+
+    <select id="get_homework_avg" resultType="java.util.Map">
+        select c.wid,avg(total_grade) as avg
+        from stu_homework as c
+        where c.cid=#{cid}
+        group by wid
+    </select>
+
+    <select id="get_missed_homework" resultType="java.util.Map">
+        select b.cid,cname,count(*) as cnt
+        from stu_homework as b,course as c
+        where b.sid=#{sid}
+        and b.cid=c.cid
+        and b.is_submit=0
+        group by cid
+    </select>
+
+    <select id="get_missed_homework_by_course" resultType="java.util.Map">
+        select b.cid,cname,count(*) as cnt
+        from stu_homework as b,course as c
+        where sid=21301000
+        and b.cid=1
+        and is_submit=0
+        and b.cid=c.cid
+        group by cid
+    </select>
+
+    <select id="get_score_layers" resultType="java.util.Map">
+        select
+        wid,
+        count(if(total_grade &gt; 90 and total_grade &lt;= 100,true,null)) as '(90,100]',
+        count(if(total_grade &gt; 80 and total_grade &lt;= 90,true,null)) as '(80,90]',
+        count(if(total_grade &gt; 70 and total_grade &lt;= 80,true,null)) as '(70,80]',
+        count(if(total_grade &gt;= 60 and total_grade &lt;= 70,true,null)) as '[[60,70]]',
+        count(if(total_grade &gt;= 0 and total_grade &lt; 60,true,null)) as '[[0,60))'
+        from stu_homework
+        where wid=#{wid}
+        and cid=#{cid}
+    </select>
+
+    <select id="addPeerEva" >
+        insert into
+        peer_evaluation (eva_sid, be_eva_sid, wid, cid)
+        values (#{first}, #{last}, #{wid}, #{cid})
+    </select>
 </mapper>

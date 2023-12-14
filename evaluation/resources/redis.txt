@@ -1,2 +1,3 @@
 # Redis启动命令
+cd /d D:\Program Files\Redis
 redis-server.exe redis.windows.conf

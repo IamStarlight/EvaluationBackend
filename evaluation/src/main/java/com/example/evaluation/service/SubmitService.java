@@ -49,4 +49,6 @@ public interface SubmitService extends IMppService<StuWork> {
     void updateUrl(Integer sid,Integer wid, Integer cid, String url);
 
     void updatePeerEvaluation(Integer sid, Integer wid, Integer cid);
+
+    List<Map<String, Object>> getSubmitList_for_statistics(Integer cid);
 }
